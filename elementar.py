@@ -28,7 +28,7 @@ def reset_current():
     global dimension_args
     global current_type
     current_type = None
-    for dimension in range(3):
+    for dimension in range(4):
         dimension_args[dimension] = 0
     for each_size in dimension_args['size']:
         dimension_args['size'][each_size] = 0
