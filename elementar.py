@@ -14,6 +14,7 @@ logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
 
 variable_table = {}
 subroutine_table = {}
+expression_stack = []
 current_type = None
 current_var  = None
 dimension_args = {
@@ -233,16 +234,64 @@ def p_S0(p):
     """
     S0 : IDORAMC ASSIGN E
     | EIN LPAREN IDORAMC INPUT RPAREN
-    | AUS LPAREN E OUTPUT RPAREN
+    | AUS LPAREN EXP OUTPUT RPAREN
     | GSUB ID
     | WENN CONDITION DANN S SW SD ENDE
     | WAHREND CONDITION S ENDE
     | TUN S WAHREND CONDITION
     |
     """
+    print(expression_stack)
     if len(p) > 1 and p[2] == '=':
         if current_var in variable_table and variable_table[current_var]['dimension'] == 0:
             variable_table[current_var]['value'] = 1    # Have to evaluate expression
+    expression_stack.clear()
+
+def p_E(p):
+    """
+    E : T
+    | E PLUS T
+    | E MINUS T
+    """
+    if len(p) > 2 :
+        expression_stack.append(p[2])
+
+def p_T(p):
+    """
+    T : F
+    | T TIMES F
+    | T DIVIDE F
+    |
+    """
+    # | MODULO
+    if len(p) > 2 :
+        expression_stack.append(p[2])
+
+def p_F(p):
+    """
+    F : ID
+    | VALUE
+    | FLT
+    | LPAREN E RPAREN
+    |
+    """
+    if len(p) < 3:    
+        expression_stack.append(p[1])
+        
+
+def p_EXP(p):
+    """
+    EXP : 
+    """
+#     EXP : VALUE
+#     | FLT
+#     | STR
+#     | EIDORAMC
+#     | VALUE OPERATOR EXP
+#     | FLT OPERATOR EXP
+#     | STR OPERATOR EXP
+#     | IDORAMC OPERATOR EXP
+#     """
 
 def p_IDORAMC(p):
     """
@@ -293,27 +342,6 @@ def p_SD(p):
     |
     """
 
-def p_E(p):
-    """
-    E : VALUE
-    | FLT
-    | STR
-    | EIDORAMC
-    | VALUE OPERATOR E
-    | FLT OPERATOR E
-    | STR OPERATOR E
-    | IDORAMC OPERATOR E
-    """
-
-def p_OPERATOR(p):
-    """
-    OPERATOR : PLUS
-    | TIMES
-    | MINUS
-    | DIVIDE
-    | MODULO
-    """
-
 def p_INPUT(p):
     """
     INPUT : COMMA IDORAMC INPUT
@@ -322,7 +350,7 @@ def p_INPUT(p):
 
 def p_OUTPUT(p):
     """
-    OUTPUT : COMMA E OUTPUT
+    OUTPUT : COMMA EXP OUTPUT
     |
     """
 
@@ -386,14 +414,15 @@ def p_error(p):
 parser = yacc.yacc()
 
 try:
-    with open("main.el", 'r') as el_file:
+    with open("expressions.el", 'r') as el_file:
         ein = ""
         for line in el_file:
             ein += line
         parser.parse(ein)
-        with open('./data_tables/variable_table.json', 'w') as out:
-            out.write(json.dumps(variable_table, indent=2))
-        with open('./data_tables/subroutine_table.json', 'w') as out:
-            out.write(json.dumps(subroutine_table, indent=2))
+        print()
+    with open('./data_tables/variable_table.json', 'w') as var_output:
+        var_output.write(json.dumps(variable_table, indent=2))
+    with open('./data_tables/subroutine_table.json', 'w') as subprocess_output:
+        subprocess_output.write(json.dumps(subroutine_table, indent=2))
 except:
     print("Error")

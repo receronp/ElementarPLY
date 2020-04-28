@@ -9,8 +9,10 @@ Unused terminals:
     COMMENT
     DOT
     FUR
+    MODULO
     NOT
     QUOTE
+    STR
     newline
 
 Grammar
@@ -32,48 +34,48 @@ Rule 13    S -> S0 S
 Rule 14    S -> <empty>
 Rule 15    S0 -> IDORAMC ASSIGN E
 Rule 16    S0 -> EIN LPAREN IDORAMC INPUT RPAREN
-Rule 17    S0 -> AUS LPAREN E OUTPUT RPAREN
+Rule 17    S0 -> AUS LPAREN EXP OUTPUT RPAREN
 Rule 18    S0 -> GSUB ID
 Rule 19    S0 -> WENN CONDITION DANN S SW SD ENDE
 Rule 20    S0 -> WAHREND CONDITION S ENDE
 Rule 21    S0 -> TUN S WAHREND CONDITION
 Rule 22    S0 -> <empty>
-Rule 23    IDORAMC -> ID
-Rule 24    IDORAMC -> ID AMC1
-Rule 25    EIDORAMC -> ID
-Rule 26    EIDORAMC -> ID AMC1
-Rule 27    CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN
-Rule 28    CONDITION -> CONDITION AND CONDITION
-Rule 29    CONDITION -> CONDITION OR CONDITION
-Rule 30    CMP -> VALUE
-Rule 31    CMP -> IDORAMC
-Rule 32    CMP -> FLT
-Rule 33    COMPARATOR -> GT
-Rule 34    COMPARATOR -> GE
-Rule 35    COMPARATOR -> EQ
-Rule 36    COMPARATOR -> NE
-Rule 37    COMPARATOR -> LE
-Rule 38    COMPARATOR -> LT
-Rule 39    SW -> SWENN CONDITION DANN S SW
-Rule 40    SW -> <empty>
-Rule 41    SD -> SONNST DANN S
-Rule 42    SD -> <empty>
-Rule 43    E -> VALUE
-Rule 44    E -> FLT
-Rule 45    E -> STR
-Rule 46    E -> EIDORAMC
-Rule 47    E -> VALUE OPERATOR E
-Rule 48    E -> FLT OPERATOR E
-Rule 49    E -> STR OPERATOR E
-Rule 50    E -> IDORAMC OPERATOR E
-Rule 51    OPERATOR -> PLUS
-Rule 52    OPERATOR -> TIMES
-Rule 53    OPERATOR -> MINUS
-Rule 54    OPERATOR -> DIVIDE
-Rule 55    OPERATOR -> MODULO
+Rule 23    E -> T
+Rule 24    E -> E PLUS T
+Rule 25    E -> E MINUS T
+Rule 26    T -> F
+Rule 27    T -> T TIMES F
+Rule 28    T -> T DIVIDE F
+Rule 29    T -> <empty>
+Rule 30    F -> ID
+Rule 31    F -> VALUE
+Rule 32    F -> FLT
+Rule 33    F -> LPAREN E RPAREN
+Rule 34    F -> <empty>
+Rule 35    EXP -> <empty>
+Rule 36    IDORAMC -> ID
+Rule 37    IDORAMC -> ID AMC1
+Rule 38    EIDORAMC -> ID
+Rule 39    EIDORAMC -> ID AMC1
+Rule 40    CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN
+Rule 41    CONDITION -> CONDITION AND CONDITION
+Rule 42    CONDITION -> CONDITION OR CONDITION
+Rule 43    CMP -> VALUE
+Rule 44    CMP -> IDORAMC
+Rule 45    CMP -> FLT
+Rule 46    COMPARATOR -> GT
+Rule 47    COMPARATOR -> GE
+Rule 48    COMPARATOR -> EQ
+Rule 49    COMPARATOR -> NE
+Rule 50    COMPARATOR -> LE
+Rule 51    COMPARATOR -> LT
+Rule 52    SW -> SWENN CONDITION DANN S SW
+Rule 53    SW -> <empty>
+Rule 54    SD -> SONNST DANN S
+Rule 55    SD -> <empty>
 Rule 56    INPUT -> COMMA IDORAMC INPUT
 Rule 57    INPUT -> <empty>
-Rule 58    OUTPUT -> COMMA E OUTPUT
+Rule 58    OUTPUT -> COMMA EXP OUTPUT
 Rule 59    OUTPUT -> <empty>
 Rule 60    TYPE -> WORD
 Rule 61    TYPE -> FLOAT
@@ -97,7 +99,7 @@ Rule 77    AMC3 -> <empty>
 Terminals, with rules where they appear
 
 ALS                  : 8
-AND                  : 28
+AND                  : 41
 ASSIGN               : 15
 AUS                  : 17
 BEGIN                : 12
@@ -108,44 +110,44 @@ BTOR                 :
 COLON                : 9
 COMMA                : 6 7 56 58
 COMMENT              : 
-DANN                 : 19 39 41
+DANN                 : 19 52 54
 DIM                  : 4 5
-DIVIDE               : 54
+DIVIDE               : 28
 DOT                  : 
 EIN                  : 16
 ENDE                 : 19 20
-EQ                   : 35
+EQ                   : 48
 FLOAT                : 61
-FLT                  : 32 44 48
+FLT                  : 32 45
 FUR                  : 
-GE                   : 34
+GE                   : 47
 GSUB                 : 18
-GT                   : 33
-ID                   : 4 5 6 7 11 18 23 24 25 26 66 68 71 73 76
+GT                   : 46
+ID                   : 4 5 6 7 11 18 30 36 37 38 39 66 68 71 73 76
 LBRKT                : 65 66 67 68 70 71 72 73 75 76
-LE                   : 37
-LPAREN               : 16 17 27
-LT                   : 38
-MINUS                : 53
-MODULO               : 55
-NE                   : 36
+LE                   : 50
+LPAREN               : 16 17 33 40
+LT                   : 51
+MINUS                : 25
+MODULO               : 
+NE                   : 49
 NOT                  : 
-OR                   : 29
-PLUS                 : 51
+OR                   : 42
+PLUS                 : 24
 PROGRAMM             : 1
 QUOTE                : 
 RBRKT                : 65 66 67 68 70 71 72 73 75 76
-RPAREN               : 16 17 27
+RPAREN               : 16 17 33 40
 RUKKHER              : 9
 SCHLUSS              : 1
-SONNST               : 41
-STR                  : 45 49
+SONNST               : 54
+STR                  : 
 STRING               : 62
 SUB                  : 11
-SWENN                : 39
-TIMES                : 52
+SWENN                : 52
+TIMES                : 27
 TUN                  : 21
-VALUE                : 30 43 47 65 67 70 72 75
+VALUE                : 31 43 65 67 70 72 75
 WAHREND              : 20 21
 WENN                 : 19
 WORD                 : 60
@@ -155,25 +157,27 @@ newline              :
 Nonterminals, with rules where they appear
 
 AMC0                 : 8
-AMC1                 : 24 26 63
+AMC1                 : 37 39 63
 AMC2                 : 65 66
 AMC3                 : 70 71
 B                    : 1 9
-CMP                  : 27 27
-COMPARATOR           : 27
-CONDITION            : 19 20 21 28 28 29 29 39
-E                    : 15 17 47 48 49 50 58
-EIDORAMC             : 46
-IDORAMC              : 15 16 31 50 56
+CMP                  : 40 40
+COMPARATOR           : 40
+CONDITION            : 19 20 21 41 41 42 42 52
+E                    : 15 24 25 33
+EIDORAMC             : 
+EXP                  : 17 58
+F                    : 26 27 28
+IDORAMC              : 15 16 44 56
 INPUT                : 16 56
-OPERATOR             : 47 48 49 50
 OUTPUT               : 17 58
 R                    : 1 9
 R0                   : 9
-S                    : 12 13 19 20 21 39 41
+S                    : 12 13 19 20 21 52 54
 S0                   : 13
 SD                   : 19
-SW                   : 19 39
+SW                   : 19 52
+T                    : 23 24 25 27 28
 TYPE                 : 8
 V                    : 1 2
 V0                   : 2
@@ -308,14 +312,14 @@ state 12
     (14) S -> .
     (15) S0 -> . IDORAMC ASSIGN E
     (16) S0 -> . EIN LPAREN IDORAMC INPUT RPAREN
-    (17) S0 -> . AUS LPAREN E OUTPUT RPAREN
+    (17) S0 -> . AUS LPAREN EXP OUTPUT RPAREN
     (18) S0 -> . GSUB ID
     (19) S0 -> . WENN CONDITION DANN S SW SD ENDE
     (20) S0 -> . WAHREND CONDITION S ENDE
     (21) S0 -> . TUN S WAHREND CONDITION
     (22) S0 -> .
-    (23) IDORAMC -> . ID
-    (24) IDORAMC -> . ID AMC1
+    (36) IDORAMC -> . ID
+    (37) IDORAMC -> . ID AMC1
 
   ! shift/reduce conflict for EIN resolved as shift
   ! shift/reduce conflict for AUS resolved as shift
@@ -427,14 +431,14 @@ state 21
     (14) S -> .
     (15) S0 -> . IDORAMC ASSIGN E
     (16) S0 -> . EIN LPAREN IDORAMC INPUT RPAREN
-    (17) S0 -> . AUS LPAREN E OUTPUT RPAREN
+    (17) S0 -> . AUS LPAREN EXP OUTPUT RPAREN
     (18) S0 -> . GSUB ID
     (19) S0 -> . WENN CONDITION DANN S SW SD ENDE
     (20) S0 -> . WAHREND CONDITION S ENDE
     (21) S0 -> . TUN S WAHREND CONDITION
     (22) S0 -> .
-    (23) IDORAMC -> . ID
-    (24) IDORAMC -> . ID AMC1
+    (36) IDORAMC -> . ID
+    (37) IDORAMC -> . ID AMC1
 
   ! shift/reduce conflict for WAHREND resolved as shift
   ! shift/reduce conflict for EIN resolved as shift
@@ -496,7 +500,7 @@ state 23
 
 state 24
 
-    (17) S0 -> AUS . LPAREN E OUTPUT RPAREN
+    (17) S0 -> AUS . LPAREN EXP OUTPUT RPAREN
 
     LPAREN          shift and go to state 39
 
@@ -510,32 +514,32 @@ state 25
 
 state 26
 
-    (23) IDORAMC -> ID .
-    (24) IDORAMC -> ID . AMC1
+    (36) IDORAMC -> ID .
+    (37) IDORAMC -> ID . AMC1
     (65) AMC1 -> . LBRKT VALUE RBRKT AMC2
     (66) AMC1 -> . LBRKT ID RBRKT AMC2
     (67) AMC1 -> . LBRKT VALUE RBRKT
     (68) AMC1 -> . LBRKT ID RBRKT
     (69) AMC1 -> .
 
-  ! reduce/reduce conflict for ASSIGN resolved using rule 23 (IDORAMC -> ID .)
-  ! reduce/reduce conflict for COMMA resolved using rule 23 (IDORAMC -> ID .)
-  ! reduce/reduce conflict for RPAREN resolved using rule 23 (IDORAMC -> ID .)
-  ! reduce/reduce conflict for GT resolved using rule 23 (IDORAMC -> ID .)
-  ! reduce/reduce conflict for GE resolved using rule 23 (IDORAMC -> ID .)
-  ! reduce/reduce conflict for EQ resolved using rule 23 (IDORAMC -> ID .)
-  ! reduce/reduce conflict for NE resolved using rule 23 (IDORAMC -> ID .)
-  ! reduce/reduce conflict for LE resolved using rule 23 (IDORAMC -> ID .)
-  ! reduce/reduce conflict for LT resolved using rule 23 (IDORAMC -> ID .)
-    ASSIGN          reduce using rule 23 (IDORAMC -> ID .)
-    COMMA           reduce using rule 23 (IDORAMC -> ID .)
-    RPAREN          reduce using rule 23 (IDORAMC -> ID .)
-    GT              reduce using rule 23 (IDORAMC -> ID .)
-    GE              reduce using rule 23 (IDORAMC -> ID .)
-    EQ              reduce using rule 23 (IDORAMC -> ID .)
-    NE              reduce using rule 23 (IDORAMC -> ID .)
-    LE              reduce using rule 23 (IDORAMC -> ID .)
-    LT              reduce using rule 23 (IDORAMC -> ID .)
+  ! reduce/reduce conflict for ASSIGN resolved using rule 36 (IDORAMC -> ID .)
+  ! reduce/reduce conflict for COMMA resolved using rule 36 (IDORAMC -> ID .)
+  ! reduce/reduce conflict for RPAREN resolved using rule 36 (IDORAMC -> ID .)
+  ! reduce/reduce conflict for GT resolved using rule 36 (IDORAMC -> ID .)
+  ! reduce/reduce conflict for GE resolved using rule 36 (IDORAMC -> ID .)
+  ! reduce/reduce conflict for EQ resolved using rule 36 (IDORAMC -> ID .)
+  ! reduce/reduce conflict for NE resolved using rule 36 (IDORAMC -> ID .)
+  ! reduce/reduce conflict for LE resolved using rule 36 (IDORAMC -> ID .)
+  ! reduce/reduce conflict for LT resolved using rule 36 (IDORAMC -> ID .)
+    ASSIGN          reduce using rule 36 (IDORAMC -> ID .)
+    COMMA           reduce using rule 36 (IDORAMC -> ID .)
+    RPAREN          reduce using rule 36 (IDORAMC -> ID .)
+    GT              reduce using rule 36 (IDORAMC -> ID .)
+    GE              reduce using rule 36 (IDORAMC -> ID .)
+    EQ              reduce using rule 36 (IDORAMC -> ID .)
+    NE              reduce using rule 36 (IDORAMC -> ID .)
+    LE              reduce using rule 36 (IDORAMC -> ID .)
+    LT              reduce using rule 36 (IDORAMC -> ID .)
     LBRKT           shift and go to state 42
 
   ! ASSIGN          [ reduce using rule 69 (AMC1 -> .) ]
@@ -553,9 +557,9 @@ state 26
 state 27
 
     (19) S0 -> WENN . CONDITION DANN S SW SD ENDE
-    (27) CONDITION -> . LPAREN CMP COMPARATOR CMP RPAREN
-    (28) CONDITION -> . CONDITION AND CONDITION
-    (29) CONDITION -> . CONDITION OR CONDITION
+    (40) CONDITION -> . LPAREN CMP COMPARATOR CMP RPAREN
+    (41) CONDITION -> . CONDITION AND CONDITION
+    (42) CONDITION -> . CONDITION OR CONDITION
 
     LPAREN          shift and go to state 44
 
@@ -564,9 +568,9 @@ state 27
 state 28
 
     (20) S0 -> WAHREND . CONDITION S ENDE
-    (27) CONDITION -> . LPAREN CMP COMPARATOR CMP RPAREN
-    (28) CONDITION -> . CONDITION AND CONDITION
-    (29) CONDITION -> . CONDITION OR CONDITION
+    (40) CONDITION -> . LPAREN CMP COMPARATOR CMP RPAREN
+    (41) CONDITION -> . CONDITION AND CONDITION
+    (42) CONDITION -> . CONDITION OR CONDITION
 
     LPAREN          shift and go to state 44
 
@@ -579,14 +583,14 @@ state 29
     (14) S -> .
     (15) S0 -> . IDORAMC ASSIGN E
     (16) S0 -> . EIN LPAREN IDORAMC INPUT RPAREN
-    (17) S0 -> . AUS LPAREN E OUTPUT RPAREN
+    (17) S0 -> . AUS LPAREN EXP OUTPUT RPAREN
     (18) S0 -> . GSUB ID
     (19) S0 -> . WENN CONDITION DANN S SW SD ENDE
     (20) S0 -> . WAHREND CONDITION S ENDE
     (21) S0 -> . TUN S WAHREND CONDITION
     (22) S0 -> .
-    (23) IDORAMC -> . ID
-    (24) IDORAMC -> . ID AMC1
+    (36) IDORAMC -> . ID
+    (37) IDORAMC -> . ID AMC1
 
   ! shift/reduce conflict for WAHREND resolved as shift
   ! shift/reduce conflict for EIN resolved as shift
@@ -709,33 +713,83 @@ state 36
 state 37
 
     (15) S0 -> IDORAMC ASSIGN . E
-    (43) E -> . VALUE
-    (44) E -> . FLT
-    (45) E -> . STR
-    (46) E -> . EIDORAMC
-    (47) E -> . VALUE OPERATOR E
-    (48) E -> . FLT OPERATOR E
-    (49) E -> . STR OPERATOR E
-    (50) E -> . IDORAMC OPERATOR E
-    (25) EIDORAMC -> . ID
-    (26) EIDORAMC -> . ID AMC1
-    (23) IDORAMC -> . ID
-    (24) IDORAMC -> . ID AMC1
+    (23) E -> . T
+    (24) E -> . E PLUS T
+    (25) E -> . E MINUS T
+    (26) T -> . F
+    (27) T -> . T TIMES F
+    (28) T -> . T DIVIDE F
+    (29) T -> .
+    (30) F -> . ID
+    (31) F -> . VALUE
+    (32) F -> . FLT
+    (33) F -> . LPAREN E RPAREN
+    (34) F -> .
 
-    VALUE           shift and go to state 54
-    FLT             shift and go to state 55
-    STR             shift and go to state 56
-    ID              shift and go to state 58
+  ! shift/reduce conflict for ID resolved as shift
+  ! reduce/reduce conflict for TIMES resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for DIVIDE resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for PLUS resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for MINUS resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for EIN resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for AUS resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for GSUB resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for WENN resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for WAHREND resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for TUN resolved using rule 29 (T -> .)
+  ! shift/reduce conflict for ID resolved as shift
+  ! reduce/reduce conflict for SCHLUSS resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for RUKKHER resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for ENDE resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for SWENN resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for SONNST resolved using rule 29 (T -> .)
+    TIMES           reduce using rule 29 (T -> .)
+    DIVIDE          reduce using rule 29 (T -> .)
+    PLUS            reduce using rule 29 (T -> .)
+    MINUS           reduce using rule 29 (T -> .)
+    EIN             reduce using rule 29 (T -> .)
+    AUS             reduce using rule 29 (T -> .)
+    GSUB            reduce using rule 29 (T -> .)
+    WENN            reduce using rule 29 (T -> .)
+    WAHREND         reduce using rule 29 (T -> .)
+    TUN             reduce using rule 29 (T -> .)
+    SCHLUSS         reduce using rule 29 (T -> .)
+    RUKKHER         reduce using rule 29 (T -> .)
+    ENDE            reduce using rule 29 (T -> .)
+    SWENN           reduce using rule 29 (T -> .)
+    SONNST          reduce using rule 29 (T -> .)
+    ID              shift and go to state 55
+    VALUE           shift and go to state 56
+    FLT             shift and go to state 57
+    LPAREN          shift and go to state 58
 
-    IDORAMC                        shift and go to state 52
-    E                              shift and go to state 53
-    EIDORAMC                       shift and go to state 57
+  ! ID              [ reduce using rule 29 (T -> .) ]
+  ! TIMES           [ reduce using rule 34 (F -> .) ]
+  ! DIVIDE          [ reduce using rule 34 (F -> .) ]
+  ! PLUS            [ reduce using rule 34 (F -> .) ]
+  ! MINUS           [ reduce using rule 34 (F -> .) ]
+  ! EIN             [ reduce using rule 34 (F -> .) ]
+  ! AUS             [ reduce using rule 34 (F -> .) ]
+  ! GSUB            [ reduce using rule 34 (F -> .) ]
+  ! WENN            [ reduce using rule 34 (F -> .) ]
+  ! WAHREND         [ reduce using rule 34 (F -> .) ]
+  ! TUN             [ reduce using rule 34 (F -> .) ]
+  ! ID              [ reduce using rule 34 (F -> .) ]
+  ! SCHLUSS         [ reduce using rule 34 (F -> .) ]
+  ! RUKKHER         [ reduce using rule 34 (F -> .) ]
+  ! ENDE            [ reduce using rule 34 (F -> .) ]
+  ! SWENN           [ reduce using rule 34 (F -> .) ]
+  ! SONNST          [ reduce using rule 34 (F -> .) ]
+
+    E                              shift and go to state 52
+    T                              shift and go to state 53
+    F                              shift and go to state 54
 
 state 38
 
     (16) S0 -> EIN LPAREN . IDORAMC INPUT RPAREN
-    (23) IDORAMC -> . ID
-    (24) IDORAMC -> . ID AMC1
+    (36) IDORAMC -> . ID
+    (37) IDORAMC -> . ID AMC1
 
     ID              shift and go to state 26
 
@@ -743,28 +797,13 @@ state 38
 
 state 39
 
-    (17) S0 -> AUS LPAREN . E OUTPUT RPAREN
-    (43) E -> . VALUE
-    (44) E -> . FLT
-    (45) E -> . STR
-    (46) E -> . EIDORAMC
-    (47) E -> . VALUE OPERATOR E
-    (48) E -> . FLT OPERATOR E
-    (49) E -> . STR OPERATOR E
-    (50) E -> . IDORAMC OPERATOR E
-    (25) EIDORAMC -> . ID
-    (26) EIDORAMC -> . ID AMC1
-    (23) IDORAMC -> . ID
-    (24) IDORAMC -> . ID AMC1
+    (17) S0 -> AUS LPAREN . EXP OUTPUT RPAREN
+    (35) EXP -> .
 
-    VALUE           shift and go to state 54
-    FLT             shift and go to state 55
-    STR             shift and go to state 56
-    ID              shift and go to state 58
+    COMMA           reduce using rule 35 (EXP -> .)
+    RPAREN          reduce using rule 35 (EXP -> .)
 
-    E                              shift and go to state 60
-    EIDORAMC                       shift and go to state 57
-    IDORAMC                        shift and go to state 52
+    EXP                            shift and go to state 60
 
 state 40
 
@@ -786,17 +825,17 @@ state 40
 
 state 41
 
-    (24) IDORAMC -> ID AMC1 .
+    (37) IDORAMC -> ID AMC1 .
 
-    ASSIGN          reduce using rule 24 (IDORAMC -> ID AMC1 .)
-    COMMA           reduce using rule 24 (IDORAMC -> ID AMC1 .)
-    RPAREN          reduce using rule 24 (IDORAMC -> ID AMC1 .)
-    GT              reduce using rule 24 (IDORAMC -> ID AMC1 .)
-    GE              reduce using rule 24 (IDORAMC -> ID AMC1 .)
-    EQ              reduce using rule 24 (IDORAMC -> ID AMC1 .)
-    NE              reduce using rule 24 (IDORAMC -> ID AMC1 .)
-    LE              reduce using rule 24 (IDORAMC -> ID AMC1 .)
-    LT              reduce using rule 24 (IDORAMC -> ID AMC1 .)
+    ASSIGN          reduce using rule 37 (IDORAMC -> ID AMC1 .)
+    COMMA           reduce using rule 37 (IDORAMC -> ID AMC1 .)
+    RPAREN          reduce using rule 37 (IDORAMC -> ID AMC1 .)
+    GT              reduce using rule 37 (IDORAMC -> ID AMC1 .)
+    GE              reduce using rule 37 (IDORAMC -> ID AMC1 .)
+    EQ              reduce using rule 37 (IDORAMC -> ID AMC1 .)
+    NE              reduce using rule 37 (IDORAMC -> ID AMC1 .)
+    LE              reduce using rule 37 (IDORAMC -> ID AMC1 .)
+    LT              reduce using rule 37 (IDORAMC -> ID AMC1 .)
 
 
 state 42
@@ -813,8 +852,8 @@ state 42
 state 43
 
     (19) S0 -> WENN CONDITION . DANN S SW SD ENDE
-    (28) CONDITION -> CONDITION . AND CONDITION
-    (29) CONDITION -> CONDITION . OR CONDITION
+    (41) CONDITION -> CONDITION . AND CONDITION
+    (42) CONDITION -> CONDITION . OR CONDITION
 
     DANN            shift and go to state 63
     AND             shift and go to state 64
@@ -823,12 +862,12 @@ state 43
 
 state 44
 
-    (27) CONDITION -> LPAREN . CMP COMPARATOR CMP RPAREN
-    (30) CMP -> . VALUE
-    (31) CMP -> . IDORAMC
-    (32) CMP -> . FLT
-    (23) IDORAMC -> . ID
-    (24) IDORAMC -> . ID AMC1
+    (40) CONDITION -> LPAREN . CMP COMPARATOR CMP RPAREN
+    (43) CMP -> . VALUE
+    (44) CMP -> . IDORAMC
+    (45) CMP -> . FLT
+    (36) IDORAMC -> . ID
+    (37) IDORAMC -> . ID AMC1
 
     VALUE           shift and go to state 67
     FLT             shift and go to state 69
@@ -840,20 +879,20 @@ state 44
 state 45
 
     (20) S0 -> WAHREND CONDITION . S ENDE
-    (28) CONDITION -> CONDITION . AND CONDITION
-    (29) CONDITION -> CONDITION . OR CONDITION
+    (41) CONDITION -> CONDITION . AND CONDITION
+    (42) CONDITION -> CONDITION . OR CONDITION
     (13) S -> . S0 S
     (14) S -> .
     (15) S0 -> . IDORAMC ASSIGN E
     (16) S0 -> . EIN LPAREN IDORAMC INPUT RPAREN
-    (17) S0 -> . AUS LPAREN E OUTPUT RPAREN
+    (17) S0 -> . AUS LPAREN EXP OUTPUT RPAREN
     (18) S0 -> . GSUB ID
     (19) S0 -> . WENN CONDITION DANN S SW SD ENDE
     (20) S0 -> . WAHREND CONDITION S ENDE
     (21) S0 -> . TUN S WAHREND CONDITION
     (22) S0 -> .
-    (23) IDORAMC -> . ID
-    (24) IDORAMC -> . ID AMC1
+    (36) IDORAMC -> . ID
+    (37) IDORAMC -> . ID AMC1
 
   ! shift/reduce conflict for EIN resolved as shift
   ! shift/reduce conflict for AUS resolved as shift
@@ -945,24 +984,9 @@ state 51
 
 state 52
 
-    (50) E -> IDORAMC . OPERATOR E
-    (51) OPERATOR -> . PLUS
-    (52) OPERATOR -> . TIMES
-    (53) OPERATOR -> . MINUS
-    (54) OPERATOR -> . DIVIDE
-    (55) OPERATOR -> . MODULO
-
-    PLUS            shift and go to state 74
-    TIMES           shift and go to state 75
-    MINUS           shift and go to state 76
-    DIVIDE          shift and go to state 77
-    MODULO          shift and go to state 78
-
-    OPERATOR                       shift and go to state 73
-
-state 53
-
     (15) S0 -> IDORAMC ASSIGN E .
+    (24) E -> E . PLUS T
+    (25) E -> E . MINUS T
 
     EIN             reduce using rule 15 (S0 -> IDORAMC ASSIGN E .)
     AUS             reduce using rule 15 (S0 -> IDORAMC ASSIGN E .)
@@ -976,197 +1000,167 @@ state 53
     ENDE            reduce using rule 15 (S0 -> IDORAMC ASSIGN E .)
     SWENN           reduce using rule 15 (S0 -> IDORAMC ASSIGN E .)
     SONNST          reduce using rule 15 (S0 -> IDORAMC ASSIGN E .)
+    PLUS            shift and go to state 73
+    MINUS           shift and go to state 74
+
+
+state 53
+
+    (23) E -> T .
+    (27) T -> T . TIMES F
+    (28) T -> T . DIVIDE F
+
+    PLUS            reduce using rule 23 (E -> T .)
+    MINUS           reduce using rule 23 (E -> T .)
+    EIN             reduce using rule 23 (E -> T .)
+    AUS             reduce using rule 23 (E -> T .)
+    GSUB            reduce using rule 23 (E -> T .)
+    WENN            reduce using rule 23 (E -> T .)
+    WAHREND         reduce using rule 23 (E -> T .)
+    TUN             reduce using rule 23 (E -> T .)
+    ID              reduce using rule 23 (E -> T .)
+    SCHLUSS         reduce using rule 23 (E -> T .)
+    RUKKHER         reduce using rule 23 (E -> T .)
+    ENDE            reduce using rule 23 (E -> T .)
+    SWENN           reduce using rule 23 (E -> T .)
+    SONNST          reduce using rule 23 (E -> T .)
+    RPAREN          reduce using rule 23 (E -> T .)
+    TIMES           shift and go to state 75
+    DIVIDE          shift and go to state 76
 
 
 state 54
 
-    (43) E -> VALUE .
-    (47) E -> VALUE . OPERATOR E
-    (51) OPERATOR -> . PLUS
-    (52) OPERATOR -> . TIMES
-    (53) OPERATOR -> . MINUS
-    (54) OPERATOR -> . DIVIDE
-    (55) OPERATOR -> . MODULO
+    (26) T -> F .
 
-    EIN             reduce using rule 43 (E -> VALUE .)
-    AUS             reduce using rule 43 (E -> VALUE .)
-    GSUB            reduce using rule 43 (E -> VALUE .)
-    WENN            reduce using rule 43 (E -> VALUE .)
-    WAHREND         reduce using rule 43 (E -> VALUE .)
-    TUN             reduce using rule 43 (E -> VALUE .)
-    ID              reduce using rule 43 (E -> VALUE .)
-    SCHLUSS         reduce using rule 43 (E -> VALUE .)
-    RUKKHER         reduce using rule 43 (E -> VALUE .)
-    ENDE            reduce using rule 43 (E -> VALUE .)
-    SWENN           reduce using rule 43 (E -> VALUE .)
-    SONNST          reduce using rule 43 (E -> VALUE .)
-    COMMA           reduce using rule 43 (E -> VALUE .)
-    RPAREN          reduce using rule 43 (E -> VALUE .)
-    PLUS            shift and go to state 74
-    TIMES           shift and go to state 75
-    MINUS           shift and go to state 76
-    DIVIDE          shift and go to state 77
-    MODULO          shift and go to state 78
+    TIMES           reduce using rule 26 (T -> F .)
+    DIVIDE          reduce using rule 26 (T -> F .)
+    PLUS            reduce using rule 26 (T -> F .)
+    MINUS           reduce using rule 26 (T -> F .)
+    EIN             reduce using rule 26 (T -> F .)
+    AUS             reduce using rule 26 (T -> F .)
+    GSUB            reduce using rule 26 (T -> F .)
+    WENN            reduce using rule 26 (T -> F .)
+    WAHREND         reduce using rule 26 (T -> F .)
+    TUN             reduce using rule 26 (T -> F .)
+    ID              reduce using rule 26 (T -> F .)
+    SCHLUSS         reduce using rule 26 (T -> F .)
+    RUKKHER         reduce using rule 26 (T -> F .)
+    ENDE            reduce using rule 26 (T -> F .)
+    SWENN           reduce using rule 26 (T -> F .)
+    SONNST          reduce using rule 26 (T -> F .)
+    RPAREN          reduce using rule 26 (T -> F .)
 
-    OPERATOR                       shift and go to state 79
 
 state 55
 
-    (44) E -> FLT .
-    (48) E -> FLT . OPERATOR E
-    (51) OPERATOR -> . PLUS
-    (52) OPERATOR -> . TIMES
-    (53) OPERATOR -> . MINUS
-    (54) OPERATOR -> . DIVIDE
-    (55) OPERATOR -> . MODULO
+    (30) F -> ID .
 
-    EIN             reduce using rule 44 (E -> FLT .)
-    AUS             reduce using rule 44 (E -> FLT .)
-    GSUB            reduce using rule 44 (E -> FLT .)
-    WENN            reduce using rule 44 (E -> FLT .)
-    WAHREND         reduce using rule 44 (E -> FLT .)
-    TUN             reduce using rule 44 (E -> FLT .)
-    ID              reduce using rule 44 (E -> FLT .)
-    SCHLUSS         reduce using rule 44 (E -> FLT .)
-    RUKKHER         reduce using rule 44 (E -> FLT .)
-    ENDE            reduce using rule 44 (E -> FLT .)
-    SWENN           reduce using rule 44 (E -> FLT .)
-    SONNST          reduce using rule 44 (E -> FLT .)
-    COMMA           reduce using rule 44 (E -> FLT .)
-    RPAREN          reduce using rule 44 (E -> FLT .)
-    PLUS            shift and go to state 74
-    TIMES           shift and go to state 75
-    MINUS           shift and go to state 76
-    DIVIDE          shift and go to state 77
-    MODULO          shift and go to state 78
+    TIMES           reduce using rule 30 (F -> ID .)
+    DIVIDE          reduce using rule 30 (F -> ID .)
+    PLUS            reduce using rule 30 (F -> ID .)
+    MINUS           reduce using rule 30 (F -> ID .)
+    EIN             reduce using rule 30 (F -> ID .)
+    AUS             reduce using rule 30 (F -> ID .)
+    GSUB            reduce using rule 30 (F -> ID .)
+    WENN            reduce using rule 30 (F -> ID .)
+    WAHREND         reduce using rule 30 (F -> ID .)
+    TUN             reduce using rule 30 (F -> ID .)
+    ID              reduce using rule 30 (F -> ID .)
+    SCHLUSS         reduce using rule 30 (F -> ID .)
+    RUKKHER         reduce using rule 30 (F -> ID .)
+    ENDE            reduce using rule 30 (F -> ID .)
+    SWENN           reduce using rule 30 (F -> ID .)
+    SONNST          reduce using rule 30 (F -> ID .)
+    RPAREN          reduce using rule 30 (F -> ID .)
 
-    OPERATOR                       shift and go to state 80
 
 state 56
 
-    (45) E -> STR .
-    (49) E -> STR . OPERATOR E
-    (51) OPERATOR -> . PLUS
-    (52) OPERATOR -> . TIMES
-    (53) OPERATOR -> . MINUS
-    (54) OPERATOR -> . DIVIDE
-    (55) OPERATOR -> . MODULO
+    (31) F -> VALUE .
 
-    EIN             reduce using rule 45 (E -> STR .)
-    AUS             reduce using rule 45 (E -> STR .)
-    GSUB            reduce using rule 45 (E -> STR .)
-    WENN            reduce using rule 45 (E -> STR .)
-    WAHREND         reduce using rule 45 (E -> STR .)
-    TUN             reduce using rule 45 (E -> STR .)
-    ID              reduce using rule 45 (E -> STR .)
-    SCHLUSS         reduce using rule 45 (E -> STR .)
-    RUKKHER         reduce using rule 45 (E -> STR .)
-    ENDE            reduce using rule 45 (E -> STR .)
-    SWENN           reduce using rule 45 (E -> STR .)
-    SONNST          reduce using rule 45 (E -> STR .)
-    COMMA           reduce using rule 45 (E -> STR .)
-    RPAREN          reduce using rule 45 (E -> STR .)
-    PLUS            shift and go to state 74
-    TIMES           shift and go to state 75
-    MINUS           shift and go to state 76
-    DIVIDE          shift and go to state 77
-    MODULO          shift and go to state 78
+    TIMES           reduce using rule 31 (F -> VALUE .)
+    DIVIDE          reduce using rule 31 (F -> VALUE .)
+    PLUS            reduce using rule 31 (F -> VALUE .)
+    MINUS           reduce using rule 31 (F -> VALUE .)
+    EIN             reduce using rule 31 (F -> VALUE .)
+    AUS             reduce using rule 31 (F -> VALUE .)
+    GSUB            reduce using rule 31 (F -> VALUE .)
+    WENN            reduce using rule 31 (F -> VALUE .)
+    WAHREND         reduce using rule 31 (F -> VALUE .)
+    TUN             reduce using rule 31 (F -> VALUE .)
+    ID              reduce using rule 31 (F -> VALUE .)
+    SCHLUSS         reduce using rule 31 (F -> VALUE .)
+    RUKKHER         reduce using rule 31 (F -> VALUE .)
+    ENDE            reduce using rule 31 (F -> VALUE .)
+    SWENN           reduce using rule 31 (F -> VALUE .)
+    SONNST          reduce using rule 31 (F -> VALUE .)
+    RPAREN          reduce using rule 31 (F -> VALUE .)
 
-    OPERATOR                       shift and go to state 81
 
 state 57
 
-    (46) E -> EIDORAMC .
+    (32) F -> FLT .
 
-    EIN             reduce using rule 46 (E -> EIDORAMC .)
-    AUS             reduce using rule 46 (E -> EIDORAMC .)
-    GSUB            reduce using rule 46 (E -> EIDORAMC .)
-    WENN            reduce using rule 46 (E -> EIDORAMC .)
-    WAHREND         reduce using rule 46 (E -> EIDORAMC .)
-    TUN             reduce using rule 46 (E -> EIDORAMC .)
-    ID              reduce using rule 46 (E -> EIDORAMC .)
-    SCHLUSS         reduce using rule 46 (E -> EIDORAMC .)
-    RUKKHER         reduce using rule 46 (E -> EIDORAMC .)
-    ENDE            reduce using rule 46 (E -> EIDORAMC .)
-    SWENN           reduce using rule 46 (E -> EIDORAMC .)
-    SONNST          reduce using rule 46 (E -> EIDORAMC .)
-    COMMA           reduce using rule 46 (E -> EIDORAMC .)
-    RPAREN          reduce using rule 46 (E -> EIDORAMC .)
+    TIMES           reduce using rule 32 (F -> FLT .)
+    DIVIDE          reduce using rule 32 (F -> FLT .)
+    PLUS            reduce using rule 32 (F -> FLT .)
+    MINUS           reduce using rule 32 (F -> FLT .)
+    EIN             reduce using rule 32 (F -> FLT .)
+    AUS             reduce using rule 32 (F -> FLT .)
+    GSUB            reduce using rule 32 (F -> FLT .)
+    WENN            reduce using rule 32 (F -> FLT .)
+    WAHREND         reduce using rule 32 (F -> FLT .)
+    TUN             reduce using rule 32 (F -> FLT .)
+    ID              reduce using rule 32 (F -> FLT .)
+    SCHLUSS         reduce using rule 32 (F -> FLT .)
+    RUKKHER         reduce using rule 32 (F -> FLT .)
+    ENDE            reduce using rule 32 (F -> FLT .)
+    SWENN           reduce using rule 32 (F -> FLT .)
+    SONNST          reduce using rule 32 (F -> FLT .)
+    RPAREN          reduce using rule 32 (F -> FLT .)
 
 
 state 58
 
-    (25) EIDORAMC -> ID .
-    (26) EIDORAMC -> ID . AMC1
-    (23) IDORAMC -> ID .
-    (24) IDORAMC -> ID . AMC1
-    (65) AMC1 -> . LBRKT VALUE RBRKT AMC2
-    (66) AMC1 -> . LBRKT ID RBRKT AMC2
-    (67) AMC1 -> . LBRKT VALUE RBRKT
-    (68) AMC1 -> . LBRKT ID RBRKT
-    (69) AMC1 -> .
+    (33) F -> LPAREN . E RPAREN
+    (23) E -> . T
+    (24) E -> . E PLUS T
+    (25) E -> . E MINUS T
+    (26) T -> . F
+    (27) T -> . T TIMES F
+    (28) T -> . T DIVIDE F
+    (29) T -> .
+    (30) F -> . ID
+    (31) F -> . VALUE
+    (32) F -> . FLT
+    (33) F -> . LPAREN E RPAREN
+    (34) F -> .
 
-  ! reduce/reduce conflict for EIN resolved using rule 25 (EIDORAMC -> ID .)
-  ! reduce/reduce conflict for AUS resolved using rule 25 (EIDORAMC -> ID .)
-  ! reduce/reduce conflict for GSUB resolved using rule 25 (EIDORAMC -> ID .)
-  ! reduce/reduce conflict for WENN resolved using rule 25 (EIDORAMC -> ID .)
-  ! reduce/reduce conflict for WAHREND resolved using rule 25 (EIDORAMC -> ID .)
-  ! reduce/reduce conflict for TUN resolved using rule 25 (EIDORAMC -> ID .)
-  ! reduce/reduce conflict for ID resolved using rule 25 (EIDORAMC -> ID .)
-  ! reduce/reduce conflict for SCHLUSS resolved using rule 25 (EIDORAMC -> ID .)
-  ! reduce/reduce conflict for RUKKHER resolved using rule 25 (EIDORAMC -> ID .)
-  ! reduce/reduce conflict for ENDE resolved using rule 25 (EIDORAMC -> ID .)
-  ! reduce/reduce conflict for SWENN resolved using rule 25 (EIDORAMC -> ID .)
-  ! reduce/reduce conflict for SONNST resolved using rule 25 (EIDORAMC -> ID .)
-  ! reduce/reduce conflict for PLUS resolved using rule 23 (IDORAMC -> ID .)
-  ! reduce/reduce conflict for TIMES resolved using rule 23 (IDORAMC -> ID .)
-  ! reduce/reduce conflict for MINUS resolved using rule 23 (IDORAMC -> ID .)
-  ! reduce/reduce conflict for DIVIDE resolved using rule 23 (IDORAMC -> ID .)
-  ! reduce/reduce conflict for MODULO resolved using rule 23 (IDORAMC -> ID .)
-  ! reduce/reduce conflict for COMMA resolved using rule 25 (EIDORAMC -> ID .)
-  ! reduce/reduce conflict for RPAREN resolved using rule 25 (EIDORAMC -> ID .)
-    EIN             reduce using rule 25 (EIDORAMC -> ID .)
-    AUS             reduce using rule 25 (EIDORAMC -> ID .)
-    GSUB            reduce using rule 25 (EIDORAMC -> ID .)
-    WENN            reduce using rule 25 (EIDORAMC -> ID .)
-    WAHREND         reduce using rule 25 (EIDORAMC -> ID .)
-    TUN             reduce using rule 25 (EIDORAMC -> ID .)
-    ID              reduce using rule 25 (EIDORAMC -> ID .)
-    SCHLUSS         reduce using rule 25 (EIDORAMC -> ID .)
-    RUKKHER         reduce using rule 25 (EIDORAMC -> ID .)
-    ENDE            reduce using rule 25 (EIDORAMC -> ID .)
-    SWENN           reduce using rule 25 (EIDORAMC -> ID .)
-    SONNST          reduce using rule 25 (EIDORAMC -> ID .)
-    COMMA           reduce using rule 25 (EIDORAMC -> ID .)
-    RPAREN          reduce using rule 25 (EIDORAMC -> ID .)
-    PLUS            reduce using rule 23 (IDORAMC -> ID .)
-    TIMES           reduce using rule 23 (IDORAMC -> ID .)
-    MINUS           reduce using rule 23 (IDORAMC -> ID .)
-    DIVIDE          reduce using rule 23 (IDORAMC -> ID .)
-    MODULO          reduce using rule 23 (IDORAMC -> ID .)
-    LBRKT           shift and go to state 42
+  ! reduce/reduce conflict for TIMES resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for DIVIDE resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for RPAREN resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for PLUS resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for MINUS resolved using rule 29 (T -> .)
+    TIMES           reduce using rule 29 (T -> .)
+    DIVIDE          reduce using rule 29 (T -> .)
+    RPAREN          reduce using rule 29 (T -> .)
+    PLUS            reduce using rule 29 (T -> .)
+    MINUS           reduce using rule 29 (T -> .)
+    ID              shift and go to state 55
+    VALUE           shift and go to state 56
+    FLT             shift and go to state 57
+    LPAREN          shift and go to state 58
 
-  ! EIN             [ reduce using rule 69 (AMC1 -> .) ]
-  ! AUS             [ reduce using rule 69 (AMC1 -> .) ]
-  ! GSUB            [ reduce using rule 69 (AMC1 -> .) ]
-  ! WENN            [ reduce using rule 69 (AMC1 -> .) ]
-  ! WAHREND         [ reduce using rule 69 (AMC1 -> .) ]
-  ! TUN             [ reduce using rule 69 (AMC1 -> .) ]
-  ! ID              [ reduce using rule 69 (AMC1 -> .) ]
-  ! SCHLUSS         [ reduce using rule 69 (AMC1 -> .) ]
-  ! RUKKHER         [ reduce using rule 69 (AMC1 -> .) ]
-  ! ENDE            [ reduce using rule 69 (AMC1 -> .) ]
-  ! SWENN           [ reduce using rule 69 (AMC1 -> .) ]
-  ! SONNST          [ reduce using rule 69 (AMC1 -> .) ]
-  ! PLUS            [ reduce using rule 69 (AMC1 -> .) ]
-  ! TIMES           [ reduce using rule 69 (AMC1 -> .) ]
-  ! MINUS           [ reduce using rule 69 (AMC1 -> .) ]
-  ! DIVIDE          [ reduce using rule 69 (AMC1 -> .) ]
-  ! MODULO          [ reduce using rule 69 (AMC1 -> .) ]
-  ! COMMA           [ reduce using rule 69 (AMC1 -> .) ]
-  ! RPAREN          [ reduce using rule 69 (AMC1 -> .) ]
+  ! TIMES           [ reduce using rule 34 (F -> .) ]
+  ! DIVIDE          [ reduce using rule 34 (F -> .) ]
+  ! RPAREN          [ reduce using rule 34 (F -> .) ]
+  ! PLUS            [ reduce using rule 34 (F -> .) ]
+  ! MINUS           [ reduce using rule 34 (F -> .) ]
 
-    AMC1                           shift and go to state 82
+    E                              shift and go to state 77
+    T                              shift and go to state 53
+    F                              shift and go to state 54
 
 state 59
 
@@ -1174,28 +1168,28 @@ state 59
     (56) INPUT -> . COMMA IDORAMC INPUT
     (57) INPUT -> .
 
-    COMMA           shift and go to state 84
+    COMMA           shift and go to state 79
     RPAREN          reduce using rule 57 (INPUT -> .)
 
-    INPUT                          shift and go to state 83
+    INPUT                          shift and go to state 78
 
 state 60
 
-    (17) S0 -> AUS LPAREN E . OUTPUT RPAREN
-    (58) OUTPUT -> . COMMA E OUTPUT
+    (17) S0 -> AUS LPAREN EXP . OUTPUT RPAREN
+    (58) OUTPUT -> . COMMA EXP OUTPUT
     (59) OUTPUT -> .
 
-    COMMA           shift and go to state 86
+    COMMA           shift and go to state 81
     RPAREN          reduce using rule 59 (OUTPUT -> .)
 
-    OUTPUT                         shift and go to state 85
+    OUTPUT                         shift and go to state 80
 
 state 61
 
     (65) AMC1 -> LBRKT VALUE . RBRKT AMC2
     (67) AMC1 -> LBRKT VALUE . RBRKT
 
-    RBRKT           shift and go to state 87
+    RBRKT           shift and go to state 82
 
 
 state 62
@@ -1203,7 +1197,7 @@ state 62
     (66) AMC1 -> LBRKT ID . RBRKT AMC2
     (68) AMC1 -> LBRKT ID . RBRKT
 
-    RBRKT           shift and go to state 88
+    RBRKT           shift and go to state 83
 
 
 state 63
@@ -1213,14 +1207,14 @@ state 63
     (14) S -> .
     (15) S0 -> . IDORAMC ASSIGN E
     (16) S0 -> . EIN LPAREN IDORAMC INPUT RPAREN
-    (17) S0 -> . AUS LPAREN E OUTPUT RPAREN
+    (17) S0 -> . AUS LPAREN EXP OUTPUT RPAREN
     (18) S0 -> . GSUB ID
     (19) S0 -> . WENN CONDITION DANN S SW SD ENDE
     (20) S0 -> . WAHREND CONDITION S ENDE
     (21) S0 -> . TUN S WAHREND CONDITION
     (22) S0 -> .
-    (23) IDORAMC -> . ID
-    (24) IDORAMC -> . ID AMC1
+    (36) IDORAMC -> . ID
+    (37) IDORAMC -> . ID AMC1
 
   ! shift/reduce conflict for EIN resolved as shift
   ! shift/reduce conflict for AUS resolved as shift
@@ -1254,107 +1248,107 @@ state 63
   ! SONNST          [ reduce using rule 22 (S0 -> .) ]
   ! ENDE            [ reduce using rule 22 (S0 -> .) ]
 
-    S                              shift and go to state 89
+    S                              shift and go to state 84
     S0                             shift and go to state 21
     IDORAMC                        shift and go to state 22
 
 state 64
 
-    (28) CONDITION -> CONDITION AND . CONDITION
-    (27) CONDITION -> . LPAREN CMP COMPARATOR CMP RPAREN
-    (28) CONDITION -> . CONDITION AND CONDITION
-    (29) CONDITION -> . CONDITION OR CONDITION
+    (41) CONDITION -> CONDITION AND . CONDITION
+    (40) CONDITION -> . LPAREN CMP COMPARATOR CMP RPAREN
+    (41) CONDITION -> . CONDITION AND CONDITION
+    (42) CONDITION -> . CONDITION OR CONDITION
 
     LPAREN          shift and go to state 44
 
-    CONDITION                      shift and go to state 90
+    CONDITION                      shift and go to state 85
 
 state 65
 
-    (29) CONDITION -> CONDITION OR . CONDITION
-    (27) CONDITION -> . LPAREN CMP COMPARATOR CMP RPAREN
-    (28) CONDITION -> . CONDITION AND CONDITION
-    (29) CONDITION -> . CONDITION OR CONDITION
+    (42) CONDITION -> CONDITION OR . CONDITION
+    (40) CONDITION -> . LPAREN CMP COMPARATOR CMP RPAREN
+    (41) CONDITION -> . CONDITION AND CONDITION
+    (42) CONDITION -> . CONDITION OR CONDITION
 
     LPAREN          shift and go to state 44
 
-    CONDITION                      shift and go to state 91
+    CONDITION                      shift and go to state 86
 
 state 66
 
-    (27) CONDITION -> LPAREN CMP . COMPARATOR CMP RPAREN
-    (33) COMPARATOR -> . GT
-    (34) COMPARATOR -> . GE
-    (35) COMPARATOR -> . EQ
-    (36) COMPARATOR -> . NE
-    (37) COMPARATOR -> . LE
-    (38) COMPARATOR -> . LT
+    (40) CONDITION -> LPAREN CMP . COMPARATOR CMP RPAREN
+    (46) COMPARATOR -> . GT
+    (47) COMPARATOR -> . GE
+    (48) COMPARATOR -> . EQ
+    (49) COMPARATOR -> . NE
+    (50) COMPARATOR -> . LE
+    (51) COMPARATOR -> . LT
 
-    GT              shift and go to state 93
-    GE              shift and go to state 94
-    EQ              shift and go to state 95
-    NE              shift and go to state 96
-    LE              shift and go to state 97
-    LT              shift and go to state 98
+    GT              shift and go to state 88
+    GE              shift and go to state 89
+    EQ              shift and go to state 90
+    NE              shift and go to state 91
+    LE              shift and go to state 92
+    LT              shift and go to state 93
 
-    COMPARATOR                     shift and go to state 92
+    COMPARATOR                     shift and go to state 87
 
 state 67
 
-    (30) CMP -> VALUE .
+    (43) CMP -> VALUE .
 
-    GT              reduce using rule 30 (CMP -> VALUE .)
-    GE              reduce using rule 30 (CMP -> VALUE .)
-    EQ              reduce using rule 30 (CMP -> VALUE .)
-    NE              reduce using rule 30 (CMP -> VALUE .)
-    LE              reduce using rule 30 (CMP -> VALUE .)
-    LT              reduce using rule 30 (CMP -> VALUE .)
-    RPAREN          reduce using rule 30 (CMP -> VALUE .)
+    GT              reduce using rule 43 (CMP -> VALUE .)
+    GE              reduce using rule 43 (CMP -> VALUE .)
+    EQ              reduce using rule 43 (CMP -> VALUE .)
+    NE              reduce using rule 43 (CMP -> VALUE .)
+    LE              reduce using rule 43 (CMP -> VALUE .)
+    LT              reduce using rule 43 (CMP -> VALUE .)
+    RPAREN          reduce using rule 43 (CMP -> VALUE .)
 
 
 state 68
 
-    (31) CMP -> IDORAMC .
+    (44) CMP -> IDORAMC .
 
-    GT              reduce using rule 31 (CMP -> IDORAMC .)
-    GE              reduce using rule 31 (CMP -> IDORAMC .)
-    EQ              reduce using rule 31 (CMP -> IDORAMC .)
-    NE              reduce using rule 31 (CMP -> IDORAMC .)
-    LE              reduce using rule 31 (CMP -> IDORAMC .)
-    LT              reduce using rule 31 (CMP -> IDORAMC .)
-    RPAREN          reduce using rule 31 (CMP -> IDORAMC .)
+    GT              reduce using rule 44 (CMP -> IDORAMC .)
+    GE              reduce using rule 44 (CMP -> IDORAMC .)
+    EQ              reduce using rule 44 (CMP -> IDORAMC .)
+    NE              reduce using rule 44 (CMP -> IDORAMC .)
+    LE              reduce using rule 44 (CMP -> IDORAMC .)
+    LT              reduce using rule 44 (CMP -> IDORAMC .)
+    RPAREN          reduce using rule 44 (CMP -> IDORAMC .)
 
 
 state 69
 
-    (32) CMP -> FLT .
+    (45) CMP -> FLT .
 
-    GT              reduce using rule 32 (CMP -> FLT .)
-    GE              reduce using rule 32 (CMP -> FLT .)
-    EQ              reduce using rule 32 (CMP -> FLT .)
-    NE              reduce using rule 32 (CMP -> FLT .)
-    LE              reduce using rule 32 (CMP -> FLT .)
-    LT              reduce using rule 32 (CMP -> FLT .)
-    RPAREN          reduce using rule 32 (CMP -> FLT .)
+    GT              reduce using rule 45 (CMP -> FLT .)
+    GE              reduce using rule 45 (CMP -> FLT .)
+    EQ              reduce using rule 45 (CMP -> FLT .)
+    NE              reduce using rule 45 (CMP -> FLT .)
+    LE              reduce using rule 45 (CMP -> FLT .)
+    LT              reduce using rule 45 (CMP -> FLT .)
+    RPAREN          reduce using rule 45 (CMP -> FLT .)
 
 
 state 70
 
     (20) S0 -> WAHREND CONDITION S . ENDE
 
-    ENDE            shift and go to state 99
+    ENDE            shift and go to state 94
 
 
 state 71
 
     (21) S0 -> TUN S WAHREND . CONDITION
-    (27) CONDITION -> . LPAREN CMP COMPARATOR CMP RPAREN
-    (28) CONDITION -> . CONDITION AND CONDITION
-    (29) CONDITION -> . CONDITION OR CONDITION
+    (40) CONDITION -> . LPAREN CMP COMPARATOR CMP RPAREN
+    (41) CONDITION -> . CONDITION AND CONDITION
+    (42) CONDITION -> . CONDITION OR CONDITION
 
     LPAREN          shift and go to state 44
 
-    CONDITION                      shift and go to state 100
+    CONDITION                      shift and go to state 95
 
 state 72
 
@@ -1365,230 +1359,268 @@ state 72
 
 state 73
 
-    (50) E -> IDORAMC OPERATOR . E
-    (43) E -> . VALUE
-    (44) E -> . FLT
-    (45) E -> . STR
-    (46) E -> . EIDORAMC
-    (47) E -> . VALUE OPERATOR E
-    (48) E -> . FLT OPERATOR E
-    (49) E -> . STR OPERATOR E
-    (50) E -> . IDORAMC OPERATOR E
-    (25) EIDORAMC -> . ID
-    (26) EIDORAMC -> . ID AMC1
-    (23) IDORAMC -> . ID
-    (24) IDORAMC -> . ID AMC1
+    (24) E -> E PLUS . T
+    (26) T -> . F
+    (27) T -> . T TIMES F
+    (28) T -> . T DIVIDE F
+    (29) T -> .
+    (30) F -> . ID
+    (31) F -> . VALUE
+    (32) F -> . FLT
+    (33) F -> . LPAREN E RPAREN
+    (34) F -> .
 
-    VALUE           shift and go to state 54
-    FLT             shift and go to state 55
-    STR             shift and go to state 56
-    ID              shift and go to state 58
+  ! shift/reduce conflict for ID resolved as shift
+  ! reduce/reduce conflict for TIMES resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for DIVIDE resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for PLUS resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for MINUS resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for EIN resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for AUS resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for GSUB resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for WENN resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for WAHREND resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for TUN resolved using rule 29 (T -> .)
+  ! shift/reduce conflict for ID resolved as shift
+  ! reduce/reduce conflict for SCHLUSS resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for RUKKHER resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for ENDE resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for SWENN resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for SONNST resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for RPAREN resolved using rule 29 (T -> .)
+    TIMES           reduce using rule 29 (T -> .)
+    DIVIDE          reduce using rule 29 (T -> .)
+    PLUS            reduce using rule 29 (T -> .)
+    MINUS           reduce using rule 29 (T -> .)
+    EIN             reduce using rule 29 (T -> .)
+    AUS             reduce using rule 29 (T -> .)
+    GSUB            reduce using rule 29 (T -> .)
+    WENN            reduce using rule 29 (T -> .)
+    WAHREND         reduce using rule 29 (T -> .)
+    TUN             reduce using rule 29 (T -> .)
+    SCHLUSS         reduce using rule 29 (T -> .)
+    RUKKHER         reduce using rule 29 (T -> .)
+    ENDE            reduce using rule 29 (T -> .)
+    SWENN           reduce using rule 29 (T -> .)
+    SONNST          reduce using rule 29 (T -> .)
+    RPAREN          reduce using rule 29 (T -> .)
+    ID              shift and go to state 55
+    VALUE           shift and go to state 56
+    FLT             shift and go to state 57
+    LPAREN          shift and go to state 58
 
-    IDORAMC                        shift and go to state 52
-    E                              shift and go to state 101
-    EIDORAMC                       shift and go to state 57
+  ! ID              [ reduce using rule 29 (T -> .) ]
+  ! TIMES           [ reduce using rule 34 (F -> .) ]
+  ! DIVIDE          [ reduce using rule 34 (F -> .) ]
+  ! PLUS            [ reduce using rule 34 (F -> .) ]
+  ! MINUS           [ reduce using rule 34 (F -> .) ]
+  ! EIN             [ reduce using rule 34 (F -> .) ]
+  ! AUS             [ reduce using rule 34 (F -> .) ]
+  ! GSUB            [ reduce using rule 34 (F -> .) ]
+  ! WENN            [ reduce using rule 34 (F -> .) ]
+  ! WAHREND         [ reduce using rule 34 (F -> .) ]
+  ! TUN             [ reduce using rule 34 (F -> .) ]
+  ! ID              [ reduce using rule 34 (F -> .) ]
+  ! SCHLUSS         [ reduce using rule 34 (F -> .) ]
+  ! RUKKHER         [ reduce using rule 34 (F -> .) ]
+  ! ENDE            [ reduce using rule 34 (F -> .) ]
+  ! SWENN           [ reduce using rule 34 (F -> .) ]
+  ! SONNST          [ reduce using rule 34 (F -> .) ]
+  ! RPAREN          [ reduce using rule 34 (F -> .) ]
+
+    T                              shift and go to state 96
+    F                              shift and go to state 54
 
 state 74
 
-    (51) OPERATOR -> PLUS .
+    (25) E -> E MINUS . T
+    (26) T -> . F
+    (27) T -> . T TIMES F
+    (28) T -> . T DIVIDE F
+    (29) T -> .
+    (30) F -> . ID
+    (31) F -> . VALUE
+    (32) F -> . FLT
+    (33) F -> . LPAREN E RPAREN
+    (34) F -> .
 
-    VALUE           reduce using rule 51 (OPERATOR -> PLUS .)
-    FLT             reduce using rule 51 (OPERATOR -> PLUS .)
-    STR             reduce using rule 51 (OPERATOR -> PLUS .)
-    ID              reduce using rule 51 (OPERATOR -> PLUS .)
+  ! shift/reduce conflict for ID resolved as shift
+  ! reduce/reduce conflict for TIMES resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for DIVIDE resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for PLUS resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for MINUS resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for EIN resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for AUS resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for GSUB resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for WENN resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for WAHREND resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for TUN resolved using rule 29 (T -> .)
+  ! shift/reduce conflict for ID resolved as shift
+  ! reduce/reduce conflict for SCHLUSS resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for RUKKHER resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for ENDE resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for SWENN resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for SONNST resolved using rule 29 (T -> .)
+  ! reduce/reduce conflict for RPAREN resolved using rule 29 (T -> .)
+    TIMES           reduce using rule 29 (T -> .)
+    DIVIDE          reduce using rule 29 (T -> .)
+    PLUS            reduce using rule 29 (T -> .)
+    MINUS           reduce using rule 29 (T -> .)
+    EIN             reduce using rule 29 (T -> .)
+    AUS             reduce using rule 29 (T -> .)
+    GSUB            reduce using rule 29 (T -> .)
+    WENN            reduce using rule 29 (T -> .)
+    WAHREND         reduce using rule 29 (T -> .)
+    TUN             reduce using rule 29 (T -> .)
+    SCHLUSS         reduce using rule 29 (T -> .)
+    RUKKHER         reduce using rule 29 (T -> .)
+    ENDE            reduce using rule 29 (T -> .)
+    SWENN           reduce using rule 29 (T -> .)
+    SONNST          reduce using rule 29 (T -> .)
+    RPAREN          reduce using rule 29 (T -> .)
+    ID              shift and go to state 55
+    VALUE           shift and go to state 56
+    FLT             shift and go to state 57
+    LPAREN          shift and go to state 58
 
+  ! ID              [ reduce using rule 29 (T -> .) ]
+  ! TIMES           [ reduce using rule 34 (F -> .) ]
+  ! DIVIDE          [ reduce using rule 34 (F -> .) ]
+  ! PLUS            [ reduce using rule 34 (F -> .) ]
+  ! MINUS           [ reduce using rule 34 (F -> .) ]
+  ! EIN             [ reduce using rule 34 (F -> .) ]
+  ! AUS             [ reduce using rule 34 (F -> .) ]
+  ! GSUB            [ reduce using rule 34 (F -> .) ]
+  ! WENN            [ reduce using rule 34 (F -> .) ]
+  ! WAHREND         [ reduce using rule 34 (F -> .) ]
+  ! TUN             [ reduce using rule 34 (F -> .) ]
+  ! ID              [ reduce using rule 34 (F -> .) ]
+  ! SCHLUSS         [ reduce using rule 34 (F -> .) ]
+  ! RUKKHER         [ reduce using rule 34 (F -> .) ]
+  ! ENDE            [ reduce using rule 34 (F -> .) ]
+  ! SWENN           [ reduce using rule 34 (F -> .) ]
+  ! SONNST          [ reduce using rule 34 (F -> .) ]
+  ! RPAREN          [ reduce using rule 34 (F -> .) ]
+
+    T                              shift and go to state 97
+    F                              shift and go to state 54
 
 state 75
 
-    (52) OPERATOR -> TIMES .
+    (27) T -> T TIMES . F
+    (30) F -> . ID
+    (31) F -> . VALUE
+    (32) F -> . FLT
+    (33) F -> . LPAREN E RPAREN
+    (34) F -> .
 
-    VALUE           reduce using rule 52 (OPERATOR -> TIMES .)
-    FLT             reduce using rule 52 (OPERATOR -> TIMES .)
-    STR             reduce using rule 52 (OPERATOR -> TIMES .)
-    ID              reduce using rule 52 (OPERATOR -> TIMES .)
+  ! shift/reduce conflict for ID resolved as shift
+    ID              shift and go to state 55
+    VALUE           shift and go to state 56
+    FLT             shift and go to state 57
+    LPAREN          shift and go to state 58
+    TIMES           reduce using rule 34 (F -> .)
+    DIVIDE          reduce using rule 34 (F -> .)
+    PLUS            reduce using rule 34 (F -> .)
+    MINUS           reduce using rule 34 (F -> .)
+    EIN             reduce using rule 34 (F -> .)
+    AUS             reduce using rule 34 (F -> .)
+    GSUB            reduce using rule 34 (F -> .)
+    WENN            reduce using rule 34 (F -> .)
+    WAHREND         reduce using rule 34 (F -> .)
+    TUN             reduce using rule 34 (F -> .)
+    SCHLUSS         reduce using rule 34 (F -> .)
+    RUKKHER         reduce using rule 34 (F -> .)
+    ENDE            reduce using rule 34 (F -> .)
+    SWENN           reduce using rule 34 (F -> .)
+    SONNST          reduce using rule 34 (F -> .)
+    RPAREN          reduce using rule 34 (F -> .)
 
+  ! ID              [ reduce using rule 34 (F -> .) ]
+
+    F                              shift and go to state 98
 
 state 76
 
-    (53) OPERATOR -> MINUS .
+    (28) T -> T DIVIDE . F
+    (30) F -> . ID
+    (31) F -> . VALUE
+    (32) F -> . FLT
+    (33) F -> . LPAREN E RPAREN
+    (34) F -> .
 
-    VALUE           reduce using rule 53 (OPERATOR -> MINUS .)
-    FLT             reduce using rule 53 (OPERATOR -> MINUS .)
-    STR             reduce using rule 53 (OPERATOR -> MINUS .)
-    ID              reduce using rule 53 (OPERATOR -> MINUS .)
+  ! shift/reduce conflict for ID resolved as shift
+    ID              shift and go to state 55
+    VALUE           shift and go to state 56
+    FLT             shift and go to state 57
+    LPAREN          shift and go to state 58
+    TIMES           reduce using rule 34 (F -> .)
+    DIVIDE          reduce using rule 34 (F -> .)
+    PLUS            reduce using rule 34 (F -> .)
+    MINUS           reduce using rule 34 (F -> .)
+    EIN             reduce using rule 34 (F -> .)
+    AUS             reduce using rule 34 (F -> .)
+    GSUB            reduce using rule 34 (F -> .)
+    WENN            reduce using rule 34 (F -> .)
+    WAHREND         reduce using rule 34 (F -> .)
+    TUN             reduce using rule 34 (F -> .)
+    SCHLUSS         reduce using rule 34 (F -> .)
+    RUKKHER         reduce using rule 34 (F -> .)
+    ENDE            reduce using rule 34 (F -> .)
+    SWENN           reduce using rule 34 (F -> .)
+    SONNST          reduce using rule 34 (F -> .)
+    RPAREN          reduce using rule 34 (F -> .)
 
+  ! ID              [ reduce using rule 34 (F -> .) ]
+
+    F                              shift and go to state 99
 
 state 77
 
-    (54) OPERATOR -> DIVIDE .
+    (33) F -> LPAREN E . RPAREN
+    (24) E -> E . PLUS T
+    (25) E -> E . MINUS T
 
-    VALUE           reduce using rule 54 (OPERATOR -> DIVIDE .)
-    FLT             reduce using rule 54 (OPERATOR -> DIVIDE .)
-    STR             reduce using rule 54 (OPERATOR -> DIVIDE .)
-    ID              reduce using rule 54 (OPERATOR -> DIVIDE .)
+    RPAREN          shift and go to state 100
+    PLUS            shift and go to state 73
+    MINUS           shift and go to state 74
 
 
 state 78
 
-    (55) OPERATOR -> MODULO .
+    (16) S0 -> EIN LPAREN IDORAMC INPUT . RPAREN
 
-    VALUE           reduce using rule 55 (OPERATOR -> MODULO .)
-    FLT             reduce using rule 55 (OPERATOR -> MODULO .)
-    STR             reduce using rule 55 (OPERATOR -> MODULO .)
-    ID              reduce using rule 55 (OPERATOR -> MODULO .)
+    RPAREN          shift and go to state 101
 
 
 state 79
 
-    (47) E -> VALUE OPERATOR . E
-    (43) E -> . VALUE
-    (44) E -> . FLT
-    (45) E -> . STR
-    (46) E -> . EIDORAMC
-    (47) E -> . VALUE OPERATOR E
-    (48) E -> . FLT OPERATOR E
-    (49) E -> . STR OPERATOR E
-    (50) E -> . IDORAMC OPERATOR E
-    (25) EIDORAMC -> . ID
-    (26) EIDORAMC -> . ID AMC1
-    (23) IDORAMC -> . ID
-    (24) IDORAMC -> . ID AMC1
-
-    VALUE           shift and go to state 54
-    FLT             shift and go to state 55
-    STR             shift and go to state 56
-    ID              shift and go to state 58
-
-    E                              shift and go to state 102
-    EIDORAMC                       shift and go to state 57
-    IDORAMC                        shift and go to state 52
-
-state 80
-
-    (48) E -> FLT OPERATOR . E
-    (43) E -> . VALUE
-    (44) E -> . FLT
-    (45) E -> . STR
-    (46) E -> . EIDORAMC
-    (47) E -> . VALUE OPERATOR E
-    (48) E -> . FLT OPERATOR E
-    (49) E -> . STR OPERATOR E
-    (50) E -> . IDORAMC OPERATOR E
-    (25) EIDORAMC -> . ID
-    (26) EIDORAMC -> . ID AMC1
-    (23) IDORAMC -> . ID
-    (24) IDORAMC -> . ID AMC1
-
-    VALUE           shift and go to state 54
-    FLT             shift and go to state 55
-    STR             shift and go to state 56
-    ID              shift and go to state 58
-
-    E                              shift and go to state 103
-    EIDORAMC                       shift and go to state 57
-    IDORAMC                        shift and go to state 52
-
-state 81
-
-    (49) E -> STR OPERATOR . E
-    (43) E -> . VALUE
-    (44) E -> . FLT
-    (45) E -> . STR
-    (46) E -> . EIDORAMC
-    (47) E -> . VALUE OPERATOR E
-    (48) E -> . FLT OPERATOR E
-    (49) E -> . STR OPERATOR E
-    (50) E -> . IDORAMC OPERATOR E
-    (25) EIDORAMC -> . ID
-    (26) EIDORAMC -> . ID AMC1
-    (23) IDORAMC -> . ID
-    (24) IDORAMC -> . ID AMC1
-
-    VALUE           shift and go to state 54
-    FLT             shift and go to state 55
-    STR             shift and go to state 56
-    ID              shift and go to state 58
-
-    E                              shift and go to state 104
-    EIDORAMC                       shift and go to state 57
-    IDORAMC                        shift and go to state 52
-
-state 82
-
-    (26) EIDORAMC -> ID AMC1 .
-    (24) IDORAMC -> ID AMC1 .
-
-    EIN             reduce using rule 26 (EIDORAMC -> ID AMC1 .)
-    AUS             reduce using rule 26 (EIDORAMC -> ID AMC1 .)
-    GSUB            reduce using rule 26 (EIDORAMC -> ID AMC1 .)
-    WENN            reduce using rule 26 (EIDORAMC -> ID AMC1 .)
-    WAHREND         reduce using rule 26 (EIDORAMC -> ID AMC1 .)
-    TUN             reduce using rule 26 (EIDORAMC -> ID AMC1 .)
-    ID              reduce using rule 26 (EIDORAMC -> ID AMC1 .)
-    SCHLUSS         reduce using rule 26 (EIDORAMC -> ID AMC1 .)
-    RUKKHER         reduce using rule 26 (EIDORAMC -> ID AMC1 .)
-    ENDE            reduce using rule 26 (EIDORAMC -> ID AMC1 .)
-    SWENN           reduce using rule 26 (EIDORAMC -> ID AMC1 .)
-    SONNST          reduce using rule 26 (EIDORAMC -> ID AMC1 .)
-    COMMA           reduce using rule 26 (EIDORAMC -> ID AMC1 .)
-    RPAREN          reduce using rule 26 (EIDORAMC -> ID AMC1 .)
-    PLUS            reduce using rule 24 (IDORAMC -> ID AMC1 .)
-    TIMES           reduce using rule 24 (IDORAMC -> ID AMC1 .)
-    MINUS           reduce using rule 24 (IDORAMC -> ID AMC1 .)
-    DIVIDE          reduce using rule 24 (IDORAMC -> ID AMC1 .)
-    MODULO          reduce using rule 24 (IDORAMC -> ID AMC1 .)
-
-
-state 83
-
-    (16) S0 -> EIN LPAREN IDORAMC INPUT . RPAREN
-
-    RPAREN          shift and go to state 105
-
-
-state 84
-
     (56) INPUT -> COMMA . IDORAMC INPUT
-    (23) IDORAMC -> . ID
-    (24) IDORAMC -> . ID AMC1
+    (36) IDORAMC -> . ID
+    (37) IDORAMC -> . ID AMC1
 
     ID              shift and go to state 26
 
-    IDORAMC                        shift and go to state 106
+    IDORAMC                        shift and go to state 102
 
-state 85
+state 80
 
-    (17) S0 -> AUS LPAREN E OUTPUT . RPAREN
+    (17) S0 -> AUS LPAREN EXP OUTPUT . RPAREN
 
-    RPAREN          shift and go to state 107
+    RPAREN          shift and go to state 103
 
 
-state 86
+state 81
 
-    (58) OUTPUT -> COMMA . E OUTPUT
-    (43) E -> . VALUE
-    (44) E -> . FLT
-    (45) E -> . STR
-    (46) E -> . EIDORAMC
-    (47) E -> . VALUE OPERATOR E
-    (48) E -> . FLT OPERATOR E
-    (49) E -> . STR OPERATOR E
-    (50) E -> . IDORAMC OPERATOR E
-    (25) EIDORAMC -> . ID
-    (26) EIDORAMC -> . ID AMC1
-    (23) IDORAMC -> . ID
-    (24) IDORAMC -> . ID AMC1
+    (58) OUTPUT -> COMMA . EXP OUTPUT
+    (35) EXP -> .
 
-    VALUE           shift and go to state 54
-    FLT             shift and go to state 55
-    STR             shift and go to state 56
-    ID              shift and go to state 58
+    COMMA           reduce using rule 35 (EXP -> .)
+    RPAREN          reduce using rule 35 (EXP -> .)
 
-    E                              shift and go to state 108
-    EIDORAMC                       shift and go to state 57
-    IDORAMC                        shift and go to state 52
+    EXP                            shift and go to state 104
 
-state 87
+state 82
 
     (65) AMC1 -> LBRKT VALUE RBRKT . AMC2
     (67) AMC1 -> LBRKT VALUE RBRKT .
@@ -1610,23 +1642,6 @@ state 87
   ! reduce/reduce conflict for DIM resolved using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
   ! reduce/reduce conflict for SUB resolved using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
   ! reduce/reduce conflict for BEGIN resolved using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for EIN resolved using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for AUS resolved using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for GSUB resolved using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for WENN resolved using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for WAHREND resolved using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for TUN resolved using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for ID resolved using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for SCHLUSS resolved using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for RUKKHER resolved using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for ENDE resolved using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for SWENN resolved using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for SONNST resolved using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for PLUS resolved using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for TIMES resolved using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for MINUS resolved using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for DIVIDE resolved using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for MODULO resolved using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
     ASSIGN          reduce using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
     COMMA           reduce using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
     RPAREN          reduce using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
@@ -1639,24 +1654,7 @@ state 87
     DIM             reduce using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
     SUB             reduce using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
     BEGIN           reduce using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-    EIN             reduce using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-    AUS             reduce using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-    GSUB            reduce using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-    WENN            reduce using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-    WAHREND         reduce using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-    TUN             reduce using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-    ID              reduce using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-    SCHLUSS         reduce using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-    RUKKHER         reduce using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-    ENDE            reduce using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-    SWENN           reduce using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-    SONNST          reduce using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-    PLUS            reduce using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-    TIMES           reduce using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-    MINUS           reduce using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-    DIVIDE          reduce using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-    MODULO          reduce using rule 67 (AMC1 -> LBRKT VALUE RBRKT .)
-    LBRKT           shift and go to state 109
+    LBRKT           shift and go to state 105
 
   ! ASSIGN          [ reduce using rule 74 (AMC2 -> .) ]
   ! COMMA           [ reduce using rule 74 (AMC2 -> .) ]
@@ -1670,27 +1668,10 @@ state 87
   ! DIM             [ reduce using rule 74 (AMC2 -> .) ]
   ! SUB             [ reduce using rule 74 (AMC2 -> .) ]
   ! BEGIN           [ reduce using rule 74 (AMC2 -> .) ]
-  ! EIN             [ reduce using rule 74 (AMC2 -> .) ]
-  ! AUS             [ reduce using rule 74 (AMC2 -> .) ]
-  ! GSUB            [ reduce using rule 74 (AMC2 -> .) ]
-  ! WENN            [ reduce using rule 74 (AMC2 -> .) ]
-  ! WAHREND         [ reduce using rule 74 (AMC2 -> .) ]
-  ! TUN             [ reduce using rule 74 (AMC2 -> .) ]
-  ! ID              [ reduce using rule 74 (AMC2 -> .) ]
-  ! SCHLUSS         [ reduce using rule 74 (AMC2 -> .) ]
-  ! RUKKHER         [ reduce using rule 74 (AMC2 -> .) ]
-  ! ENDE            [ reduce using rule 74 (AMC2 -> .) ]
-  ! SWENN           [ reduce using rule 74 (AMC2 -> .) ]
-  ! SONNST          [ reduce using rule 74 (AMC2 -> .) ]
-  ! PLUS            [ reduce using rule 74 (AMC2 -> .) ]
-  ! TIMES           [ reduce using rule 74 (AMC2 -> .) ]
-  ! MINUS           [ reduce using rule 74 (AMC2 -> .) ]
-  ! DIVIDE          [ reduce using rule 74 (AMC2 -> .) ]
-  ! MODULO          [ reduce using rule 74 (AMC2 -> .) ]
 
-    AMC2                           shift and go to state 110
+    AMC2                           shift and go to state 106
 
-state 88
+state 83
 
     (66) AMC1 -> LBRKT ID RBRKT . AMC2
     (68) AMC1 -> LBRKT ID RBRKT .
@@ -1712,23 +1693,6 @@ state 88
   ! reduce/reduce conflict for DIM resolved using rule 68 (AMC1 -> LBRKT ID RBRKT .)
   ! reduce/reduce conflict for SUB resolved using rule 68 (AMC1 -> LBRKT ID RBRKT .)
   ! reduce/reduce conflict for BEGIN resolved using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for EIN resolved using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for AUS resolved using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for GSUB resolved using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for WENN resolved using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for WAHREND resolved using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for TUN resolved using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for ID resolved using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for SCHLUSS resolved using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for RUKKHER resolved using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for ENDE resolved using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for SWENN resolved using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for SONNST resolved using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for PLUS resolved using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for TIMES resolved using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for MINUS resolved using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for DIVIDE resolved using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for MODULO resolved using rule 68 (AMC1 -> LBRKT ID RBRKT .)
     ASSIGN          reduce using rule 68 (AMC1 -> LBRKT ID RBRKT .)
     COMMA           reduce using rule 68 (AMC1 -> LBRKT ID RBRKT .)
     RPAREN          reduce using rule 68 (AMC1 -> LBRKT ID RBRKT .)
@@ -1741,24 +1705,7 @@ state 88
     DIM             reduce using rule 68 (AMC1 -> LBRKT ID RBRKT .)
     SUB             reduce using rule 68 (AMC1 -> LBRKT ID RBRKT .)
     BEGIN           reduce using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-    EIN             reduce using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-    AUS             reduce using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-    GSUB            reduce using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-    WENN            reduce using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-    WAHREND         reduce using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-    TUN             reduce using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-    ID              reduce using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-    SCHLUSS         reduce using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-    RUKKHER         reduce using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-    ENDE            reduce using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-    SWENN           reduce using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-    SONNST          reduce using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-    PLUS            reduce using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-    TIMES           reduce using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-    MINUS           reduce using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-    DIVIDE          reduce using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-    MODULO          reduce using rule 68 (AMC1 -> LBRKT ID RBRKT .)
-    LBRKT           shift and go to state 109
+    LBRKT           shift and go to state 105
 
   ! ASSIGN          [ reduce using rule 74 (AMC2 -> .) ]
   ! COMMA           [ reduce using rule 74 (AMC2 -> .) ]
@@ -1772,165 +1719,148 @@ state 88
   ! DIM             [ reduce using rule 74 (AMC2 -> .) ]
   ! SUB             [ reduce using rule 74 (AMC2 -> .) ]
   ! BEGIN           [ reduce using rule 74 (AMC2 -> .) ]
-  ! EIN             [ reduce using rule 74 (AMC2 -> .) ]
-  ! AUS             [ reduce using rule 74 (AMC2 -> .) ]
-  ! GSUB            [ reduce using rule 74 (AMC2 -> .) ]
-  ! WENN            [ reduce using rule 74 (AMC2 -> .) ]
-  ! WAHREND         [ reduce using rule 74 (AMC2 -> .) ]
-  ! TUN             [ reduce using rule 74 (AMC2 -> .) ]
-  ! ID              [ reduce using rule 74 (AMC2 -> .) ]
-  ! SCHLUSS         [ reduce using rule 74 (AMC2 -> .) ]
-  ! RUKKHER         [ reduce using rule 74 (AMC2 -> .) ]
-  ! ENDE            [ reduce using rule 74 (AMC2 -> .) ]
-  ! SWENN           [ reduce using rule 74 (AMC2 -> .) ]
-  ! SONNST          [ reduce using rule 74 (AMC2 -> .) ]
-  ! PLUS            [ reduce using rule 74 (AMC2 -> .) ]
-  ! TIMES           [ reduce using rule 74 (AMC2 -> .) ]
-  ! MINUS           [ reduce using rule 74 (AMC2 -> .) ]
-  ! DIVIDE          [ reduce using rule 74 (AMC2 -> .) ]
-  ! MODULO          [ reduce using rule 74 (AMC2 -> .) ]
 
-    AMC2                           shift and go to state 111
+    AMC2                           shift and go to state 107
 
-state 89
+state 84
 
     (19) S0 -> WENN CONDITION DANN S . SW SD ENDE
-    (39) SW -> . SWENN CONDITION DANN S SW
-    (40) SW -> .
+    (52) SW -> . SWENN CONDITION DANN S SW
+    (53) SW -> .
 
-    SWENN           shift and go to state 113
-    SONNST          reduce using rule 40 (SW -> .)
-    ENDE            reduce using rule 40 (SW -> .)
+    SWENN           shift and go to state 109
+    SONNST          reduce using rule 53 (SW -> .)
+    ENDE            reduce using rule 53 (SW -> .)
 
-    SW                             shift and go to state 112
+    SW                             shift and go to state 108
 
-state 90
+state 85
 
-    (28) CONDITION -> CONDITION AND CONDITION .
-    (28) CONDITION -> CONDITION . AND CONDITION
-    (29) CONDITION -> CONDITION . OR CONDITION
-
-  ! shift/reduce conflict for AND resolved as shift
-  ! shift/reduce conflict for OR resolved as shift
-    DANN            reduce using rule 28 (CONDITION -> CONDITION AND CONDITION .)
-    EIN             reduce using rule 28 (CONDITION -> CONDITION AND CONDITION .)
-    AUS             reduce using rule 28 (CONDITION -> CONDITION AND CONDITION .)
-    GSUB            reduce using rule 28 (CONDITION -> CONDITION AND CONDITION .)
-    WENN            reduce using rule 28 (CONDITION -> CONDITION AND CONDITION .)
-    WAHREND         reduce using rule 28 (CONDITION -> CONDITION AND CONDITION .)
-    TUN             reduce using rule 28 (CONDITION -> CONDITION AND CONDITION .)
-    ID              reduce using rule 28 (CONDITION -> CONDITION AND CONDITION .)
-    ENDE            reduce using rule 28 (CONDITION -> CONDITION AND CONDITION .)
-    SCHLUSS         reduce using rule 28 (CONDITION -> CONDITION AND CONDITION .)
-    RUKKHER         reduce using rule 28 (CONDITION -> CONDITION AND CONDITION .)
-    SWENN           reduce using rule 28 (CONDITION -> CONDITION AND CONDITION .)
-    SONNST          reduce using rule 28 (CONDITION -> CONDITION AND CONDITION .)
-    AND             shift and go to state 64
-    OR              shift and go to state 65
-
-  ! AND             [ reduce using rule 28 (CONDITION -> CONDITION AND CONDITION .) ]
-  ! OR              [ reduce using rule 28 (CONDITION -> CONDITION AND CONDITION .) ]
-
-
-state 91
-
-    (29) CONDITION -> CONDITION OR CONDITION .
-    (28) CONDITION -> CONDITION . AND CONDITION
-    (29) CONDITION -> CONDITION . OR CONDITION
+    (41) CONDITION -> CONDITION AND CONDITION .
+    (41) CONDITION -> CONDITION . AND CONDITION
+    (42) CONDITION -> CONDITION . OR CONDITION
 
   ! shift/reduce conflict for AND resolved as shift
   ! shift/reduce conflict for OR resolved as shift
-    DANN            reduce using rule 29 (CONDITION -> CONDITION OR CONDITION .)
-    EIN             reduce using rule 29 (CONDITION -> CONDITION OR CONDITION .)
-    AUS             reduce using rule 29 (CONDITION -> CONDITION OR CONDITION .)
-    GSUB            reduce using rule 29 (CONDITION -> CONDITION OR CONDITION .)
-    WENN            reduce using rule 29 (CONDITION -> CONDITION OR CONDITION .)
-    WAHREND         reduce using rule 29 (CONDITION -> CONDITION OR CONDITION .)
-    TUN             reduce using rule 29 (CONDITION -> CONDITION OR CONDITION .)
-    ID              reduce using rule 29 (CONDITION -> CONDITION OR CONDITION .)
-    ENDE            reduce using rule 29 (CONDITION -> CONDITION OR CONDITION .)
-    SCHLUSS         reduce using rule 29 (CONDITION -> CONDITION OR CONDITION .)
-    RUKKHER         reduce using rule 29 (CONDITION -> CONDITION OR CONDITION .)
-    SWENN           reduce using rule 29 (CONDITION -> CONDITION OR CONDITION .)
-    SONNST          reduce using rule 29 (CONDITION -> CONDITION OR CONDITION .)
+    DANN            reduce using rule 41 (CONDITION -> CONDITION AND CONDITION .)
+    EIN             reduce using rule 41 (CONDITION -> CONDITION AND CONDITION .)
+    AUS             reduce using rule 41 (CONDITION -> CONDITION AND CONDITION .)
+    GSUB            reduce using rule 41 (CONDITION -> CONDITION AND CONDITION .)
+    WENN            reduce using rule 41 (CONDITION -> CONDITION AND CONDITION .)
+    WAHREND         reduce using rule 41 (CONDITION -> CONDITION AND CONDITION .)
+    TUN             reduce using rule 41 (CONDITION -> CONDITION AND CONDITION .)
+    ID              reduce using rule 41 (CONDITION -> CONDITION AND CONDITION .)
+    ENDE            reduce using rule 41 (CONDITION -> CONDITION AND CONDITION .)
+    SCHLUSS         reduce using rule 41 (CONDITION -> CONDITION AND CONDITION .)
+    RUKKHER         reduce using rule 41 (CONDITION -> CONDITION AND CONDITION .)
+    SWENN           reduce using rule 41 (CONDITION -> CONDITION AND CONDITION .)
+    SONNST          reduce using rule 41 (CONDITION -> CONDITION AND CONDITION .)
     AND             shift and go to state 64
     OR              shift and go to state 65
 
-  ! AND             [ reduce using rule 29 (CONDITION -> CONDITION OR CONDITION .) ]
-  ! OR              [ reduce using rule 29 (CONDITION -> CONDITION OR CONDITION .) ]
+  ! AND             [ reduce using rule 41 (CONDITION -> CONDITION AND CONDITION .) ]
+  ! OR              [ reduce using rule 41 (CONDITION -> CONDITION AND CONDITION .) ]
 
 
-state 92
+state 86
 
-    (27) CONDITION -> LPAREN CMP COMPARATOR . CMP RPAREN
-    (30) CMP -> . VALUE
-    (31) CMP -> . IDORAMC
-    (32) CMP -> . FLT
-    (23) IDORAMC -> . ID
-    (24) IDORAMC -> . ID AMC1
+    (42) CONDITION -> CONDITION OR CONDITION .
+    (41) CONDITION -> CONDITION . AND CONDITION
+    (42) CONDITION -> CONDITION . OR CONDITION
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+    DANN            reduce using rule 42 (CONDITION -> CONDITION OR CONDITION .)
+    EIN             reduce using rule 42 (CONDITION -> CONDITION OR CONDITION .)
+    AUS             reduce using rule 42 (CONDITION -> CONDITION OR CONDITION .)
+    GSUB            reduce using rule 42 (CONDITION -> CONDITION OR CONDITION .)
+    WENN            reduce using rule 42 (CONDITION -> CONDITION OR CONDITION .)
+    WAHREND         reduce using rule 42 (CONDITION -> CONDITION OR CONDITION .)
+    TUN             reduce using rule 42 (CONDITION -> CONDITION OR CONDITION .)
+    ID              reduce using rule 42 (CONDITION -> CONDITION OR CONDITION .)
+    ENDE            reduce using rule 42 (CONDITION -> CONDITION OR CONDITION .)
+    SCHLUSS         reduce using rule 42 (CONDITION -> CONDITION OR CONDITION .)
+    RUKKHER         reduce using rule 42 (CONDITION -> CONDITION OR CONDITION .)
+    SWENN           reduce using rule 42 (CONDITION -> CONDITION OR CONDITION .)
+    SONNST          reduce using rule 42 (CONDITION -> CONDITION OR CONDITION .)
+    AND             shift and go to state 64
+    OR              shift and go to state 65
+
+  ! AND             [ reduce using rule 42 (CONDITION -> CONDITION OR CONDITION .) ]
+  ! OR              [ reduce using rule 42 (CONDITION -> CONDITION OR CONDITION .) ]
+
+
+state 87
+
+    (40) CONDITION -> LPAREN CMP COMPARATOR . CMP RPAREN
+    (43) CMP -> . VALUE
+    (44) CMP -> . IDORAMC
+    (45) CMP -> . FLT
+    (36) IDORAMC -> . ID
+    (37) IDORAMC -> . ID AMC1
 
     VALUE           shift and go to state 67
     FLT             shift and go to state 69
     ID              shift and go to state 26
 
-    CMP                            shift and go to state 114
+    CMP                            shift and go to state 110
     IDORAMC                        shift and go to state 68
+
+state 88
+
+    (46) COMPARATOR -> GT .
+
+    VALUE           reduce using rule 46 (COMPARATOR -> GT .)
+    FLT             reduce using rule 46 (COMPARATOR -> GT .)
+    ID              reduce using rule 46 (COMPARATOR -> GT .)
+
+
+state 89
+
+    (47) COMPARATOR -> GE .
+
+    VALUE           reduce using rule 47 (COMPARATOR -> GE .)
+    FLT             reduce using rule 47 (COMPARATOR -> GE .)
+    ID              reduce using rule 47 (COMPARATOR -> GE .)
+
+
+state 90
+
+    (48) COMPARATOR -> EQ .
+
+    VALUE           reduce using rule 48 (COMPARATOR -> EQ .)
+    FLT             reduce using rule 48 (COMPARATOR -> EQ .)
+    ID              reduce using rule 48 (COMPARATOR -> EQ .)
+
+
+state 91
+
+    (49) COMPARATOR -> NE .
+
+    VALUE           reduce using rule 49 (COMPARATOR -> NE .)
+    FLT             reduce using rule 49 (COMPARATOR -> NE .)
+    ID              reduce using rule 49 (COMPARATOR -> NE .)
+
+
+state 92
+
+    (50) COMPARATOR -> LE .
+
+    VALUE           reduce using rule 50 (COMPARATOR -> LE .)
+    FLT             reduce using rule 50 (COMPARATOR -> LE .)
+    ID              reduce using rule 50 (COMPARATOR -> LE .)
+
 
 state 93
 
-    (33) COMPARATOR -> GT .
+    (51) COMPARATOR -> LT .
 
-    VALUE           reduce using rule 33 (COMPARATOR -> GT .)
-    FLT             reduce using rule 33 (COMPARATOR -> GT .)
-    ID              reduce using rule 33 (COMPARATOR -> GT .)
+    VALUE           reduce using rule 51 (COMPARATOR -> LT .)
+    FLT             reduce using rule 51 (COMPARATOR -> LT .)
+    ID              reduce using rule 51 (COMPARATOR -> LT .)
 
 
 state 94
-
-    (34) COMPARATOR -> GE .
-
-    VALUE           reduce using rule 34 (COMPARATOR -> GE .)
-    FLT             reduce using rule 34 (COMPARATOR -> GE .)
-    ID              reduce using rule 34 (COMPARATOR -> GE .)
-
-
-state 95
-
-    (35) COMPARATOR -> EQ .
-
-    VALUE           reduce using rule 35 (COMPARATOR -> EQ .)
-    FLT             reduce using rule 35 (COMPARATOR -> EQ .)
-    ID              reduce using rule 35 (COMPARATOR -> EQ .)
-
-
-state 96
-
-    (36) COMPARATOR -> NE .
-
-    VALUE           reduce using rule 36 (COMPARATOR -> NE .)
-    FLT             reduce using rule 36 (COMPARATOR -> NE .)
-    ID              reduce using rule 36 (COMPARATOR -> NE .)
-
-
-state 97
-
-    (37) COMPARATOR -> LE .
-
-    VALUE           reduce using rule 37 (COMPARATOR -> LE .)
-    FLT             reduce using rule 37 (COMPARATOR -> LE .)
-    ID              reduce using rule 37 (COMPARATOR -> LE .)
-
-
-state 98
-
-    (38) COMPARATOR -> LT .
-
-    VALUE           reduce using rule 38 (COMPARATOR -> LT .)
-    FLT             reduce using rule 38 (COMPARATOR -> LT .)
-    ID              reduce using rule 38 (COMPARATOR -> LT .)
-
-
-state 99
 
     (20) S0 -> WAHREND CONDITION S ENDE .
 
@@ -1948,11 +1878,11 @@ state 99
     SONNST          reduce using rule 20 (S0 -> WAHREND CONDITION S ENDE .)
 
 
-state 100
+state 95
 
     (21) S0 -> TUN S WAHREND CONDITION .
-    (28) CONDITION -> CONDITION . AND CONDITION
-    (29) CONDITION -> CONDITION . OR CONDITION
+    (41) CONDITION -> CONDITION . AND CONDITION
+    (42) CONDITION -> CONDITION . OR CONDITION
 
     EIN             reduce using rule 21 (S0 -> TUN S WAHREND CONDITION .)
     AUS             reduce using rule 21 (S0 -> TUN S WAHREND CONDITION .)
@@ -1970,87 +1900,126 @@ state 100
     OR              shift and go to state 65
 
 
+state 96
+
+    (24) E -> E PLUS T .
+    (27) T -> T . TIMES F
+    (28) T -> T . DIVIDE F
+
+    PLUS            reduce using rule 24 (E -> E PLUS T .)
+    MINUS           reduce using rule 24 (E -> E PLUS T .)
+    EIN             reduce using rule 24 (E -> E PLUS T .)
+    AUS             reduce using rule 24 (E -> E PLUS T .)
+    GSUB            reduce using rule 24 (E -> E PLUS T .)
+    WENN            reduce using rule 24 (E -> E PLUS T .)
+    WAHREND         reduce using rule 24 (E -> E PLUS T .)
+    TUN             reduce using rule 24 (E -> E PLUS T .)
+    ID              reduce using rule 24 (E -> E PLUS T .)
+    SCHLUSS         reduce using rule 24 (E -> E PLUS T .)
+    RUKKHER         reduce using rule 24 (E -> E PLUS T .)
+    ENDE            reduce using rule 24 (E -> E PLUS T .)
+    SWENN           reduce using rule 24 (E -> E PLUS T .)
+    SONNST          reduce using rule 24 (E -> E PLUS T .)
+    RPAREN          reduce using rule 24 (E -> E PLUS T .)
+    TIMES           shift and go to state 75
+    DIVIDE          shift and go to state 76
+
+
+state 97
+
+    (25) E -> E MINUS T .
+    (27) T -> T . TIMES F
+    (28) T -> T . DIVIDE F
+
+    PLUS            reduce using rule 25 (E -> E MINUS T .)
+    MINUS           reduce using rule 25 (E -> E MINUS T .)
+    EIN             reduce using rule 25 (E -> E MINUS T .)
+    AUS             reduce using rule 25 (E -> E MINUS T .)
+    GSUB            reduce using rule 25 (E -> E MINUS T .)
+    WENN            reduce using rule 25 (E -> E MINUS T .)
+    WAHREND         reduce using rule 25 (E -> E MINUS T .)
+    TUN             reduce using rule 25 (E -> E MINUS T .)
+    ID              reduce using rule 25 (E -> E MINUS T .)
+    SCHLUSS         reduce using rule 25 (E -> E MINUS T .)
+    RUKKHER         reduce using rule 25 (E -> E MINUS T .)
+    ENDE            reduce using rule 25 (E -> E MINUS T .)
+    SWENN           reduce using rule 25 (E -> E MINUS T .)
+    SONNST          reduce using rule 25 (E -> E MINUS T .)
+    RPAREN          reduce using rule 25 (E -> E MINUS T .)
+    TIMES           shift and go to state 75
+    DIVIDE          shift and go to state 76
+
+
+state 98
+
+    (27) T -> T TIMES F .
+
+    TIMES           reduce using rule 27 (T -> T TIMES F .)
+    DIVIDE          reduce using rule 27 (T -> T TIMES F .)
+    PLUS            reduce using rule 27 (T -> T TIMES F .)
+    MINUS           reduce using rule 27 (T -> T TIMES F .)
+    EIN             reduce using rule 27 (T -> T TIMES F .)
+    AUS             reduce using rule 27 (T -> T TIMES F .)
+    GSUB            reduce using rule 27 (T -> T TIMES F .)
+    WENN            reduce using rule 27 (T -> T TIMES F .)
+    WAHREND         reduce using rule 27 (T -> T TIMES F .)
+    TUN             reduce using rule 27 (T -> T TIMES F .)
+    ID              reduce using rule 27 (T -> T TIMES F .)
+    SCHLUSS         reduce using rule 27 (T -> T TIMES F .)
+    RUKKHER         reduce using rule 27 (T -> T TIMES F .)
+    ENDE            reduce using rule 27 (T -> T TIMES F .)
+    SWENN           reduce using rule 27 (T -> T TIMES F .)
+    SONNST          reduce using rule 27 (T -> T TIMES F .)
+    RPAREN          reduce using rule 27 (T -> T TIMES F .)
+
+
+state 99
+
+    (28) T -> T DIVIDE F .
+
+    TIMES           reduce using rule 28 (T -> T DIVIDE F .)
+    DIVIDE          reduce using rule 28 (T -> T DIVIDE F .)
+    PLUS            reduce using rule 28 (T -> T DIVIDE F .)
+    MINUS           reduce using rule 28 (T -> T DIVIDE F .)
+    EIN             reduce using rule 28 (T -> T DIVIDE F .)
+    AUS             reduce using rule 28 (T -> T DIVIDE F .)
+    GSUB            reduce using rule 28 (T -> T DIVIDE F .)
+    WENN            reduce using rule 28 (T -> T DIVIDE F .)
+    WAHREND         reduce using rule 28 (T -> T DIVIDE F .)
+    TUN             reduce using rule 28 (T -> T DIVIDE F .)
+    ID              reduce using rule 28 (T -> T DIVIDE F .)
+    SCHLUSS         reduce using rule 28 (T -> T DIVIDE F .)
+    RUKKHER         reduce using rule 28 (T -> T DIVIDE F .)
+    ENDE            reduce using rule 28 (T -> T DIVIDE F .)
+    SWENN           reduce using rule 28 (T -> T DIVIDE F .)
+    SONNST          reduce using rule 28 (T -> T DIVIDE F .)
+    RPAREN          reduce using rule 28 (T -> T DIVIDE F .)
+
+
+state 100
+
+    (33) F -> LPAREN E RPAREN .
+
+    TIMES           reduce using rule 33 (F -> LPAREN E RPAREN .)
+    DIVIDE          reduce using rule 33 (F -> LPAREN E RPAREN .)
+    PLUS            reduce using rule 33 (F -> LPAREN E RPAREN .)
+    MINUS           reduce using rule 33 (F -> LPAREN E RPAREN .)
+    EIN             reduce using rule 33 (F -> LPAREN E RPAREN .)
+    AUS             reduce using rule 33 (F -> LPAREN E RPAREN .)
+    GSUB            reduce using rule 33 (F -> LPAREN E RPAREN .)
+    WENN            reduce using rule 33 (F -> LPAREN E RPAREN .)
+    WAHREND         reduce using rule 33 (F -> LPAREN E RPAREN .)
+    TUN             reduce using rule 33 (F -> LPAREN E RPAREN .)
+    ID              reduce using rule 33 (F -> LPAREN E RPAREN .)
+    SCHLUSS         reduce using rule 33 (F -> LPAREN E RPAREN .)
+    RUKKHER         reduce using rule 33 (F -> LPAREN E RPAREN .)
+    ENDE            reduce using rule 33 (F -> LPAREN E RPAREN .)
+    SWENN           reduce using rule 33 (F -> LPAREN E RPAREN .)
+    SONNST          reduce using rule 33 (F -> LPAREN E RPAREN .)
+    RPAREN          reduce using rule 33 (F -> LPAREN E RPAREN .)
+
+
 state 101
-
-    (50) E -> IDORAMC OPERATOR E .
-
-    EIN             reduce using rule 50 (E -> IDORAMC OPERATOR E .)
-    AUS             reduce using rule 50 (E -> IDORAMC OPERATOR E .)
-    GSUB            reduce using rule 50 (E -> IDORAMC OPERATOR E .)
-    WENN            reduce using rule 50 (E -> IDORAMC OPERATOR E .)
-    WAHREND         reduce using rule 50 (E -> IDORAMC OPERATOR E .)
-    TUN             reduce using rule 50 (E -> IDORAMC OPERATOR E .)
-    ID              reduce using rule 50 (E -> IDORAMC OPERATOR E .)
-    SCHLUSS         reduce using rule 50 (E -> IDORAMC OPERATOR E .)
-    RUKKHER         reduce using rule 50 (E -> IDORAMC OPERATOR E .)
-    ENDE            reduce using rule 50 (E -> IDORAMC OPERATOR E .)
-    SWENN           reduce using rule 50 (E -> IDORAMC OPERATOR E .)
-    SONNST          reduce using rule 50 (E -> IDORAMC OPERATOR E .)
-    COMMA           reduce using rule 50 (E -> IDORAMC OPERATOR E .)
-    RPAREN          reduce using rule 50 (E -> IDORAMC OPERATOR E .)
-
-
-state 102
-
-    (47) E -> VALUE OPERATOR E .
-
-    EIN             reduce using rule 47 (E -> VALUE OPERATOR E .)
-    AUS             reduce using rule 47 (E -> VALUE OPERATOR E .)
-    GSUB            reduce using rule 47 (E -> VALUE OPERATOR E .)
-    WENN            reduce using rule 47 (E -> VALUE OPERATOR E .)
-    WAHREND         reduce using rule 47 (E -> VALUE OPERATOR E .)
-    TUN             reduce using rule 47 (E -> VALUE OPERATOR E .)
-    ID              reduce using rule 47 (E -> VALUE OPERATOR E .)
-    SCHLUSS         reduce using rule 47 (E -> VALUE OPERATOR E .)
-    RUKKHER         reduce using rule 47 (E -> VALUE OPERATOR E .)
-    ENDE            reduce using rule 47 (E -> VALUE OPERATOR E .)
-    SWENN           reduce using rule 47 (E -> VALUE OPERATOR E .)
-    SONNST          reduce using rule 47 (E -> VALUE OPERATOR E .)
-    COMMA           reduce using rule 47 (E -> VALUE OPERATOR E .)
-    RPAREN          reduce using rule 47 (E -> VALUE OPERATOR E .)
-
-
-state 103
-
-    (48) E -> FLT OPERATOR E .
-
-    EIN             reduce using rule 48 (E -> FLT OPERATOR E .)
-    AUS             reduce using rule 48 (E -> FLT OPERATOR E .)
-    GSUB            reduce using rule 48 (E -> FLT OPERATOR E .)
-    WENN            reduce using rule 48 (E -> FLT OPERATOR E .)
-    WAHREND         reduce using rule 48 (E -> FLT OPERATOR E .)
-    TUN             reduce using rule 48 (E -> FLT OPERATOR E .)
-    ID              reduce using rule 48 (E -> FLT OPERATOR E .)
-    SCHLUSS         reduce using rule 48 (E -> FLT OPERATOR E .)
-    RUKKHER         reduce using rule 48 (E -> FLT OPERATOR E .)
-    ENDE            reduce using rule 48 (E -> FLT OPERATOR E .)
-    SWENN           reduce using rule 48 (E -> FLT OPERATOR E .)
-    SONNST          reduce using rule 48 (E -> FLT OPERATOR E .)
-    COMMA           reduce using rule 48 (E -> FLT OPERATOR E .)
-    RPAREN          reduce using rule 48 (E -> FLT OPERATOR E .)
-
-
-state 104
-
-    (49) E -> STR OPERATOR E .
-
-    EIN             reduce using rule 49 (E -> STR OPERATOR E .)
-    AUS             reduce using rule 49 (E -> STR OPERATOR E .)
-    GSUB            reduce using rule 49 (E -> STR OPERATOR E .)
-    WENN            reduce using rule 49 (E -> STR OPERATOR E .)
-    WAHREND         reduce using rule 49 (E -> STR OPERATOR E .)
-    TUN             reduce using rule 49 (E -> STR OPERATOR E .)
-    ID              reduce using rule 49 (E -> STR OPERATOR E .)
-    SCHLUSS         reduce using rule 49 (E -> STR OPERATOR E .)
-    RUKKHER         reduce using rule 49 (E -> STR OPERATOR E .)
-    ENDE            reduce using rule 49 (E -> STR OPERATOR E .)
-    SWENN           reduce using rule 49 (E -> STR OPERATOR E .)
-    SONNST          reduce using rule 49 (E -> STR OPERATOR E .)
-    COMMA           reduce using rule 49 (E -> STR OPERATOR E .)
-    RPAREN          reduce using rule 49 (E -> STR OPERATOR E .)
-
-
-state 105
 
     (16) S0 -> EIN LPAREN IDORAMC INPUT RPAREN .
 
@@ -2068,58 +2037,58 @@ state 105
     SONNST          reduce using rule 16 (S0 -> EIN LPAREN IDORAMC INPUT RPAREN .)
 
 
-state 106
+state 102
 
     (56) INPUT -> COMMA IDORAMC . INPUT
     (56) INPUT -> . COMMA IDORAMC INPUT
     (57) INPUT -> .
 
-    COMMA           shift and go to state 84
+    COMMA           shift and go to state 79
     RPAREN          reduce using rule 57 (INPUT -> .)
 
-    INPUT                          shift and go to state 115
+    INPUT                          shift and go to state 111
 
-state 107
+state 103
 
-    (17) S0 -> AUS LPAREN E OUTPUT RPAREN .
+    (17) S0 -> AUS LPAREN EXP OUTPUT RPAREN .
 
-    EIN             reduce using rule 17 (S0 -> AUS LPAREN E OUTPUT RPAREN .)
-    AUS             reduce using rule 17 (S0 -> AUS LPAREN E OUTPUT RPAREN .)
-    GSUB            reduce using rule 17 (S0 -> AUS LPAREN E OUTPUT RPAREN .)
-    WENN            reduce using rule 17 (S0 -> AUS LPAREN E OUTPUT RPAREN .)
-    WAHREND         reduce using rule 17 (S0 -> AUS LPAREN E OUTPUT RPAREN .)
-    TUN             reduce using rule 17 (S0 -> AUS LPAREN E OUTPUT RPAREN .)
-    ID              reduce using rule 17 (S0 -> AUS LPAREN E OUTPUT RPAREN .)
-    SCHLUSS         reduce using rule 17 (S0 -> AUS LPAREN E OUTPUT RPAREN .)
-    RUKKHER         reduce using rule 17 (S0 -> AUS LPAREN E OUTPUT RPAREN .)
-    ENDE            reduce using rule 17 (S0 -> AUS LPAREN E OUTPUT RPAREN .)
-    SWENN           reduce using rule 17 (S0 -> AUS LPAREN E OUTPUT RPAREN .)
-    SONNST          reduce using rule 17 (S0 -> AUS LPAREN E OUTPUT RPAREN .)
+    EIN             reduce using rule 17 (S0 -> AUS LPAREN EXP OUTPUT RPAREN .)
+    AUS             reduce using rule 17 (S0 -> AUS LPAREN EXP OUTPUT RPAREN .)
+    GSUB            reduce using rule 17 (S0 -> AUS LPAREN EXP OUTPUT RPAREN .)
+    WENN            reduce using rule 17 (S0 -> AUS LPAREN EXP OUTPUT RPAREN .)
+    WAHREND         reduce using rule 17 (S0 -> AUS LPAREN EXP OUTPUT RPAREN .)
+    TUN             reduce using rule 17 (S0 -> AUS LPAREN EXP OUTPUT RPAREN .)
+    ID              reduce using rule 17 (S0 -> AUS LPAREN EXP OUTPUT RPAREN .)
+    SCHLUSS         reduce using rule 17 (S0 -> AUS LPAREN EXP OUTPUT RPAREN .)
+    RUKKHER         reduce using rule 17 (S0 -> AUS LPAREN EXP OUTPUT RPAREN .)
+    ENDE            reduce using rule 17 (S0 -> AUS LPAREN EXP OUTPUT RPAREN .)
+    SWENN           reduce using rule 17 (S0 -> AUS LPAREN EXP OUTPUT RPAREN .)
+    SONNST          reduce using rule 17 (S0 -> AUS LPAREN EXP OUTPUT RPAREN .)
 
 
-state 108
+state 104
 
-    (58) OUTPUT -> COMMA E . OUTPUT
-    (58) OUTPUT -> . COMMA E OUTPUT
+    (58) OUTPUT -> COMMA EXP . OUTPUT
+    (58) OUTPUT -> . COMMA EXP OUTPUT
     (59) OUTPUT -> .
 
-    COMMA           shift and go to state 86
+    COMMA           shift and go to state 81
     RPAREN          reduce using rule 59 (OUTPUT -> .)
 
-    OUTPUT                         shift and go to state 116
+    OUTPUT                         shift and go to state 112
 
-state 109
+state 105
 
     (70) AMC2 -> LBRKT . VALUE RBRKT AMC3
     (71) AMC2 -> LBRKT . ID RBRKT AMC3
     (72) AMC2 -> LBRKT . VALUE RBRKT
     (73) AMC2 -> LBRKT . ID RBRKT
 
-    VALUE           shift and go to state 117
-    ID              shift and go to state 118
+    VALUE           shift and go to state 113
+    ID              shift and go to state 114
 
 
-state 110
+state 106
 
     (65) AMC1 -> LBRKT VALUE RBRKT AMC2 .
 
@@ -2135,26 +2104,9 @@ state 110
     DIM             reduce using rule 65 (AMC1 -> LBRKT VALUE RBRKT AMC2 .)
     SUB             reduce using rule 65 (AMC1 -> LBRKT VALUE RBRKT AMC2 .)
     BEGIN           reduce using rule 65 (AMC1 -> LBRKT VALUE RBRKT AMC2 .)
-    EIN             reduce using rule 65 (AMC1 -> LBRKT VALUE RBRKT AMC2 .)
-    AUS             reduce using rule 65 (AMC1 -> LBRKT VALUE RBRKT AMC2 .)
-    GSUB            reduce using rule 65 (AMC1 -> LBRKT VALUE RBRKT AMC2 .)
-    WENN            reduce using rule 65 (AMC1 -> LBRKT VALUE RBRKT AMC2 .)
-    WAHREND         reduce using rule 65 (AMC1 -> LBRKT VALUE RBRKT AMC2 .)
-    TUN             reduce using rule 65 (AMC1 -> LBRKT VALUE RBRKT AMC2 .)
-    ID              reduce using rule 65 (AMC1 -> LBRKT VALUE RBRKT AMC2 .)
-    SCHLUSS         reduce using rule 65 (AMC1 -> LBRKT VALUE RBRKT AMC2 .)
-    RUKKHER         reduce using rule 65 (AMC1 -> LBRKT VALUE RBRKT AMC2 .)
-    ENDE            reduce using rule 65 (AMC1 -> LBRKT VALUE RBRKT AMC2 .)
-    SWENN           reduce using rule 65 (AMC1 -> LBRKT VALUE RBRKT AMC2 .)
-    SONNST          reduce using rule 65 (AMC1 -> LBRKT VALUE RBRKT AMC2 .)
-    PLUS            reduce using rule 65 (AMC1 -> LBRKT VALUE RBRKT AMC2 .)
-    TIMES           reduce using rule 65 (AMC1 -> LBRKT VALUE RBRKT AMC2 .)
-    MINUS           reduce using rule 65 (AMC1 -> LBRKT VALUE RBRKT AMC2 .)
-    DIVIDE          reduce using rule 65 (AMC1 -> LBRKT VALUE RBRKT AMC2 .)
-    MODULO          reduce using rule 65 (AMC1 -> LBRKT VALUE RBRKT AMC2 .)
 
 
-state 111
+state 107
 
     (66) AMC1 -> LBRKT ID RBRKT AMC2 .
 
@@ -2170,131 +2122,114 @@ state 111
     DIM             reduce using rule 66 (AMC1 -> LBRKT ID RBRKT AMC2 .)
     SUB             reduce using rule 66 (AMC1 -> LBRKT ID RBRKT AMC2 .)
     BEGIN           reduce using rule 66 (AMC1 -> LBRKT ID RBRKT AMC2 .)
-    EIN             reduce using rule 66 (AMC1 -> LBRKT ID RBRKT AMC2 .)
-    AUS             reduce using rule 66 (AMC1 -> LBRKT ID RBRKT AMC2 .)
-    GSUB            reduce using rule 66 (AMC1 -> LBRKT ID RBRKT AMC2 .)
-    WENN            reduce using rule 66 (AMC1 -> LBRKT ID RBRKT AMC2 .)
-    WAHREND         reduce using rule 66 (AMC1 -> LBRKT ID RBRKT AMC2 .)
-    TUN             reduce using rule 66 (AMC1 -> LBRKT ID RBRKT AMC2 .)
-    ID              reduce using rule 66 (AMC1 -> LBRKT ID RBRKT AMC2 .)
-    SCHLUSS         reduce using rule 66 (AMC1 -> LBRKT ID RBRKT AMC2 .)
-    RUKKHER         reduce using rule 66 (AMC1 -> LBRKT ID RBRKT AMC2 .)
-    ENDE            reduce using rule 66 (AMC1 -> LBRKT ID RBRKT AMC2 .)
-    SWENN           reduce using rule 66 (AMC1 -> LBRKT ID RBRKT AMC2 .)
-    SONNST          reduce using rule 66 (AMC1 -> LBRKT ID RBRKT AMC2 .)
-    PLUS            reduce using rule 66 (AMC1 -> LBRKT ID RBRKT AMC2 .)
-    TIMES           reduce using rule 66 (AMC1 -> LBRKT ID RBRKT AMC2 .)
-    MINUS           reduce using rule 66 (AMC1 -> LBRKT ID RBRKT AMC2 .)
-    DIVIDE          reduce using rule 66 (AMC1 -> LBRKT ID RBRKT AMC2 .)
-    MODULO          reduce using rule 66 (AMC1 -> LBRKT ID RBRKT AMC2 .)
 
 
-state 112
+state 108
 
     (19) S0 -> WENN CONDITION DANN S SW . SD ENDE
-    (41) SD -> . SONNST DANN S
-    (42) SD -> .
+    (54) SD -> . SONNST DANN S
+    (55) SD -> .
 
-    SONNST          shift and go to state 120
-    ENDE            reduce using rule 42 (SD -> .)
+    SONNST          shift and go to state 116
+    ENDE            reduce using rule 55 (SD -> .)
 
-    SD                             shift and go to state 119
+    SD                             shift and go to state 115
 
-state 113
+state 109
 
-    (39) SW -> SWENN . CONDITION DANN S SW
-    (27) CONDITION -> . LPAREN CMP COMPARATOR CMP RPAREN
-    (28) CONDITION -> . CONDITION AND CONDITION
-    (29) CONDITION -> . CONDITION OR CONDITION
+    (52) SW -> SWENN . CONDITION DANN S SW
+    (40) CONDITION -> . LPAREN CMP COMPARATOR CMP RPAREN
+    (41) CONDITION -> . CONDITION AND CONDITION
+    (42) CONDITION -> . CONDITION OR CONDITION
 
     LPAREN          shift and go to state 44
 
-    CONDITION                      shift and go to state 121
+    CONDITION                      shift and go to state 117
 
-state 114
+state 110
 
-    (27) CONDITION -> LPAREN CMP COMPARATOR CMP . RPAREN
+    (40) CONDITION -> LPAREN CMP COMPARATOR CMP . RPAREN
 
-    RPAREN          shift and go to state 122
+    RPAREN          shift and go to state 118
 
 
-state 115
+state 111
 
     (56) INPUT -> COMMA IDORAMC INPUT .
 
     RPAREN          reduce using rule 56 (INPUT -> COMMA IDORAMC INPUT .)
 
 
-state 116
+state 112
 
-    (58) OUTPUT -> COMMA E OUTPUT .
+    (58) OUTPUT -> COMMA EXP OUTPUT .
 
-    RPAREN          reduce using rule 58 (OUTPUT -> COMMA E OUTPUT .)
+    RPAREN          reduce using rule 58 (OUTPUT -> COMMA EXP OUTPUT .)
 
 
-state 117
+state 113
 
     (70) AMC2 -> LBRKT VALUE . RBRKT AMC3
     (72) AMC2 -> LBRKT VALUE . RBRKT
 
-    RBRKT           shift and go to state 123
+    RBRKT           shift and go to state 119
 
 
-state 118
+state 114
 
     (71) AMC2 -> LBRKT ID . RBRKT AMC3
     (73) AMC2 -> LBRKT ID . RBRKT
 
-    RBRKT           shift and go to state 124
+    RBRKT           shift and go to state 120
 
 
-state 119
+state 115
 
     (19) S0 -> WENN CONDITION DANN S SW SD . ENDE
 
-    ENDE            shift and go to state 125
+    ENDE            shift and go to state 121
 
 
-state 120
+state 116
 
-    (41) SD -> SONNST . DANN S
+    (54) SD -> SONNST . DANN S
 
-    DANN            shift and go to state 126
+    DANN            shift and go to state 122
 
 
-state 121
+state 117
 
-    (39) SW -> SWENN CONDITION . DANN S SW
-    (28) CONDITION -> CONDITION . AND CONDITION
-    (29) CONDITION -> CONDITION . OR CONDITION
+    (52) SW -> SWENN CONDITION . DANN S SW
+    (41) CONDITION -> CONDITION . AND CONDITION
+    (42) CONDITION -> CONDITION . OR CONDITION
 
-    DANN            shift and go to state 127
+    DANN            shift and go to state 123
     AND             shift and go to state 64
     OR              shift and go to state 65
 
 
-state 122
+state 118
 
-    (27) CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .
+    (40) CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .
 
-    DANN            reduce using rule 27 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
-    AND             reduce using rule 27 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
-    OR              reduce using rule 27 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
-    EIN             reduce using rule 27 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
-    AUS             reduce using rule 27 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
-    GSUB            reduce using rule 27 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
-    WENN            reduce using rule 27 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
-    WAHREND         reduce using rule 27 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
-    TUN             reduce using rule 27 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
-    ID              reduce using rule 27 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
-    ENDE            reduce using rule 27 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
-    SCHLUSS         reduce using rule 27 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
-    RUKKHER         reduce using rule 27 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
-    SWENN           reduce using rule 27 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
-    SONNST          reduce using rule 27 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
+    DANN            reduce using rule 40 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
+    AND             reduce using rule 40 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
+    OR              reduce using rule 40 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
+    EIN             reduce using rule 40 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
+    AUS             reduce using rule 40 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
+    GSUB            reduce using rule 40 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
+    WENN            reduce using rule 40 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
+    WAHREND         reduce using rule 40 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
+    TUN             reduce using rule 40 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
+    ID              reduce using rule 40 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
+    ENDE            reduce using rule 40 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
+    SCHLUSS         reduce using rule 40 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
+    RUKKHER         reduce using rule 40 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
+    SWENN           reduce using rule 40 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
+    SONNST          reduce using rule 40 (CONDITION -> LPAREN CMP COMPARATOR CMP RPAREN .)
 
 
-state 123
+state 119
 
     (70) AMC2 -> LBRKT VALUE RBRKT . AMC3
     (72) AMC2 -> LBRKT VALUE RBRKT .
@@ -2314,23 +2249,6 @@ state 123
   ! reduce/reduce conflict for DIM resolved using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
   ! reduce/reduce conflict for SUB resolved using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
   ! reduce/reduce conflict for BEGIN resolved using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for EIN resolved using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for AUS resolved using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for GSUB resolved using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for WENN resolved using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for WAHREND resolved using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for TUN resolved using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for ID resolved using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for SCHLUSS resolved using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for RUKKHER resolved using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for ENDE resolved using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for SWENN resolved using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for SONNST resolved using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for PLUS resolved using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for TIMES resolved using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for MINUS resolved using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for DIVIDE resolved using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-  ! reduce/reduce conflict for MODULO resolved using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
     ASSIGN          reduce using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
     COMMA           reduce using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
     RPAREN          reduce using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
@@ -2343,24 +2261,7 @@ state 123
     DIM             reduce using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
     SUB             reduce using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
     BEGIN           reduce using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-    EIN             reduce using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-    AUS             reduce using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-    GSUB            reduce using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-    WENN            reduce using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-    WAHREND         reduce using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-    TUN             reduce using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-    ID              reduce using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-    SCHLUSS         reduce using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-    RUKKHER         reduce using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-    ENDE            reduce using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-    SWENN           reduce using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-    SONNST          reduce using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-    PLUS            reduce using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-    TIMES           reduce using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-    MINUS           reduce using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-    DIVIDE          reduce using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-    MODULO          reduce using rule 72 (AMC2 -> LBRKT VALUE RBRKT .)
-    LBRKT           shift and go to state 128
+    LBRKT           shift and go to state 124
 
   ! ASSIGN          [ reduce using rule 77 (AMC3 -> .) ]
   ! COMMA           [ reduce using rule 77 (AMC3 -> .) ]
@@ -2374,27 +2275,10 @@ state 123
   ! DIM             [ reduce using rule 77 (AMC3 -> .) ]
   ! SUB             [ reduce using rule 77 (AMC3 -> .) ]
   ! BEGIN           [ reduce using rule 77 (AMC3 -> .) ]
-  ! EIN             [ reduce using rule 77 (AMC3 -> .) ]
-  ! AUS             [ reduce using rule 77 (AMC3 -> .) ]
-  ! GSUB            [ reduce using rule 77 (AMC3 -> .) ]
-  ! WENN            [ reduce using rule 77 (AMC3 -> .) ]
-  ! WAHREND         [ reduce using rule 77 (AMC3 -> .) ]
-  ! TUN             [ reduce using rule 77 (AMC3 -> .) ]
-  ! ID              [ reduce using rule 77 (AMC3 -> .) ]
-  ! SCHLUSS         [ reduce using rule 77 (AMC3 -> .) ]
-  ! RUKKHER         [ reduce using rule 77 (AMC3 -> .) ]
-  ! ENDE            [ reduce using rule 77 (AMC3 -> .) ]
-  ! SWENN           [ reduce using rule 77 (AMC3 -> .) ]
-  ! SONNST          [ reduce using rule 77 (AMC3 -> .) ]
-  ! PLUS            [ reduce using rule 77 (AMC3 -> .) ]
-  ! TIMES           [ reduce using rule 77 (AMC3 -> .) ]
-  ! MINUS           [ reduce using rule 77 (AMC3 -> .) ]
-  ! DIVIDE          [ reduce using rule 77 (AMC3 -> .) ]
-  ! MODULO          [ reduce using rule 77 (AMC3 -> .) ]
 
-    AMC3                           shift and go to state 129
+    AMC3                           shift and go to state 125
 
-state 124
+state 120
 
     (71) AMC2 -> LBRKT ID RBRKT . AMC3
     (73) AMC2 -> LBRKT ID RBRKT .
@@ -2414,23 +2298,6 @@ state 124
   ! reduce/reduce conflict for DIM resolved using rule 73 (AMC2 -> LBRKT ID RBRKT .)
   ! reduce/reduce conflict for SUB resolved using rule 73 (AMC2 -> LBRKT ID RBRKT .)
   ! reduce/reduce conflict for BEGIN resolved using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for EIN resolved using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for AUS resolved using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for GSUB resolved using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for WENN resolved using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for WAHREND resolved using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for TUN resolved using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for ID resolved using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for SCHLUSS resolved using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for RUKKHER resolved using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for ENDE resolved using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for SWENN resolved using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for SONNST resolved using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for PLUS resolved using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for TIMES resolved using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for MINUS resolved using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for DIVIDE resolved using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-  ! reduce/reduce conflict for MODULO resolved using rule 73 (AMC2 -> LBRKT ID RBRKT .)
     ASSIGN          reduce using rule 73 (AMC2 -> LBRKT ID RBRKT .)
     COMMA           reduce using rule 73 (AMC2 -> LBRKT ID RBRKT .)
     RPAREN          reduce using rule 73 (AMC2 -> LBRKT ID RBRKT .)
@@ -2443,24 +2310,7 @@ state 124
     DIM             reduce using rule 73 (AMC2 -> LBRKT ID RBRKT .)
     SUB             reduce using rule 73 (AMC2 -> LBRKT ID RBRKT .)
     BEGIN           reduce using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-    EIN             reduce using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-    AUS             reduce using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-    GSUB            reduce using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-    WENN            reduce using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-    WAHREND         reduce using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-    TUN             reduce using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-    ID              reduce using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-    SCHLUSS         reduce using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-    RUKKHER         reduce using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-    ENDE            reduce using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-    SWENN           reduce using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-    SONNST          reduce using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-    PLUS            reduce using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-    TIMES           reduce using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-    MINUS           reduce using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-    DIVIDE          reduce using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-    MODULO          reduce using rule 73 (AMC2 -> LBRKT ID RBRKT .)
-    LBRKT           shift and go to state 128
+    LBRKT           shift and go to state 124
 
   ! ASSIGN          [ reduce using rule 77 (AMC3 -> .) ]
   ! COMMA           [ reduce using rule 77 (AMC3 -> .) ]
@@ -2474,27 +2324,10 @@ state 124
   ! DIM             [ reduce using rule 77 (AMC3 -> .) ]
   ! SUB             [ reduce using rule 77 (AMC3 -> .) ]
   ! BEGIN           [ reduce using rule 77 (AMC3 -> .) ]
-  ! EIN             [ reduce using rule 77 (AMC3 -> .) ]
-  ! AUS             [ reduce using rule 77 (AMC3 -> .) ]
-  ! GSUB            [ reduce using rule 77 (AMC3 -> .) ]
-  ! WENN            [ reduce using rule 77 (AMC3 -> .) ]
-  ! WAHREND         [ reduce using rule 77 (AMC3 -> .) ]
-  ! TUN             [ reduce using rule 77 (AMC3 -> .) ]
-  ! ID              [ reduce using rule 77 (AMC3 -> .) ]
-  ! SCHLUSS         [ reduce using rule 77 (AMC3 -> .) ]
-  ! RUKKHER         [ reduce using rule 77 (AMC3 -> .) ]
-  ! ENDE            [ reduce using rule 77 (AMC3 -> .) ]
-  ! SWENN           [ reduce using rule 77 (AMC3 -> .) ]
-  ! SONNST          [ reduce using rule 77 (AMC3 -> .) ]
-  ! PLUS            [ reduce using rule 77 (AMC3 -> .) ]
-  ! TIMES           [ reduce using rule 77 (AMC3 -> .) ]
-  ! MINUS           [ reduce using rule 77 (AMC3 -> .) ]
-  ! DIVIDE          [ reduce using rule 77 (AMC3 -> .) ]
-  ! MODULO          [ reduce using rule 77 (AMC3 -> .) ]
 
-    AMC3                           shift and go to state 130
+    AMC3                           shift and go to state 126
 
-state 125
+state 121
 
     (19) S0 -> WENN CONDITION DANN S SW SD ENDE .
 
@@ -2512,21 +2345,21 @@ state 125
     SONNST          reduce using rule 19 (S0 -> WENN CONDITION DANN S SW SD ENDE .)
 
 
-state 126
+state 122
 
-    (41) SD -> SONNST DANN . S
+    (54) SD -> SONNST DANN . S
     (13) S -> . S0 S
     (14) S -> .
     (15) S0 -> . IDORAMC ASSIGN E
     (16) S0 -> . EIN LPAREN IDORAMC INPUT RPAREN
-    (17) S0 -> . AUS LPAREN E OUTPUT RPAREN
+    (17) S0 -> . AUS LPAREN EXP OUTPUT RPAREN
     (18) S0 -> . GSUB ID
     (19) S0 -> . WENN CONDITION DANN S SW SD ENDE
     (20) S0 -> . WAHREND CONDITION S ENDE
     (21) S0 -> . TUN S WAHREND CONDITION
     (22) S0 -> .
-    (23) IDORAMC -> . ID
-    (24) IDORAMC -> . ID AMC1
+    (36) IDORAMC -> . ID
+    (37) IDORAMC -> . ID AMC1
 
   ! shift/reduce conflict for EIN resolved as shift
   ! shift/reduce conflict for AUS resolved as shift
@@ -2554,25 +2387,25 @@ state 126
   ! ID              [ reduce using rule 22 (S0 -> .) ]
   ! ENDE            [ reduce using rule 22 (S0 -> .) ]
 
-    S                              shift and go to state 131
+    S                              shift and go to state 127
     S0                             shift and go to state 21
     IDORAMC                        shift and go to state 22
 
-state 127
+state 123
 
-    (39) SW -> SWENN CONDITION DANN . S SW
+    (52) SW -> SWENN CONDITION DANN . S SW
     (13) S -> . S0 S
     (14) S -> .
     (15) S0 -> . IDORAMC ASSIGN E
     (16) S0 -> . EIN LPAREN IDORAMC INPUT RPAREN
-    (17) S0 -> . AUS LPAREN E OUTPUT RPAREN
+    (17) S0 -> . AUS LPAREN EXP OUTPUT RPAREN
     (18) S0 -> . GSUB ID
     (19) S0 -> . WENN CONDITION DANN S SW SD ENDE
     (20) S0 -> . WAHREND CONDITION S ENDE
     (21) S0 -> . TUN S WAHREND CONDITION
     (22) S0 -> .
-    (23) IDORAMC -> . ID
-    (24) IDORAMC -> . ID AMC1
+    (36) IDORAMC -> . ID
+    (37) IDORAMC -> . ID AMC1
 
   ! shift/reduce conflict for EIN resolved as shift
   ! shift/reduce conflict for AUS resolved as shift
@@ -2606,20 +2439,20 @@ state 127
   ! SONNST          [ reduce using rule 22 (S0 -> .) ]
   ! ENDE            [ reduce using rule 22 (S0 -> .) ]
 
-    S                              shift and go to state 132
+    S                              shift and go to state 128
     S0                             shift and go to state 21
     IDORAMC                        shift and go to state 22
 
-state 128
+state 124
 
     (75) AMC3 -> LBRKT . VALUE RBRKT
     (76) AMC3 -> LBRKT . ID RBRKT
 
-    VALUE           shift and go to state 133
-    ID              shift and go to state 134
+    VALUE           shift and go to state 129
+    ID              shift and go to state 130
 
 
-state 129
+state 125
 
     (70) AMC2 -> LBRKT VALUE RBRKT AMC3 .
 
@@ -2635,26 +2468,9 @@ state 129
     DIM             reduce using rule 70 (AMC2 -> LBRKT VALUE RBRKT AMC3 .)
     SUB             reduce using rule 70 (AMC2 -> LBRKT VALUE RBRKT AMC3 .)
     BEGIN           reduce using rule 70 (AMC2 -> LBRKT VALUE RBRKT AMC3 .)
-    EIN             reduce using rule 70 (AMC2 -> LBRKT VALUE RBRKT AMC3 .)
-    AUS             reduce using rule 70 (AMC2 -> LBRKT VALUE RBRKT AMC3 .)
-    GSUB            reduce using rule 70 (AMC2 -> LBRKT VALUE RBRKT AMC3 .)
-    WENN            reduce using rule 70 (AMC2 -> LBRKT VALUE RBRKT AMC3 .)
-    WAHREND         reduce using rule 70 (AMC2 -> LBRKT VALUE RBRKT AMC3 .)
-    TUN             reduce using rule 70 (AMC2 -> LBRKT VALUE RBRKT AMC3 .)
-    ID              reduce using rule 70 (AMC2 -> LBRKT VALUE RBRKT AMC3 .)
-    SCHLUSS         reduce using rule 70 (AMC2 -> LBRKT VALUE RBRKT AMC3 .)
-    RUKKHER         reduce using rule 70 (AMC2 -> LBRKT VALUE RBRKT AMC3 .)
-    ENDE            reduce using rule 70 (AMC2 -> LBRKT VALUE RBRKT AMC3 .)
-    SWENN           reduce using rule 70 (AMC2 -> LBRKT VALUE RBRKT AMC3 .)
-    SONNST          reduce using rule 70 (AMC2 -> LBRKT VALUE RBRKT AMC3 .)
-    PLUS            reduce using rule 70 (AMC2 -> LBRKT VALUE RBRKT AMC3 .)
-    TIMES           reduce using rule 70 (AMC2 -> LBRKT VALUE RBRKT AMC3 .)
-    MINUS           reduce using rule 70 (AMC2 -> LBRKT VALUE RBRKT AMC3 .)
-    DIVIDE          reduce using rule 70 (AMC2 -> LBRKT VALUE RBRKT AMC3 .)
-    MODULO          reduce using rule 70 (AMC2 -> LBRKT VALUE RBRKT AMC3 .)
 
 
-state 130
+state 126
 
     (71) AMC2 -> LBRKT ID RBRKT AMC3 .
 
@@ -2670,67 +2486,50 @@ state 130
     DIM             reduce using rule 71 (AMC2 -> LBRKT ID RBRKT AMC3 .)
     SUB             reduce using rule 71 (AMC2 -> LBRKT ID RBRKT AMC3 .)
     BEGIN           reduce using rule 71 (AMC2 -> LBRKT ID RBRKT AMC3 .)
-    EIN             reduce using rule 71 (AMC2 -> LBRKT ID RBRKT AMC3 .)
-    AUS             reduce using rule 71 (AMC2 -> LBRKT ID RBRKT AMC3 .)
-    GSUB            reduce using rule 71 (AMC2 -> LBRKT ID RBRKT AMC3 .)
-    WENN            reduce using rule 71 (AMC2 -> LBRKT ID RBRKT AMC3 .)
-    WAHREND         reduce using rule 71 (AMC2 -> LBRKT ID RBRKT AMC3 .)
-    TUN             reduce using rule 71 (AMC2 -> LBRKT ID RBRKT AMC3 .)
-    ID              reduce using rule 71 (AMC2 -> LBRKT ID RBRKT AMC3 .)
-    SCHLUSS         reduce using rule 71 (AMC2 -> LBRKT ID RBRKT AMC3 .)
-    RUKKHER         reduce using rule 71 (AMC2 -> LBRKT ID RBRKT AMC3 .)
-    ENDE            reduce using rule 71 (AMC2 -> LBRKT ID RBRKT AMC3 .)
-    SWENN           reduce using rule 71 (AMC2 -> LBRKT ID RBRKT AMC3 .)
-    SONNST          reduce using rule 71 (AMC2 -> LBRKT ID RBRKT AMC3 .)
-    PLUS            reduce using rule 71 (AMC2 -> LBRKT ID RBRKT AMC3 .)
-    TIMES           reduce using rule 71 (AMC2 -> LBRKT ID RBRKT AMC3 .)
-    MINUS           reduce using rule 71 (AMC2 -> LBRKT ID RBRKT AMC3 .)
-    DIVIDE          reduce using rule 71 (AMC2 -> LBRKT ID RBRKT AMC3 .)
-    MODULO          reduce using rule 71 (AMC2 -> LBRKT ID RBRKT AMC3 .)
+
+
+state 127
+
+    (54) SD -> SONNST DANN S .
+
+    ENDE            reduce using rule 54 (SD -> SONNST DANN S .)
+
+
+state 128
+
+    (52) SW -> SWENN CONDITION DANN S . SW
+    (52) SW -> . SWENN CONDITION DANN S SW
+    (53) SW -> .
+
+    SWENN           shift and go to state 109
+    SONNST          reduce using rule 53 (SW -> .)
+    ENDE            reduce using rule 53 (SW -> .)
+
+    SW                             shift and go to state 131
+
+state 129
+
+    (75) AMC3 -> LBRKT VALUE . RBRKT
+
+    RBRKT           shift and go to state 132
+
+
+state 130
+
+    (76) AMC3 -> LBRKT ID . RBRKT
+
+    RBRKT           shift and go to state 133
 
 
 state 131
 
-    (41) SD -> SONNST DANN S .
+    (52) SW -> SWENN CONDITION DANN S SW .
 
-    ENDE            reduce using rule 41 (SD -> SONNST DANN S .)
+    SONNST          reduce using rule 52 (SW -> SWENN CONDITION DANN S SW .)
+    ENDE            reduce using rule 52 (SW -> SWENN CONDITION DANN S SW .)
 
 
 state 132
-
-    (39) SW -> SWENN CONDITION DANN S . SW
-    (39) SW -> . SWENN CONDITION DANN S SW
-    (40) SW -> .
-
-    SWENN           shift and go to state 113
-    SONNST          reduce using rule 40 (SW -> .)
-    ENDE            reduce using rule 40 (SW -> .)
-
-    SW                             shift and go to state 135
-
-state 133
-
-    (75) AMC3 -> LBRKT VALUE . RBRKT
-
-    RBRKT           shift and go to state 136
-
-
-state 134
-
-    (76) AMC3 -> LBRKT ID . RBRKT
-
-    RBRKT           shift and go to state 137
-
-
-state 135
-
-    (39) SW -> SWENN CONDITION DANN S SW .
-
-    SONNST          reduce using rule 39 (SW -> SWENN CONDITION DANN S SW .)
-    ENDE            reduce using rule 39 (SW -> SWENN CONDITION DANN S SW .)
-
-
-state 136
 
     (75) AMC3 -> LBRKT VALUE RBRKT .
 
@@ -2746,26 +2545,9 @@ state 136
     DIM             reduce using rule 75 (AMC3 -> LBRKT VALUE RBRKT .)
     SUB             reduce using rule 75 (AMC3 -> LBRKT VALUE RBRKT .)
     BEGIN           reduce using rule 75 (AMC3 -> LBRKT VALUE RBRKT .)
-    EIN             reduce using rule 75 (AMC3 -> LBRKT VALUE RBRKT .)
-    AUS             reduce using rule 75 (AMC3 -> LBRKT VALUE RBRKT .)
-    GSUB            reduce using rule 75 (AMC3 -> LBRKT VALUE RBRKT .)
-    WENN            reduce using rule 75 (AMC3 -> LBRKT VALUE RBRKT .)
-    WAHREND         reduce using rule 75 (AMC3 -> LBRKT VALUE RBRKT .)
-    TUN             reduce using rule 75 (AMC3 -> LBRKT VALUE RBRKT .)
-    ID              reduce using rule 75 (AMC3 -> LBRKT VALUE RBRKT .)
-    SCHLUSS         reduce using rule 75 (AMC3 -> LBRKT VALUE RBRKT .)
-    RUKKHER         reduce using rule 75 (AMC3 -> LBRKT VALUE RBRKT .)
-    ENDE            reduce using rule 75 (AMC3 -> LBRKT VALUE RBRKT .)
-    SWENN           reduce using rule 75 (AMC3 -> LBRKT VALUE RBRKT .)
-    SONNST          reduce using rule 75 (AMC3 -> LBRKT VALUE RBRKT .)
-    PLUS            reduce using rule 75 (AMC3 -> LBRKT VALUE RBRKT .)
-    TIMES           reduce using rule 75 (AMC3 -> LBRKT VALUE RBRKT .)
-    MINUS           reduce using rule 75 (AMC3 -> LBRKT VALUE RBRKT .)
-    DIVIDE          reduce using rule 75 (AMC3 -> LBRKT VALUE RBRKT .)
-    MODULO          reduce using rule 75 (AMC3 -> LBRKT VALUE RBRKT .)
 
 
-state 137
+state 133
 
     (76) AMC3 -> LBRKT ID RBRKT .
 
@@ -2781,23 +2563,6 @@ state 137
     DIM             reduce using rule 76 (AMC3 -> LBRKT ID RBRKT .)
     SUB             reduce using rule 76 (AMC3 -> LBRKT ID RBRKT .)
     BEGIN           reduce using rule 76 (AMC3 -> LBRKT ID RBRKT .)
-    EIN             reduce using rule 76 (AMC3 -> LBRKT ID RBRKT .)
-    AUS             reduce using rule 76 (AMC3 -> LBRKT ID RBRKT .)
-    GSUB            reduce using rule 76 (AMC3 -> LBRKT ID RBRKT .)
-    WENN            reduce using rule 76 (AMC3 -> LBRKT ID RBRKT .)
-    WAHREND         reduce using rule 76 (AMC3 -> LBRKT ID RBRKT .)
-    TUN             reduce using rule 76 (AMC3 -> LBRKT ID RBRKT .)
-    ID              reduce using rule 76 (AMC3 -> LBRKT ID RBRKT .)
-    SCHLUSS         reduce using rule 76 (AMC3 -> LBRKT ID RBRKT .)
-    RUKKHER         reduce using rule 76 (AMC3 -> LBRKT ID RBRKT .)
-    ENDE            reduce using rule 76 (AMC3 -> LBRKT ID RBRKT .)
-    SWENN           reduce using rule 76 (AMC3 -> LBRKT ID RBRKT .)
-    SONNST          reduce using rule 76 (AMC3 -> LBRKT ID RBRKT .)
-    PLUS            reduce using rule 76 (AMC3 -> LBRKT ID RBRKT .)
-    TIMES           reduce using rule 76 (AMC3 -> LBRKT ID RBRKT .)
-    MINUS           reduce using rule 76 (AMC3 -> LBRKT ID RBRKT .)
-    DIVIDE          reduce using rule 76 (AMC3 -> LBRKT ID RBRKT .)
-    MODULO          reduce using rule 76 (AMC3 -> LBRKT ID RBRKT .)
 
 WARNING: 
 WARNING: Conflicts:
@@ -2825,6 +2590,8 @@ WARNING: shift/reduce conflict for WENN in state 29 resolved as shift
 WARNING: shift/reduce conflict for WAHREND in state 29 resolved as shift
 WARNING: shift/reduce conflict for TUN in state 29 resolved as shift
 WARNING: shift/reduce conflict for ID in state 29 resolved as shift
+WARNING: shift/reduce conflict for ID in state 37 resolved as shift
+WARNING: shift/reduce conflict for ID in state 37 resolved as shift
 WARNING: shift/reduce conflict for EIN in state 45 resolved as shift
 WARNING: shift/reduce conflict for AUS in state 45 resolved as shift
 WARNING: shift/reduce conflict for GSUB in state 45 resolved as shift
@@ -2839,24 +2606,30 @@ WARNING: shift/reduce conflict for WENN in state 63 resolved as shift
 WARNING: shift/reduce conflict for WAHREND in state 63 resolved as shift
 WARNING: shift/reduce conflict for TUN in state 63 resolved as shift
 WARNING: shift/reduce conflict for ID in state 63 resolved as shift
-WARNING: shift/reduce conflict for AND in state 90 resolved as shift
-WARNING: shift/reduce conflict for OR in state 90 resolved as shift
-WARNING: shift/reduce conflict for AND in state 91 resolved as shift
-WARNING: shift/reduce conflict for OR in state 91 resolved as shift
-WARNING: shift/reduce conflict for EIN in state 126 resolved as shift
-WARNING: shift/reduce conflict for AUS in state 126 resolved as shift
-WARNING: shift/reduce conflict for GSUB in state 126 resolved as shift
-WARNING: shift/reduce conflict for WENN in state 126 resolved as shift
-WARNING: shift/reduce conflict for WAHREND in state 126 resolved as shift
-WARNING: shift/reduce conflict for TUN in state 126 resolved as shift
-WARNING: shift/reduce conflict for ID in state 126 resolved as shift
-WARNING: shift/reduce conflict for EIN in state 127 resolved as shift
-WARNING: shift/reduce conflict for AUS in state 127 resolved as shift
-WARNING: shift/reduce conflict for GSUB in state 127 resolved as shift
-WARNING: shift/reduce conflict for WENN in state 127 resolved as shift
-WARNING: shift/reduce conflict for WAHREND in state 127 resolved as shift
-WARNING: shift/reduce conflict for TUN in state 127 resolved as shift
-WARNING: shift/reduce conflict for ID in state 127 resolved as shift
+WARNING: shift/reduce conflict for ID in state 73 resolved as shift
+WARNING: shift/reduce conflict for ID in state 73 resolved as shift
+WARNING: shift/reduce conflict for ID in state 74 resolved as shift
+WARNING: shift/reduce conflict for ID in state 74 resolved as shift
+WARNING: shift/reduce conflict for ID in state 75 resolved as shift
+WARNING: shift/reduce conflict for ID in state 76 resolved as shift
+WARNING: shift/reduce conflict for AND in state 85 resolved as shift
+WARNING: shift/reduce conflict for OR in state 85 resolved as shift
+WARNING: shift/reduce conflict for AND in state 86 resolved as shift
+WARNING: shift/reduce conflict for OR in state 86 resolved as shift
+WARNING: shift/reduce conflict for EIN in state 122 resolved as shift
+WARNING: shift/reduce conflict for AUS in state 122 resolved as shift
+WARNING: shift/reduce conflict for GSUB in state 122 resolved as shift
+WARNING: shift/reduce conflict for WENN in state 122 resolved as shift
+WARNING: shift/reduce conflict for WAHREND in state 122 resolved as shift
+WARNING: shift/reduce conflict for TUN in state 122 resolved as shift
+WARNING: shift/reduce conflict for ID in state 122 resolved as shift
+WARNING: shift/reduce conflict for EIN in state 123 resolved as shift
+WARNING: shift/reduce conflict for AUS in state 123 resolved as shift
+WARNING: shift/reduce conflict for GSUB in state 123 resolved as shift
+WARNING: shift/reduce conflict for WENN in state 123 resolved as shift
+WARNING: shift/reduce conflict for WAHREND in state 123 resolved as shift
+WARNING: shift/reduce conflict for TUN in state 123 resolved as shift
+WARNING: shift/reduce conflict for ID in state 123 resolved as shift
 WARNING: reduce/reduce conflict in state 12 resolved using rule (S -> <empty>)
 WARNING: rejected rule (S0 -> <empty>) in state 12
 WARNING: reduce/reduce conflict in state 21 resolved using rule (S -> <empty>)
@@ -2865,26 +2638,30 @@ WARNING: reduce/reduce conflict in state 26 resolved using rule (IDORAMC -> ID)
 WARNING: rejected rule (AMC1 -> <empty>) in state 26
 WARNING: reduce/reduce conflict in state 32 resolved using rule (AMC0 -> <empty>)
 WARNING: rejected rule (AMC1 -> <empty>) in state 32
+WARNING: reduce/reduce conflict in state 37 resolved using rule (T -> <empty>)
+WARNING: rejected rule (F -> <empty>) in state 37
 WARNING: reduce/reduce conflict in state 45 resolved using rule (S -> <empty>)
 WARNING: rejected rule (S0 -> <empty>) in state 45
-WARNING: reduce/reduce conflict in state 58 resolved using rule (EIDORAMC -> ID)
-WARNING: rejected rule (AMC1 -> <empty>) in state 58
-WARNING: reduce/reduce conflict in state 58 resolved using rule (IDORAMC -> ID)
-WARNING: rejected rule (AMC1 -> <empty>) in state 58
+WARNING: reduce/reduce conflict in state 58 resolved using rule (T -> <empty>)
+WARNING: rejected rule (F -> <empty>) in state 58
 WARNING: reduce/reduce conflict in state 63 resolved using rule (S -> <empty>)
 WARNING: rejected rule (S0 -> <empty>) in state 63
-WARNING: reduce/reduce conflict in state 87 resolved using rule (AMC1 -> LBRKT VALUE RBRKT)
-WARNING: rejected rule (AMC2 -> <empty>) in state 87
-WARNING: reduce/reduce conflict in state 88 resolved using rule (AMC1 -> LBRKT ID RBRKT)
-WARNING: rejected rule (AMC2 -> <empty>) in state 88
-WARNING: reduce/reduce conflict in state 123 resolved using rule (AMC2 -> LBRKT VALUE RBRKT)
-WARNING: rejected rule (AMC3 -> <empty>) in state 123
-WARNING: reduce/reduce conflict in state 124 resolved using rule (AMC2 -> LBRKT ID RBRKT)
-WARNING: rejected rule (AMC3 -> <empty>) in state 124
-WARNING: reduce/reduce conflict in state 126 resolved using rule (S -> <empty>)
-WARNING: rejected rule (S0 -> <empty>) in state 126
-WARNING: reduce/reduce conflict in state 127 resolved using rule (S -> <empty>)
-WARNING: rejected rule (S0 -> <empty>) in state 127
+WARNING: reduce/reduce conflict in state 73 resolved using rule (T -> <empty>)
+WARNING: rejected rule (F -> <empty>) in state 73
+WARNING: reduce/reduce conflict in state 74 resolved using rule (T -> <empty>)
+WARNING: rejected rule (F -> <empty>) in state 74
+WARNING: reduce/reduce conflict in state 82 resolved using rule (AMC1 -> LBRKT VALUE RBRKT)
+WARNING: rejected rule (AMC2 -> <empty>) in state 82
+WARNING: reduce/reduce conflict in state 83 resolved using rule (AMC1 -> LBRKT ID RBRKT)
+WARNING: rejected rule (AMC2 -> <empty>) in state 83
+WARNING: reduce/reduce conflict in state 119 resolved using rule (AMC2 -> LBRKT VALUE RBRKT)
+WARNING: rejected rule (AMC3 -> <empty>) in state 119
+WARNING: reduce/reduce conflict in state 120 resolved using rule (AMC2 -> LBRKT ID RBRKT)
+WARNING: rejected rule (AMC3 -> <empty>) in state 120
+WARNING: reduce/reduce conflict in state 122 resolved using rule (S -> <empty>)
+WARNING: rejected rule (S0 -> <empty>) in state 122
+WARNING: reduce/reduce conflict in state 123 resolved using rule (S -> <empty>)
+WARNING: rejected rule (S0 -> <empty>) in state 123
 WARNING: Rule (S0 -> <empty>) is never reduced
 WARNING: Rule (AMC1 -> <empty>) is never reduced
 WARNING: Rule (AMC2 -> <empty>) is never reduced
