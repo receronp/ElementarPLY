@@ -429,7 +429,7 @@ def p_SD0(p):
     """
     SD0 : SONNST
     """
-    jump_stack[jump_stack_count[-1]][2] = len(jump_stack)
+    jump_stack[jump_stack_count[-1]][2] = len(jump_stack) + 1
     # print(jump_stack[jump_stack_count[-1]])
     jump_stack_count.pop()
     jump_stack.append(["Gz", None])
