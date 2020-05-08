@@ -1,82 +1,22 @@
 {
+  "tempD": {
+    "type": "word",
+    "dimension": 0,
+    "value": 56997
+  },
+  "tempC": {
+    "type": "word",
+    "dimension": 0,
+    "value": 56997
+  },
   "tempB": {
     "type": "word",
     "dimension": 0,
-    "value": 1
+    "value": 56997
   },
   "tempA": {
     "type": "word",
     "dimension": 0,
-    "value": 1
-  },
-  "jCount": {
-    "type": "word",
-    "dimension": 0,
-    "value": 1
-  },
-  "iCount": {
-    "type": "word",
-    "dimension": 0,
-    "value": 1
-  },
-  "dim2": {
-    "type": "word",
-    "dimension": 1,
-    "size": 2,
-    "0": [
-      null,
-      null
-    ]
-  },
-  "dim1": {
-    "type": "word",
-    "dimension": 1,
-    "size": 2,
-    "0": [
-      null,
-      null
-    ]
-  },
-  "mat2": {
-    "type": "word",
-    "dimension": 2,
-    "size_x": 3,
-    "size_y": 3,
-    "0": [
-      null,
-      null,
-      null
-    ],
-    "1": [
-      null,
-      null,
-      null
-    ],
-    "2": [
-      null,
-      null,
-      null
-    ]
-  },
-  "mat1": {
-    "type": "word",
-    "dimension": 2,
-    "size_x": 3,
-    "size_y": 3,
-    "0": [
-      null,
-      null,
-      null
-    ],
-    "1": [
-      null,
-      null,
-      null
-    ],
-    "2": [
-      null,
-      null,
-      null
-    ]
+    "value": -5134
   }
 }
