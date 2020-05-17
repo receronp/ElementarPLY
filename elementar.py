@@ -16,7 +16,6 @@ logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
 variable_table = {}
 subroutine_table = {}
 # expression_stack = []
-cuadruple_stack = []
 operator_stack = []
 jump_stack = []
 jump_stack_count = []
@@ -247,8 +246,8 @@ def p_S0(p):
     | EIN LPAREN IDORAMC INPUT RPAREN
     | AUS LPAREN EXP OUTPUT RPAREN
     | GSUB ID
-    | W SD END
-    | WAHREND CONDITION S ENDE
+    | WE SD END
+    | WAH END
     | TUN S WAHREND CONDITION
     |
     """
@@ -256,20 +255,20 @@ def p_S0(p):
     # print(expression_stack)
     if len(p) > 1 and p[2] == '=':
         if current_var in variable_table and variable_table[current_var]['dimension'] == 0:
-            result = cuadruple_stack[0]
+            result = operator_stack[0]
             if type(result) == list:
                 temp_stack.append(result)
                 result = result[1]
             elif type(result) == str and result in variable_table:
                 result = variable_table[result]["value"]
-            cuadruple_stack.pop()
+            operator_stack.pop()
             variable_table[current_var]['value'] = result    # Have to evaluate expression
             if len(jump_stack) > 0:
                 jump_stack.append([p[2], current_var, result])
             # print(f"{p[2]} {current_var} {result}")
         else:
             logging.error("Undeclared variable.")
-            cuadruple_stack.clear()
+            operator_stack.clear()
     # expression_stack.clear()
 
 def p_E(p):
@@ -281,19 +280,23 @@ def p_E(p):
     if len(p) > 2 :
         result, operator1, operator2 = get_operators()
         result[1] = operator1 + operator2 if p[2] == "+" else operator1 - operator2
-        cuadruple_stack.append(result)
+        operator_stack.append(result)
         # print(f"{p[2]} {operator1} {operator2} {result}")
 
 def get_operators():
         # expression_stack.append(p[2])
-        operator2 = cuadruple_stack.pop()
+        operator2 = operator_stack.pop()
         if type(operator2) == list: 
             temp_stack.append(operator2)
             operator2 = operator2[1]
-        operator1 = cuadruple_stack.pop()
+        elif type(operator2) == str and operator2 in variable_table:
+            operator2 = variable_table[operator2]["value"]
+        operator1 = operator_stack.pop()
         if type(operator1) == list: 
             temp_stack.append(operator1)
             operator1 = operator1[1]
+        elif type(operator1) == str and operator1 in variable_table:
+            operator1 = variable_table[operator1]["value"]
         return temp_stack.pop(), operator1, operator2
 
 def p_T(p):
@@ -307,7 +310,7 @@ def p_T(p):
     if len(p) > 2 :
         result, operator1, operator2 = get_operators()
         result[1] = operator1 * operator2 if p[2] == "*" else operator1 / operator2
-        cuadruple_stack.append(result)
+        operator_stack.append(result)
         # print(f"{p[2]} {operator1} {operator2} {result}")
 
 def p_F(p):
@@ -321,7 +324,7 @@ def p_F(p):
     # | WRD
     if len(p) < 3:    
         # expression_stack.append(p[1])
-        cuadruple_stack.append(p[1])
+        operator_stack.append(p[1])
 
 def p_EXP(p):
     """
@@ -353,33 +356,42 @@ def p_EIDORAMC(p):
 
 def p_CONDITION(p):
     """
-    CONDITION : LPAREN CMP GT CMP RPAREN
+    CONDITION : CONDITION AND CONDITION1
+    | CONDITION OR CONDITION1
+    | CONDITION1
+    """
+    if len(p) > 2:
+        result, operator1, operator2 = get_operators()
+        result[1] = operator1 and operator2 if p[2] == "&&" else operator1 or operator2
+        operator_stack.append(result)
+        jump_stack.append([p[2], operator1, operator2])
+ 
+def p_CONDITION1(p):
+    """
+    CONDITION1 : LPAREN CMP GT CMP RPAREN
     | LPAREN CMP GE CMP RPAREN
     | LPAREN CMP EQ CMP RPAREN
     | LPAREN CMP NE CMP RPAREN
     | LPAREN CMP LE CMP RPAREN
     | LPAREN CMP LT CMP RPAREN
-    | CONDITION AND CONDITION
-    | CONDITION OR CONDITION
     """
-    if len(p) > 4:
-        result, operator1, operator2 = get_operators()
-        if p[3] == ">":
-            result[1] = operator1 > operator2
-        elif p[3] == ">=":
-            result[1] = operator1 >= operator2
-        elif p[3] == "==":
-            result[1] = operator1 == operator2
-        elif p[3] == "!=":
-            result[1] = operator1 != operator2
-        elif p[3] == "<=":
-            result[1] = operator1 <= operator2
-        elif p[3] == "<":
-            result[1] = operator1 < operator2
+    result, operator1, operator2 = get_operators()
+    if p[3] == ">":
+        result[1] = operator1 > operator2
+    elif p[3] == ">=":
+        result[1] = operator1 >= operator2
+    elif p[3] == "==":
+        result[1] = operator1 == operator2
+    elif p[3] == "!=":
+        result[1] = operator1 != operator2
+    elif p[3] == "<=":
+        result[1] = operator1 <= operator2
+    elif p[3] == "<":
+        result[1] = operator1 < operator2
         
-        operator_stack.append(result)
-        jump_stack.append([p[3], operator1, operator2])
-        # print(jump_stack[-1])
+    operator_stack.append(result)
+    jump_stack.append([p[3], operator1, operator2])
+    # print(jump_stack[-1])
 
 def p_CMP(p):
     """
@@ -388,18 +400,18 @@ def p_CMP(p):
     | FLT
     """
     if type(p[1]) == str and p[1] in variable_table:
-        cuadruple_stack.append(variable_table[p[1]]["value"])
+        operator_stack.append(variable_table[p[1]]["value"])
     else:
-        cuadruple_stack.append(p[1])
+        operator_stack.append(p[1])
 
-def p_W(p):
+def p_WAH(p):
     """
-    W : W0 W1
+    WAH : WAH0 WAH1 GZ
     """
 
-def p_W0(p):
+def p_WAH0(p):
     """
-    W0 : WENN CONDITION
+    WAH0 : WAHREND CONDITION
     """
     result = operator_stack.pop()
     result[1] = not result[1]
@@ -407,33 +419,53 @@ def p_W0(p):
     jump_stack_count.append(len(jump_stack) - 1)
     temp_stack.append(result)
 
-def p_W1(p):
+def p_WAH1(p):
     """
-    W1 : DANN S
+    WAH1 : S
     """
 
-# def p_SW(p):
-#     """
-#     SW : SWENN CONDITION W1 SW
-#     |
-#     """
-
-def p_SD(p):
+def p_GZ(p):
     """
-    SD : SD0 W1
-    |
-    """
-    # print(p.lexer.lineno)
-
-def p_SD0(p):
-    """
-    SD0 : SONNST
+    GZ :
     """
     jump_stack[jump_stack_count[-1]][2] = len(jump_stack) + 1
     # print(jump_stack[jump_stack_count[-1]])
     jump_stack_count.pop()
     jump_stack.append(["Gz", None])
     jump_stack_count.append(len(jump_stack)-1)
+
+def p_WE(p):
+    """
+    WE : WE0 WE1 GZ
+    """
+
+def p_WE0(p):
+    """
+    WE0 : WENN CONDITION
+    """
+    result = operator_stack.pop()
+    result[1] = not result[1]
+    jump_stack.append(["Gzf", result.copy(), None])
+    jump_stack_count.append(len(jump_stack) - 1)
+    temp_stack.append(result)
+
+def p_WE1(p):
+    """
+    WE1 : DANN S
+    """
+
+# def p_SW(p):
+#     """
+#     SW : SWENN CONDITION WE1 SW
+#     |
+#     """
+
+def p_SD(p):
+    """
+    SD : SONNST WE1
+    |
+    """
+    # print(p.lexer.lineno)
 
 def p_END(p):
     """
@@ -518,7 +550,7 @@ def p_error(p):
 parser = yacc.yacc()
 
 try:
-    with open("if_statement.el", 'r') as el_file:
+    with open("while.el", 'r') as el_file:
         ein = ""
         for line in el_file:
             ein += line

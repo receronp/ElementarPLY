@@ -2,21 +2,21 @@
   "tempD": {
     "type": "word",
     "dimension": 0,
-    "value": 56997
+    "value": 3
   },
   "tempC": {
     "type": "word",
     "dimension": 0,
-    "value": 56997
+    "value": 6
   },
   "tempB": {
     "type": "word",
     "dimension": 0,
-    "value": 56997
+    "value": 6
   },
   "tempA": {
     "type": "word",
     "dimension": 0,
-    "value": -5134
+    "value": 5
   }
 }
