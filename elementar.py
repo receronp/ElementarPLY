@@ -281,6 +281,7 @@ def p_E(p):
         result, operator1, operator2 = get_operators()
         result[1] = operator1 + operator2 if p[2] == "+" else operator1 - operator2
         operator_stack.append(result)
+        jump_stack.append([p[2], operator1, operator2])
         # print(f"{p[2]} {operator1} {operator2} {result}")
 
 def get_operators():
@@ -311,6 +312,7 @@ def p_T(p):
         result, operator1, operator2 = get_operators()
         result[1] = operator1 * operator2 if p[2] == "*" else operator1 / operator2
         operator_stack.append(result)
+        jump_stack.append([p[2], operator1, operator2])
         # print(f"{p[2]} {operator1} {operator2} {result}")
 
 def p_F(p):
