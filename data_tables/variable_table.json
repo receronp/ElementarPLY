@@ -1,22 +1,17 @@
 {
-  "tempD": {
+  "iMod": {
     "type": "word",
     "dimension": 0,
-    "value": 3
+    "value": 0
   },
-  "tempC": {
+  "iDiv": {
     "type": "word",
     "dimension": 0,
-    "value": 6
+    "value": 0
   },
-  "tempB": {
+  "iNum": {
     "type": "word",
     "dimension": 0,
-    "value": 6
-  },
-  "tempA": {
-    "type": "word",
-    "dimension": 0,
-    "value": 5
+    "value": 1244234
   }
 }
