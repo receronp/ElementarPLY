@@ -7,6 +7,7 @@ ID: A00823906
 """
 import sys
 import logging
+import json
 import ply.yacc as yacc
 from elexer import tokens
 
@@ -495,3 +496,8 @@ def parse(file):
     except:
         e = sys.exc_info()[0]
         print(e)
+
+    with open("./data_tables/subroutine_table.json", "w") as subprocess_output:
+        subprocess_output.write(json.dumps(subroutine_table, indent=2))
+    with open("./data_tables/jump_stack.json", "w") as jump_stack_output:
+        jump_stack_output.write(json.dumps(jump_stack, indent=2))

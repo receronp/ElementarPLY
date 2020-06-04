@@ -4,7 +4,7 @@ import elementar as el
 execution_temp_stack = [None] * 10
 
 
-def main():
+def main():    
     # el.parse("test_files/numbers.el")
     el.parse("test_files/roots.el")
     program_count = 0
@@ -33,10 +33,6 @@ def main():
             program_count += 1
     with open("./data_tables/variable_table.json", "w") as var_output:
         var_output.write(json.dumps(el.variable_table, indent=2))
-    with open("./data_tables/subroutine_table.json", "w") as subprocess_output:
-        subprocess_output.write(json.dumps(el.subroutine_table, indent=2))
-    with open("./data_tables/jump_stack.json", "w") as jump_stack_output:
-        jump_stack_output.write(json.dumps(el.jump_stack, indent=2))
 
 
 def evaluate(count):

@@ -1,5 +1,5 @@
 programm
-    dim a, b, c, else als float
+    dim a, b, c, d als float
     dim prev, res, num, den als float
     dim fnum, count, ask, even als word
     dim d1, d2, n1, n2 als float
@@ -17,11 +17,13 @@ wahrend (ask == 1)
     ein(b)
     aus("Ingrese valor de c:")
     ein(c)
+    aus("Ingrese el numero de iteraciones:")
+    ein(d)
 
     in_sq = b * b - 4 * a * c
     wenn (in_sq > 0) dann
         count = 0
-        wahrend (count < 50)
+        wahrend (count < d)
             n2 = 1.0
             wenn (count == 0) dann
                 res = 1.0
