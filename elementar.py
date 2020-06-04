@@ -24,6 +24,14 @@ while_stack_count = []
 temp_stack = [[f"{x}", None] for x in range(10)]
 current_type = None
 current_var = None
+current_x = None
+current_y = None
+current_z = None
+current_var_e = None
+current_x_e = None
+current_y_e = None
+current_z_e = None
+
 dimension_args = {
     0: 0,
     1: 0,
@@ -94,10 +102,12 @@ def get_operators():
     # expression_stack.append(p[2])
     operator2 = operator_stack.pop()
     if type(operator2) == list:
-        temp_stack.append(operator2)
+        if operator2[0] not in variable_table:
+            temp_stack.append(operator2)
     operator1 = operator_stack.pop()
     if type(operator1) == list:
-        temp_stack.append(operator1)
+        if operator1[0] not in variable_table:
+            temp_stack.append(operator1)
     return temp_stack.pop(), operator1, operator2
 
 
@@ -198,6 +208,35 @@ def p_S0(p):
             operator_stack.pop()
             jump_stack.append([p[2], current_var, result])
             # print(f"{p[2]} {current_var} {result}")
+        elif (
+            current_var in variable_table
+            and variable_table[current_var]["dimension"] == 1
+        ):
+            result = operator_stack[0]
+            if type(result) == list:
+                temp_stack.append(result)
+            operator_stack.pop()
+            jump_stack.append([p[2], current_var, result, current_x])
+        elif (
+            current_var in variable_table
+            and variable_table[current_var]["dimension"] == 2
+        ):
+            result = operator_stack[0]
+            if type(result) == list:
+                temp_stack.append(result)
+            operator_stack.pop()
+            jump_stack.append([p[2], current_var, result, current_x, current_y])
+        elif (
+            current_var in variable_table
+            and variable_table[current_var]["dimension"] == 3
+        ):
+            result = operator_stack[0]
+            if type(result) == list:
+                temp_stack.append(result)
+            operator_stack.pop()
+            jump_stack.append(
+                [p[2], current_var, result, current_x, current_y, current_z]
+            )
         else:
             logging.error("Undeclared variable.")
             operator_stack.clear()
@@ -234,7 +273,7 @@ def p_T(p):
 
 def p_F(p):
     """
-    F : ID
+    F : IDORAMCE
     | VALUE
     | FLT
     | LPAREN E RPAREN
@@ -242,24 +281,99 @@ def p_F(p):
     """
     # | WRD
     if len(p) < 3:
-        # expression_stack.append(p[1])
-        operator_stack.append(p[1])
+        if p[1] == None:
+            operator_stack.append(
+                [current_var_e, current_x_e, current_y_e, current_z_e]
+            )
+        else:
+            # expression_stack.append(p[1])
+            operator_stack.append(p[1])
 
 
 def p_IDORAMC(p):
     """
     IDORAMC : ID
-    | ID AMC1
+    | ID AMC1A
     """
     global current_var
     current_var = p[1]
 
 
-def p_EIDORAMC(p):
+def p_AMC1A(p):
     """
-    EIDORAMC : ID
-    | ID AMC1
+    AMC1A : LBRKT VALUE RBRKT AMC2A
+    | LBRKT ID RBRKT AMC2A
+    | LBRKT VALUE RBRKT
+    | LBRKT ID RBRKT
+    |
     """
+    global current_x
+    current_x = p[2]
+
+
+def p_AMC2A(p):
+    """
+    AMC2A : LBRKT VALUE RBRKT AMC3A
+    | LBRKT ID RBRKT AMC3A
+    | LBRKT VALUE RBRKT
+    | LBRKT ID RBRKT
+    |
+    """
+    global current_y
+    current_y = p[2]
+
+
+def p_AMC3A(p):
+    """
+    AMC3A : LBRKT VALUE RBRKT 
+    | LBRKT ID RBRKT
+    |
+    """
+    global current_z
+    current_z = p[2]
+
+
+def p_IDORAMCE(p):
+    """
+    IDORAMCE : ID
+    | ID AMC1AE
+    """
+    global current_var_e
+    current_var_e = p[1]
+
+
+def p_AMC1AE(p):
+    """
+    AMC1AE : LBRKT VALUE RBRKT AMC2AE
+    | LBRKT ID RBRKT AMC2AE
+    | LBRKT VALUE RBRKT
+    | LBRKT ID RBRKT
+    |
+    """
+    global current_x_e
+    current_x_e = p[2]
+
+
+def p_AMC2AE(p):
+    """
+    AMC2AE : LBRKT VALUE RBRKT AMC3AE
+    | LBRKT ID RBRKT AMC3AE
+    | LBRKT VALUE RBRKT
+    | LBRKT ID RBRKT
+    |
+    """
+    global current_y_e
+    current_y_e = p[2]
+
+
+def p_AMC3AE(p):
+    """
+    AMC3AE : LBRKT VALUE RBRKT 
+    | LBRKT ID RBRKT
+    |
+    """
+    global current_z_e
+    current_z_e = p[2]
 
 
 def p_CONDITION(p):
