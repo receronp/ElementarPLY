@@ -11,13 +11,13 @@ begin
 ask = 1
 
 wahrend (ask == 1)
-    aus("Ingrese valor de a:")
+    aus("Enter value for a:")
     ein(a)
-    aus("Ingrese valor de b:")
+    aus("Enter value for b:")
     ein(b)
-    aus("Ingrese valor de c:")
+    aus("Enter value for c:")
     ein(c)
-    aus("Ingrese el numero de iteraciones:")
+    aus("Enter amount of iterations to run:")
     ein(d)
 
     in_sq = b * b - 4 * a * c
@@ -70,9 +70,9 @@ wahrend (ask == 1)
         aus(root2)
         
     sonnst dann
-        aus("Raices imaginarias.")
+        aus("Imaginary roots.")
     ende
-    aus("Correr de nuevo: 1: si, 2: salir")
+    aus("Run again: 1: yes, 2: exit")
     ein(ask)
 ende
 schluss

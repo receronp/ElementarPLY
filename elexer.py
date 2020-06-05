@@ -9,7 +9,6 @@ tokens = [
     "VALUE",
     "STR",
     "WRD",
-    "FLT",
     "DOT",
     "COMMA",
     "COLON",
@@ -123,14 +122,8 @@ def t_WRD(t):
     return t
 
 
-def t_FLT(t):
-    r"-?\d+\.\d+"
-    t.value = float(t.value)
-    return t
-
-
 def t_STR(t):
-    r'["][\\a-zA-Z 0-9:!@#$%^&*()\-+=/?<>,\.]+["]'
+    r'["][\\a-zA-Z 0-9:!@#$%^&*()\-+=/?<>,\.\[\]]+["]'
     return t
 
 

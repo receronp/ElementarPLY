@@ -1,4 +1,5 @@
 import json
+import math
 import elementar as el
 
 execution_temp_stack = [None] * 10
@@ -7,8 +8,8 @@ sub_stack = []
 def main():
     # el.parse("test_files/numbers.el")
     # el.parse("test_files/roots.el")
-    # el.parse("test_files/multi.el")
-    el.parse("test_files/sub.el")
+    el.parse("test_files/p1.el")
+    # el.parse("test_files/p2.el")
     program_count = 0
     while program_count < len(el.jump_stack):
         if el.jump_stack[program_count][0] == "Gz":
@@ -25,8 +26,10 @@ def main():
         elif el.jump_stack[program_count][0] == "RUKKHER":
             program_count = sub_stack.pop()
         elif el.jump_stack[program_count][0] == "AUS":
-            val = get_val(el.jump_stack[program_count], 1)
-            print(val)
+            for index in range(len(el.jump_stack[program_count][1])):
+                val = get_val(el.jump_stack[program_count][1], index)
+                print(val,end=" ")
+            print()
             program_count += 1
         elif el.jump_stack[program_count][0] == "EIN":
             value = input()
@@ -133,6 +136,7 @@ def get_val(table, index):
                 ret_value = el.variable_table[table[index][0]][position_x][position_y][
                     position_z
                 ]
+        # elif 
         else:
             ret_value = execution_temp_stack[int(table[index][0])]
         return ret_value
@@ -144,7 +148,7 @@ def get_val(table, index):
 
 def fix_type(val, count):
     if el.variable_table[el.jump_stack[count][1]]["type"] == "word":
-        return int(val)
+        return int(math.floor(float(val)))
     elif el.variable_table[el.jump_stack[count][1]]["type"] == "float":
         return float(val)
     else:

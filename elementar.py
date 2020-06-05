@@ -13,7 +13,7 @@ from elexer import tokens
 
 logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.DEBUG)
 
-str_output = ""
+str_output = []
 variable_table = {}
 subroutine_table = {}
 # expression_stack = []
@@ -230,7 +230,7 @@ def p_S0(p):
             and variable_table[current_var]["dimension"] == 1
         ):
             result = operator_stack[0]
-            if type(result) == list:
+            if type(result) == list and result[0] not in variable_table:
                 temp_stack.append(result)
             operator_stack.pop()
             jump_stack.append([p[2], current_var, result, current_x])
@@ -239,7 +239,7 @@ def p_S0(p):
             and variable_table[current_var]["dimension"] == 2
         ):
             result = operator_stack[0]
-            if type(result) == list:
+            if type(result) == list and result[0] not in variable_table:
                 temp_stack.append(result)
             operator_stack.pop()
             jump_stack.append([p[2], current_var, result, current_x, current_y])
@@ -248,14 +248,14 @@ def p_S0(p):
             and variable_table[current_var]["dimension"] == 3
         ):
             result = operator_stack[0]
-            if type(result) == list:
+            if type(result) == list and result[0] not in variable_table:
                 temp_stack.append(result)
             operator_stack.pop()
             jump_stack.append(
                 [p[2], current_var, result, current_x, current_y, current_z]
             )
         else:
-            logging.error("Undeclared variable.")
+            logging.error(f"Undeclared variable in line {p.lexer.lineno - 1}")
             operator_stack.clear()
     # expression_stack.clear()
 
@@ -297,7 +297,6 @@ def p_F(p):
     """
     F : IDORAMCE
     | VALUE
-    | FLT
     | LPAREN E RPAREN
     |
     """
@@ -424,10 +423,14 @@ def p_CONDITION1(p):
 def p_CMP(p):
     """
     CMP : VALUE
-    | ID
-    | FLT
+    | IDORAMCE
     """
-    operator_stack.append(p[1])
+    if p[1] == None:
+        operator_stack.append(
+            [current_var_e, current_x_e, current_y_e, current_z_e]
+        )
+    else:
+        operator_stack.append(p[1])
 
 
 def p_WAH(p):
@@ -536,8 +539,8 @@ def p_OUT(p):
     OUT : AUS LPAREN ST0 RPAREN
     """
     global str_output
-    jump_stack.append(["AUS", str_output])
-    str_output = ""
+    jump_stack.append(["AUS", str_output.copy()])
+    str_output.clear()
 
 
 def p_ST0(p):
@@ -551,10 +554,17 @@ def p_ST0(p):
 def p_ST1(p):
     """
     ST1 : STR
-    | ID
+    | IDORAMCE
+    | VALUE
     """
-    global str_output
-    str_output += str(p[1])
+    if p[1] == None:
+        str_output.append(
+            [current_var_e, current_x_e, current_y_e, current_z_e]
+        )
+    elif p[1][0] == "\"":
+        str_output.append(str(p[1])[1:-1])
+    else:
+        str_output.append(p[1])
 
 
 def p_TYPE(p):
