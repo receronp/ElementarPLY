@@ -2,12 +2,13 @@ import json
 import elementar as el
 
 execution_temp_stack = [None] * 10
-
+sub_stack = []
 
 def main():
     # el.parse("test_files/numbers.el")
     # el.parse("test_files/roots.el")
-    el.parse("test_files/multi.el")
+    # el.parse("test_files/multi.el")
+    el.parse("test_files/sub.el")
     program_count = 0
     while program_count < len(el.jump_stack):
         if el.jump_stack[program_count][0] == "Gz":
@@ -18,6 +19,11 @@ def main():
                 program_count = el.jump_stack[program_count][2]
             else:
                 program_count += 1
+        elif el.jump_stack[program_count][0] == "Call":
+            sub_stack.append(program_count + 1)
+            program_count = int(el.jump_stack[program_count][1])
+        elif el.jump_stack[program_count][0] == "RUKKHER":
+            program_count = sub_stack.pop()
         elif el.jump_stack[program_count][0] == "AUS":
             val = get_val(el.jump_stack[program_count], 1)
             print(val)

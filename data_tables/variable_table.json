@@ -1,77 +1,12 @@
 {
-  "c": {
-    "type": "word",
-    "dimension": 0,
-    "value": 2
-  },
-  "b": {
+  "x": {
     "type": "word",
     "dimension": 0,
     "value": 1
   },
-  "a": {
+  "f": {
     "type": "word",
     "dimension": 0,
-    "value": 0
-  },
-  "dim2": {
-    "type": "word",
-    "dimension": 1,
-    "size": 2,
-    "0": [
-      null,
-      null
-    ]
-  },
-  "dim1": {
-    "type": "word",
-    "dimension": 1,
-    "size": 2,
-    "0": [
-      1,
-      6
-    ]
-  },
-  "mat2": {
-    "type": "word",
-    "dimension": 2,
-    "size_x": 3,
-    "size_y": 3,
-    "0": [
-      null,
-      28,
-      21
-    ],
-    "1": [
-      null,
-      null,
-      null
-    ],
-    "2": [
-      null,
-      null,
-      null
-    ]
-  },
-  "mat1": {
-    "type": "word",
-    "dimension": 2,
-    "size_x": 3,
-    "size_y": 3,
-    "0": [
-      null,
-      null,
-      null
-    ],
-    "1": [
-      null,
-      null,
-      14
-    ],
-    "2": [
-      null,
-      7,
-      null
-    ]
+    "value": 24
   }
 }

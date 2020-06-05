@@ -124,9 +124,15 @@ def p_program(p):
 def p_V(p):
     """
     V : V0 V
-    |
+    | V3
     """
 
+def p_V3(p):
+    """
+    V3 :
+    """
+    jump_stack.append(["Gz", None])
+    jump_stack_count.append(len(jump_stack) - 1)
 
 def p_V0(p):
     """
@@ -152,16 +158,27 @@ def p_V2(p):
 
 def p_R(p):
     """
-    R : R0 COLON B RUKKHER R 
+    R : R0 COLON RB RUKKHER R 
     |
     """
 
+def p_RB(p):
+    """
+    RB : RB1 S
+    """
+    jump_stack.append(["RUKKHER"])
+
+
+def p_RB1(p):
+    """
+    RB1 : BEGIN
+    """
 
 def p_R0(p):
     """
     R0 : SUB ID
     """
-    subroutine_table[p[2]] = p.lexer.lineno
+    subroutine_table[p[2]] = len(jump_stack)
 
 
 def p_B(p):
@@ -174,8 +191,8 @@ def p_B1(p):
     """
     B1 : BEGIN
     """
-    jump_stack.append(["Gz", 1])
-
+    jump_stack[jump_stack_count[-1]][1] = len(jump_stack)
+    jump_stack_count.pop()
 
 def p_S(p):
     """
@@ -189,7 +206,7 @@ def p_S0(p):
     S0 : IDORAMC ASSIGN E
     | IN NON
     | OUT NON
-    | GSUB ID
+    | GS NON
     | WE SD END
     | WAH ENDE
     | TUN S WAHREND CONDITION
@@ -248,6 +265,11 @@ def p_NON(p):
     NON :
     """
 
+def p_GS(p):
+    """
+    GS : GSUB ID
+    """
+    jump_stack.append(["Call", subroutine_table[p[2]]])
 
 def p_E(p):
     """
