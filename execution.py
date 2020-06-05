@@ -5,11 +5,13 @@ import elementar as el
 execution_temp_stack = [None] * 10
 sub_stack = []
 
+
 def main():
     # el.parse("test_files/numbers.el")
     # el.parse("test_files/roots.el")
-    el.parse("test_files/p1.el")
+    # el.parse("test_files/p1.el")
     # el.parse("test_files/p2.el")
+    el.parse("test_files/p3.el")
     program_count = 0
     while program_count < len(el.jump_stack):
         if el.jump_stack[program_count][0] == "Gz":
@@ -28,7 +30,7 @@ def main():
         elif el.jump_stack[program_count][0] == "AUS":
             for index in range(len(el.jump_stack[program_count][1])):
                 val = get_val(el.jump_stack[program_count][1], index)
-                print(val,end=" ")
+                print(val, end=" ")
             print()
             program_count += 1
         elif el.jump_stack[program_count][0] == "EIN":
@@ -136,7 +138,7 @@ def get_val(table, index):
                 ret_value = el.variable_table[table[index][0]][position_x][position_y][
                     position_z
                 ]
-        # elif 
+        # elif
         else:
             ret_value = execution_temp_stack[int(table[index][0])]
         return ret_value

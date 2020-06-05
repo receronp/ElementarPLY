@@ -127,12 +127,14 @@ def p_V(p):
     | V3
     """
 
+
 def p_V3(p):
     """
     V3 :
     """
     jump_stack.append(["Gz", None])
     jump_stack_count.append(len(jump_stack) - 1)
+
 
 def p_V0(p):
     """
@@ -162,6 +164,7 @@ def p_R(p):
     |
     """
 
+
 def p_RB(p):
     """
     RB : RB1 S
@@ -173,6 +176,7 @@ def p_RB1(p):
     """
     RB1 : BEGIN
     """
+
 
 def p_R0(p):
     """
@@ -193,6 +197,7 @@ def p_B1(p):
     """
     jump_stack[jump_stack_count[-1]][1] = len(jump_stack)
     jump_stack_count.pop()
+
 
 def p_S(p):
     """
@@ -265,11 +270,13 @@ def p_NON(p):
     NON :
     """
 
+
 def p_GS(p):
     """
     GS : GSUB ID
     """
     jump_stack.append(["Call", subroutine_table[p[2]]])
+
 
 def p_E(p):
     """
@@ -426,9 +433,7 @@ def p_CMP(p):
     | IDORAMCE
     """
     if p[1] == None:
-        operator_stack.append(
-            [current_var_e, current_x_e, current_y_e, current_z_e]
-        )
+        operator_stack.append([current_var_e, current_x_e, current_y_e, current_z_e])
     else:
         operator_stack.append(p[1])
 
@@ -558,10 +563,8 @@ def p_ST1(p):
     | VALUE
     """
     if p[1] == None:
-        str_output.append(
-            [current_var_e, current_x_e, current_y_e, current_z_e]
-        )
-    elif p[1][0] == "\"":
+        str_output.append([current_var_e, current_x_e, current_y_e, current_z_e])
+    elif p[1][0] == '"':
         str_output.append(str(p[1])[1:-1])
     else:
         str_output.append(p[1])

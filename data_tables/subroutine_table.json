@@ -1,9 +1,8 @@
 {
-  "read": 1,
-  "fill_mat": 20,
-  "add_mat": 51,
-  "zero_mat": 74,
-  "mult_mat": 88,
-  "out_mat": 116,
-  "ask_option": 125
+  "ask_option": 1,
+  "read": 12,
+  "factorial": 28,
+  "power": 37,
+  "percent": 46,
+  "out_result": 51
 }
