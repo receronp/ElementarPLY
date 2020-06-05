@@ -111,7 +111,9 @@ def get_val(table, index):
     if type(table[index]) == list:
         ret_value = None
         if table[index][0] in el.variable_table:
-            if el.variable_table[table[index][0]]["dimension"] == 1:
+            if el.variable_table[table[index][0]]["dimension"] == 0:
+                ret_value = el.variable_table[table[index][0]]["value"]
+            elif el.variable_table[table[index][0]]["dimension"] == 1:
                 position = get_val(table[index], 1)
                 ret_value = el.variable_table[table[index][0]][0][position]
             elif el.variable_table[table[index][0]]["dimension"] == 2:

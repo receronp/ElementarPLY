@@ -203,7 +203,7 @@ def p_S0(p):
             and variable_table[current_var]["dimension"] == 0
         ):
             result = operator_stack[0]
-            if type(result) == list:
+            if type(result) == list and result[0] not in variable_table:
                 temp_stack.append(result)
             operator_stack.pop()
             jump_stack.append([p[2], current_var, result])
