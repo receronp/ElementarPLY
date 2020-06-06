@@ -37,8 +37,17 @@ def main():
             value = input()
             while len(value) == 0:
                 value = input()
-            value = fix_type(value, program_count)
-            el.variable_table[el.jump_stack[program_count][1]]["value"] = value
+            variable = el.jump_stack[program_count][1][0]
+            value = fix_type(value, variable)
+            if el.variable_table[variable]["dimension"] == 0:
+                assign_value(variable, value)
+            else:
+                position = [
+                    get_val(el.jump_stack[program_count][1], 1),
+                    get_val(el.jump_stack[program_count][1], 2),
+                    get_val(el.jump_stack[program_count][1], 3),
+                ]
+                assign_value(variable, value, position)
             program_count += 1
         else:
             evaluate(program_count)
@@ -49,23 +58,18 @@ def main():
 
 def evaluate(count):
     if el.jump_stack[count][0] == "=":
-        value = fix_type(get_val(el.jump_stack[count], 2), count)
-        if el.variable_table[el.jump_stack[count][1]]["dimension"] == 0:
-            el.variable_table[el.jump_stack[count][1]]["value"] = value
-        elif el.variable_table[el.jump_stack[count][1]]["dimension"] == 1:
-            position = get_val(el.jump_stack[count], 3)
-            el.variable_table[el.jump_stack[count][1]][0][position] = value
-        elif el.variable_table[el.jump_stack[count][1]]["dimension"] == 2:
-            position_x = get_val(el.jump_stack[count], 3)
-            position_y = get_val(el.jump_stack[count], 4)
-            el.variable_table[el.jump_stack[count][1]][position_x][position_y] = value
-        elif el.variable_table[el.jump_stack[count][1]]["dimension"] == 3:
-            position_x = get_val(el.jump_stack[count], 3)
-            position_y = get_val(el.jump_stack[count], 4)
-            position_z = get_val(el.jump_stack[count], 5)
-            el.variable_table[el.jump_stack[count][1]][position_x][position_y][
-                position_z
-            ] = value
+        variable = el.jump_stack[count][1]
+        value = fix_type(get_val(el.jump_stack[count], 2), el.jump_stack[count][1])
+        dimension = el.variable_table[variable]["dimension"]
+        if dimension == 0:
+            assign_value(variable, value)
+        else:
+            position = [
+                get_val(el.jump_stack[count], 3),
+                get_val(el.jump_stack[count], 4) if dimension > 1 else None,
+                get_val(el.jump_stack[count], 5) if dimension > 2 else None,
+            ]
+            assign_value(variable, value, position)
     elif el.jump_stack[count][0] in "+ - * / %".split():
         operator1 = get_val(el.jump_stack[count], 2)
         operator2 = get_val(el.jump_stack[count], 3)
@@ -148,13 +152,33 @@ def get_val(table, index):
         return table[index]
 
 
-def fix_type(val, count):
-    if el.variable_table[el.jump_stack[count][1]]["type"] == "word":
-        return int(math.floor(float(val)))
-    elif el.variable_table[el.jump_stack[count][1]]["type"] == "float":
-        return float(val)
-    else:
-        return val
+def assign_value(variable, value, position=[0, 0, 0]):
+    if el.variable_table[variable]["dimension"] == 0:
+        el.variable_table[variable]["value"] = value
+    elif el.variable_table[variable]["dimension"] == 1:
+        position = position[0]
+        el.variable_table[variable][0][position] = value
+    elif el.variable_table[variable]["dimension"] == 2:
+        position_x = position[0]
+        position_y = position[1]
+        el.variable_table[variable][position_x][position_y] = value
+    elif el.variable_table[variable]["dimension"] == 3:
+        position_x = position[0]
+        position_y = position[1]
+        position_z = position[2]
+        el.variable_table[variable][position_x][position_y][position_z] = value
+
+
+def fix_type(value, variable):
+    try:
+        if el.variable_table[variable]["type"] == "word":
+            return int(math.floor(float(value)))
+        elif el.variable_table[variable]["type"] == "float":
+            return float(value)
+        else:
+            return value
+    except:
+        return None
 
 
 if __name__ == "__main__":

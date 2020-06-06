@@ -214,7 +214,8 @@ def p_S0(p):
     | GS NON
     | WE SD END
     | WAH ENDE
-    | TUN S WAHREND CONDITION
+    | MI NON
+    | ABW NON
     |
     """
     # | WENN CONDITION DANN S SW SD ENDE
@@ -268,6 +269,18 @@ def p_S0(p):
 def p_NON(p):
     """
     NON :
+    """
+
+
+def p_MI(p):
+    """
+    MI :
+    """
+
+
+def p_ABW(p):
+    """
+    ABW :
     """
 
 
@@ -534,9 +547,9 @@ def p_END(p):
 
 def p_IN(p):
     """
-    IN : EIN LPAREN ID RPAREN
+    IN : EIN LPAREN IDORAMCE RPAREN
     """
-    jump_stack.append(["EIN", p[3]])
+    jump_stack.append(["EIN", [current_var_e, current_x_e, current_y_e, current_z_e]])
 
 
 def p_OUT(p):

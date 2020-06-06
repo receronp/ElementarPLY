@@ -11,8 +11,7 @@ programm
         i = 0
         wahrend (i < size)
             aus("Enter value" + i)
-            ein(f_input)
-            arr1[i] = f_input
+            ein(arr1[i])
             i = i + 1
         ende
     rukkher

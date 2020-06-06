@@ -1,7 +1,7 @@
 programm
     // Declaration of variables.
-    dim count, valid, ask, w_input, i, j, k als word
-    dim f_input als float
+    dim count, valid, ask, w_input, i, j, k, None als word
+    dim f_input, sum als float
     dim sizeA, sizeB als word[2]
     dim matA, matB, matC als float[5][5]
     
@@ -58,7 +58,7 @@ programm
             wahrend (i < sizeA[0])
                 j = 0
                 wahrend (j < sizeA[1])
-                    matC[i][j] = matA[i][j] +matB[i][j]
+                    matC[i][j] = matA[i][j] + matB[i][j]
                     j = j + 1
                 ende
                 i = i + 1
@@ -71,10 +71,10 @@ programm
     sub zero_mat:
     begin
         i = 0
-        wahrend (i < sizeA[0])
+        wahrend (i < 5)
             j = 0
-            wahrend (j < sizeB[1])
-                matC[i][j] = 0
+            wahrend (j < 5)
+                matC[i][j] = None
                 j = j + 1
             ende
             i = i + 1
@@ -91,10 +91,12 @@ programm
                 j = 0
                 wahrend (j < sizeB[1])
                     k = 0
+                    sum = 0
                     wahrend (k < sizeB[0])
-                        matC[i][j] = matC[i][j] + matA[i][k] * matB[k][j]
+                        sum = sum + matA[i][k] * matB[k][j]
                         k = k + 1
                     ende
+                    matC[i][j] = sum
                     j = j + 1
                 ende
                 i = i + 1
