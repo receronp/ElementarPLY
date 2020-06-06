@@ -25,22 +25,22 @@ programm
 
     sub fill_mat:
     begin
-        aus("Enter values for matrix 1:")
         i = 0
         wahrend (i < sizeA[0])
             j = 0
             wahrend (j < sizeA[1])
+                aus("Enter value for Mat1 [" + i + "] [" + j + "]")
                 ein(f_input)
                 matA[i][j] = f_input
                 j = j + 1
             ende
             i = i + 1
         ende
-        aus("Enter values for matrix 2:")
         i = 0
         wahrend (i < sizeB[0])
             j = 0
             wahrend (j < sizeB[1])
+                aus("Enter value for Mat2 [" + i + "] [" + j + "]")
                 ein(f_input)
                 matB[i][j] = f_input
                 j = j + 1

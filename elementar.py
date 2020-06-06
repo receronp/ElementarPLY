@@ -274,14 +274,16 @@ def p_NON(p):
 
 def p_MI(p):
     """
-    MI :
+    MI : MITT LPAREN ID COMMA ID RPAREN
     """
+    jump_stack.append(["MITT", p[3], p[5]])
 
 
 def p_ABW(p):
     """
-    ABW :
+    ABW : ABWEICH LPAREN ID COMMA ID RPAREN
     """
+    jump_stack.append(["ABWEICH", p[3], p[5]])
 
 
 def p_GS(p):

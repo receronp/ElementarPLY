@@ -1,8 +1,6 @@
 {
   "ask_option": 1,
-  "read": 12,
-  "factorial": 28,
-  "power": 37,
-  "percent": 46,
-  "out_result": 51
+  "read": 6,
+  "mean_sd": 17,
+  "output_result": 23
 }

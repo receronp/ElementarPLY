@@ -1,42 +1,54 @@
 {
-  "inputs": {
+  "size": {
     "type": "word",
     "dimension": 0,
-    "value": 2
+    "value": 6
   },
   "ask": {
     "type": "word",
     "dimension": 0,
-    "value": 5
+    "value": 2
   },
-  "w_result": {
+  "i": {
     "type": "word",
     "dimension": 0,
-    "value": null
+    "value": 6
   },
-  "w_y": {
-    "type": "word",
-    "dimension": 0,
-    "value": null
-  },
-  "w_x": {
-    "type": "word",
-    "dimension": 0,
-    "value": null
-  },
-  "f_result": {
+  "coeff": {
     "type": "float",
     "dimension": 0,
-    "value": 50.0
+    "value": 172.9270411115003
   },
-  "f_y": {
+  "deviation": {
     "type": "float",
     "dimension": 0,
-    "value": 25.0
+    "value": 177.69120991529564
+  },
+  "average": {
+    "type": "float",
+    "dimension": 0,
+    "value": 102.75501666666666
   },
   "f_x": {
     "type": "float",
     "dimension": 0,
-    "value": 40.0
+    "value": null
+  },
+  "arr1": {
+    "type": "float",
+    "dimension": 1,
+    "size": 10,
+    "0": [
+      12.5,
+      453.12,
+      123.3,
+      2.1241,
+      2.345,
+      23.141,
+      null,
+      null,
+      null,
+      null
+    ]
   }
 }

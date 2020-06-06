@@ -11,7 +11,8 @@ def main():
     # el.parse("test_files/roots.el")
     # el.parse("test_files/p1.el")
     # el.parse("test_files/p2.el")
-    el.parse("test_files/p3.el")
+    # el.parse("test_files/p3.el")
+    el.parse("test_files/p4.el")
     program_count = 0
     while program_count < len(el.jump_stack):
         if el.jump_stack[program_count][0] == "Gz":
@@ -48,6 +49,18 @@ def main():
                     get_val(el.jump_stack[program_count][1], 3),
                 ]
                 assign_value(variable, value, position)
+            program_count += 1
+        elif el.jump_stack[program_count][0] == "MITT":
+            arr, mean = get_mean(program_count)
+            el.variable_table[el.jump_stack[program_count][1]]["value"] = mean
+            program_count += 1
+        elif el.jump_stack[program_count][0] == "ABWEICH":
+            arr, mean = get_mean(program_count)
+            sum = 0
+            for x in arr:
+                sum += (x - mean) ** 2
+            sd = math.sqrt(sum / (len(arr) - 1))
+            el.variable_table[el.jump_stack[program_count][1]]["value"] = sd
             program_count += 1
         else:
             evaluate(program_count)
@@ -167,6 +180,14 @@ def assign_value(variable, value, position=[0, 0, 0]):
         position_y = position[1]
         position_z = position[2]
         el.variable_table[variable][position_x][position_y][position_z] = value
+
+
+def get_mean(count):
+    sum = 0
+    arr = [x for x in el.variable_table[el.jump_stack[count][2]][0] if x is not None]
+    for x in arr:
+        sum += x
+    return arr, sum / len(arr)
 
 
 def fix_type(value, variable):

@@ -1,7 +1,7 @@
 [
   [
     "Gz",
-    60
+    27
   ],
   [
     "AUS",
@@ -12,61 +12,23 @@
   [
     "AUS",
     [
-      "1 : X factorial --> Asks for one input"
+      "1 : Get results for a new array"
     ]
   ],
   [
     "AUS",
     [
-      "2 : X^(y) --> Asks for two inputs"
-    ]
-  ],
-  [
-    "AUS",
-    [
-      "3 : X + X * Y% --> Asks for two inputs"
-    ]
-  ],
-  [
-    "AUS",
-    [
-      "4 : Exit"
+      "2 : Exit"
     ]
   ],
   [
     "EIN",
-    "ask"
-  ],
-  [
-    "!=",
-    [
-      "9",
-      null
-    ],
     [
       "ask",
       null,
       null,
       null
-    ],
-    1
-  ],
-  [
-    "Gzf",
-    [
-      "9",
-      null
-    ],
-    11
-  ],
-  [
-    "=",
-    "inputs",
-    2
-  ],
-  [
-    "Gz",
-    11
+    ]
   ],
   [
     "RUKKHER"
@@ -74,8 +36,22 @@
   [
     "AUS",
     [
-      "Enter x value:"
+      "Enter dimension of array:"
     ]
+  ],
+  [
+    "EIN",
+    [
+      "size",
+      null,
+      null,
+      null
+    ]
+  ],
+  [
+    "=",
+    "i",
+    0
   ],
   [
     "<",
@@ -84,12 +60,17 @@
       null
     ],
     [
-      "ask",
+      "i",
       null,
       null,
       null
     ],
-    3
+    [
+      "size",
+      null,
+      null,
+      null
+    ]
   ],
   [
     "Gzf",
@@ -97,281 +78,89 @@
       "9",
       null
     ],
-    17
-  ],
-  [
-    "EIN",
-    "w_x"
-  ],
-  [
-    "Gz",
-    18
-  ],
-  [
-    "EIN",
-    "f_x"
-  ],
-  [
-    "==",
-    [
-      "9",
-      null
-    ],
-    [
-      "inputs",
-      null,
-      null,
-      null
-    ],
-    2
-  ],
-  [
-    "Gzf",
-    [
-      "9",
-      null
-    ],
-    27
+    16
   ],
   [
     "AUS",
     [
-      "Enter y value:"
+      "Enter value",
+      [
+        "i",
+        null,
+        null,
+        null
+      ]
     ]
-  ],
-  [
-    "==",
-    [
-      "9",
-      null
-    ],
-    [
-      "ask",
-      null,
-      null,
-      null
-    ],
-    2
-  ],
-  [
-    "Gzf",
-    [
-      "9",
-      null
-    ],
-    25
   ],
   [
     "EIN",
-    "w_y"
+    [
+      "arr1",
+      "i",
+      null,
+      null
+    ]
+  ],
+  [
+    "+",
+    [
+      "9",
+      null
+    ],
+    [
+      "i",
+      "i",
+      null,
+      null
+    ],
+    1
+  ],
+  [
+    "=",
+    "i",
+    [
+      "9",
+      null
+    ]
   ],
   [
     "Gz",
-    26
-  ],
-  [
-    "EIN",
-    "f_y"
-  ],
-  [
-    "Gz",
-    27
+    9
   ],
   [
     "RUKKHER"
   ],
   [
-    "=",
-    "w_result",
-    1
+    "MITT",
+    "average",
+    "arr1"
   ],
   [
-    ">",
-    [
-      "9",
-      null
-    ],
-    [
-      "w_x",
-      null,
-      null,
-      null
-    ],
-    0
-  ],
-  [
-    "Gzf",
-    [
-      "9",
-      null
-    ],
-    36
-  ],
-  [
-    "*",
-    [
-      "9",
-      null
-    ],
-    [
-      "w_result",
-      null,
-      null,
-      null
-    ],
-    [
-      "w_x",
-      null,
-      null,
-      null
-    ]
-  ],
-  [
-    "=",
-    "w_result",
-    [
-      "9",
-      null
-    ]
-  ],
-  [
-    "-",
-    [
-      "9",
-      null
-    ],
-    [
-      "w_x",
-      null,
-      null,
-      null
-    ],
-    1
-  ],
-  [
-    "=",
-    "w_x",
-    [
-      "9",
-      null
-    ]
-  ],
-  [
-    "Gz",
-    29
-  ],
-  [
-    "RUKKHER"
-  ],
-  [
-    "=",
-    "w_result",
-    [
-      "w_x",
-      null,
-      null,
-      null
-    ]
-  ],
-  [
-    ">",
-    [
-      "9",
-      null
-    ],
-    [
-      "w_y",
-      null,
-      null,
-      null
-    ],
-    1
-  ],
-  [
-    "Gzf",
-    [
-      "9",
-      null
-    ],
-    45
-  ],
-  [
-    "*",
-    [
-      "9",
-      null
-    ],
-    [
-      "w_result",
-      null,
-      null,
-      null
-    ],
-    [
-      "w_x",
-      null,
-      null,
-      null
-    ]
-  ],
-  [
-    "=",
-    "w_result",
-    [
-      "9",
-      null
-    ]
-  ],
-  [
-    "-",
-    [
-      "9",
-      null
-    ],
-    [
-      "w_y",
-      null,
-      null,
-      null
-    ],
-    1
-  ],
-  [
-    "=",
-    "w_y",
-    [
-      "9",
-      null
-    ]
-  ],
-  [
-    "Gz",
-    38
-  ],
-  [
-    "RUKKHER"
-  ],
-  [
-    "*",
-    [
-      "9",
-      null
-    ],
-    [
-      "f_x",
-      null,
-      null,
-      null
-    ],
-    [
-      "f_y",
-      null,
-      null,
-      null
-    ]
+    "ABWEICH",
+    "deviation",
+    "arr1"
   ],
   [
     "/",
+    [
+      "9",
+      null
+    ],
+    [
+      "deviation",
+      "i",
+      null,
+      null
+    ],
+    [
+      "average",
+      "i",
+      null,
+      null
+    ]
+  ],
+  [
+    "*",
     [
       "9",
       null
@@ -383,143 +172,61 @@
     100
   ],
   [
-    "+",
-    [
-      "9",
-      null
-    ],
-    [
-      "f_x",
-      null,
-      null,
-      null
-    ],
+    "=",
+    "coeff",
     [
       "9",
       null
     ]
+  ],
+  [
+    "RUKKHER"
+  ],
+  [
+    "AUS",
+    [
+      "Mean value:",
+      [
+        "average",
+        "i",
+        null,
+        null
+      ]
+    ]
+  ],
+  [
+    "AUS",
+    [
+      "Standard Deviation:",
+      [
+        "deviation",
+        "i",
+        null,
+        null
+      ]
+    ]
+  ],
+  [
+    "AUS",
+    [
+      "Coefficient of variation:",
+      [
+        "coeff",
+        "i",
+        null,
+        null
+      ]
+    ]
+  ],
+  [
+    "RUKKHER"
   ],
   [
     "=",
-    "f_result",
-    [
-      "9",
-      null
-    ]
-  ],
-  [
-    "RUKKHER"
-  ],
-  [
-    "<",
-    [
-      "9",
-      null
-    ],
-    [
-      "ask",
-      null,
-      null,
-      null
-    ],
-    3
-  ],
-  [
-    "Gzf",
-    [
-      "9",
-      null
-    ],
-    55
-  ],
-  [
-    "AUS",
-    [
-      "Result:",
-      [
-        "w_result",
-        null,
-        null,
-        null
-      ]
-    ]
-  ],
-  [
-    "Gz",
-    55
-  ],
-  [
-    "==",
-    [
-      "9",
-      null
-    ],
-    [
-      "ask",
-      null,
-      null,
-      null
-    ],
-    3
-  ],
-  [
-    "Gzf",
-    [
-      "9",
-      null
-    ],
-    59
-  ],
-  [
-    "AUS",
-    [
-      "Result:",
-      [
-        "f_result",
-        null,
-        null,
-        null
-      ]
-    ]
-  ],
-  [
-    "Gz",
-    59
-  ],
-  [
-    "RUKKHER"
-  ],
-  [
-    "Call",
+    "ask",
     1
   ],
   [
-    "<",
-    [
-      "9",
-      null
-    ],
-    [
-      "ask",
-      null,
-      null,
-      null
-    ],
-    4
-  ],
-  [
-    "Gzf",
-    [
-      "9",
-      null
-    ],
-    79
-  ],
-  [
-    "Call",
-    12
-  ],
-  [
     "==",
     [
       "9",
@@ -527,7 +234,7 @@
     ],
     [
       "ask",
-      null,
+      "i",
       null,
       null
     ],
@@ -539,86 +246,26 @@
       "9",
       null
     ],
-    68
+    35
   ],
   [
     "Call",
+    6
+  ],
+  [
+    "Call",
+    17
+  ],
+  [
+    "Call",
+    23
+  ],
+  [
+    "Call",
+    1
+  ],
+  [
+    "Gz",
     28
-  ],
-  [
-    "Gz",
-    68
-  ],
-  [
-    "==",
-    [
-      "9",
-      null
-    ],
-    [
-      "ask",
-      null,
-      null,
-      null
-    ],
-    2
-  ],
-  [
-    "Gzf",
-    [
-      "9",
-      null
-    ],
-    72
-  ],
-  [
-    "Call",
-    37
-  ],
-  [
-    "Gz",
-    72
-  ],
-  [
-    "==",
-    [
-      "9",
-      null
-    ],
-    [
-      "ask",
-      null,
-      null,
-      null
-    ],
-    3
-  ],
-  [
-    "Gzf",
-    [
-      "9",
-      null
-    ],
-    76
-  ],
-  [
-    "Call",
-    46
-  ],
-  [
-    "Gz",
-    76
-  ],
-  [
-    "Call",
-    51
-  ],
-  [
-    "Call",
-    1
-  ],
-  [
-    "Gz",
-    61
   ]
 ]
