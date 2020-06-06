@@ -1,76 +1,21 @@
 [
   [
     "Gz",
-    27
+    10
   ],
   [
-    "AUS",
-    [
-      "Enter next desired action:"
-    ]
-  ],
-  [
-    "AUS",
-    [
-      "1 : Get results for a new array"
-    ]
-  ],
-  [
-    "AUS",
-    [
-      "2 : Exit"
-    ]
-  ],
-  [
-    "EIN",
-    [
-      "ask",
-      null,
-      null,
-      null
-    ]
-  ],
-  [
-    "RUKKHER"
-  ],
-  [
-    "AUS",
-    [
-      "Enter dimension of array:"
-    ]
-  ],
-  [
-    "EIN",
-    [
-      "size",
-      null,
-      null,
-      null
-    ]
-  ],
-  [
-    "=",
-    "i",
-    0
-  ],
-  [
-    "<",
+    ">",
     [
       "9",
       null
     ],
     [
-      "i",
+      "x",
       null,
       null,
       null
     ],
-    [
-      "size",
-      null,
-      null,
-      null
-    ]
+    1
   ],
   [
     "Gzf",
@@ -78,38 +23,44 @@
       "9",
       null
     ],
-    16
+    9
   ],
   [
-    "AUS",
-    [
-      "Enter value",
-      [
-        "i",
-        null,
-        null,
-        null
-      ]
-    ]
-  ],
-  [
-    "EIN",
-    [
-      "arr1",
-      "i",
-      null,
-      null
-    ]
-  ],
-  [
-    "+",
+    "*",
     [
       "9",
       null
     ],
     [
-      "i",
-      "i",
+      "f",
+      null,
+      null,
+      null
+    ],
+    [
+      "x",
+      null,
+      null,
+      null
+    ]
+  ],
+  [
+    "=",
+    "f",
+    [
+      "9",
+      null
+    ]
+  ],
+  [
+    "-",
+    [
+      "9",
+      null
+    ],
+    [
+      "x",
+      null,
       null,
       null
     ],
@@ -117,11 +68,15 @@
   ],
   [
     "=",
-    "i",
+    "x",
     [
       "9",
       null
     ]
+  ],
+  [
+    "Call",
+    1
   ],
   [
     "Gz",
@@ -131,141 +86,38 @@
     "RUKKHER"
   ],
   [
-    "MITT",
-    "average",
-    "arr1"
-  ],
-  [
-    "ABWEICH",
-    "deviation",
-    "arr1"
-  ],
-  [
-    "/",
+    "AUS",
     [
-      "9",
-      null
-    ],
-    [
-      "deviation",
-      "i",
-      null,
-      null
-    ],
-    [
-      "average",
-      "i",
-      null,
-      null
+      "Enter number:"
     ]
   ],
   [
-    "*",
+    "EIN",
     [
-      "9",
+      "x",
+      null,
+      null,
       null
-    ],
-    [
-      "9",
-      null
-    ],
-    100
+    ]
   ],
   [
     "=",
-    "coeff",
-    [
-      "9",
-      null
-    ]
-  ],
-  [
-    "RUKKHER"
-  ],
-  [
-    "AUS",
-    [
-      "Mean value:",
-      [
-        "average",
-        "i",
-        null,
-        null
-      ]
-    ]
-  ],
-  [
-    "AUS",
-    [
-      "Standard Deviation:",
-      [
-        "deviation",
-        "i",
-        null,
-        null
-      ]
-    ]
-  ],
-  [
-    "AUS",
-    [
-      "Coefficient of variation:",
-      [
-        "coeff",
-        "i",
-        null,
-        null
-      ]
-    ]
-  ],
-  [
-    "RUKKHER"
-  ],
-  [
-    "=",
-    "ask",
+    "f",
     1
-  ],
-  [
-    "==",
-    [
-      "9",
-      null
-    ],
-    [
-      "ask",
-      "i",
-      null,
-      null
-    ],
-    1
-  ],
-  [
-    "Gzf",
-    [
-      "9",
-      null
-    ],
-    35
-  ],
-  [
-    "Call",
-    6
-  ],
-  [
-    "Call",
-    17
-  ],
-  [
-    "Call",
-    23
   ],
   [
     "Call",
     1
   ],
   [
-    "Gz",
-    28
+    "AUS",
+    [
+      [
+        "f",
+        null,
+        null,
+        null
+      ]
+    ]
   ]
 ]

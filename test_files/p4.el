@@ -1,6 +1,6 @@
 programm
     // Declaration of variables.
-    dim i, ask, size als word
+    dim i, ask, size, None als word
     dim f_x, average, deviation, coeff als float
     dim arr1 als float[10]
 
@@ -10,6 +10,15 @@ programm
         aus("1 : Get results for a new array")
         aus("2 : Exit")
         ein(ask)
+    rukkher
+
+    sub zero_array:
+    begin
+        i = 0
+        wahrend (i < 5)
+            arr1[i] = None
+            i = i + 1
+        ende
     rukkher
 
     sub read:
@@ -41,6 +50,7 @@ programm
 begin
     ask = 1
     wahrend (ask == 1)
+        gsub zero_array
         gsub read
         gsub mean_sd
         gsub output_result

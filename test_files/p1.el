@@ -10,15 +10,13 @@ programm
         count = 0
         aus("Enter dimensions for matrix 1:")
         wahrend (count < 2)
-            ein(w_input)
-            sizeA[count] = w_input
+            ein(sizeA[count])
             count = count + 1
         ende
         count = 0
         aus("Enter dimensions for matrix 2:")
         wahrend (count < 2)
-            ein(w_input)
-            sizeB[count] = w_input
+            ein(sizeB[count])
             count = count + 1
         ende
     rukkher
@@ -30,8 +28,7 @@ programm
             j = 0
             wahrend (j < sizeA[1])
                 aus("Enter value for Mat1 [" + i + "] [" + j + "]")
-                ein(f_input)
-                matA[i][j] = f_input
+                ein(matA[i][j])
                 j = j + 1
             ende
             i = i + 1
@@ -41,8 +38,7 @@ programm
             j = 0
             wahrend (j < sizeB[1])
                 aus("Enter value for Mat2 [" + i + "] [" + j + "]")
-                ein(f_input)
-                matB[i][j] = f_input
+                ein(matB[i][j])
                 j = j + 1
             ende
             i = i + 1

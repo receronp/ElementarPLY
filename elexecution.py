@@ -12,7 +12,9 @@ def main():
     # el.parse("test_files/p1.el")
     # el.parse("test_files/p2.el")
     # el.parse("test_files/p3.el")
-    el.parse("test_files/p4.el")
+    # el.parse("test_files/p4.el")
+    # el.parse("test_files/cubo.el")
+    el.parse("test_files/sub.el")
     program_count = 0
     while program_count < len(el.jump_stack):
         if el.jump_stack[program_count][0] == "Gz":
